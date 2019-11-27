@@ -189,7 +189,7 @@ let makeVideoAPI = ({ core, onDone = () => {}, onFinalising = () => {}, onLog = 
   var i = -1;
   var clockNow = 0;
   const SECONDS_OF_VIDEO = core.videoLength || 1
-  const FPS_FIXED = 60
+  const FPS_FIXED = core.fps
   const DELTA = (1000 / FPS_FIXED);
   const total = SECONDS_OF_VIDEO * FPS_FIXED;
 
@@ -235,6 +235,7 @@ let makeCinematicEngine = () => {
   let Tests = {}
 
   let core = {
+    fps: 30,
     width: 720,
     height: 720,
     videoLength: 10,

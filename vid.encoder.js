@@ -16,7 +16,7 @@ module.exports = class Encoder extends EventEmitter {
           '-y',
           // '-f', 'image2pipe',
           // raw 1080 pixel
-          '-f', 'rawvideo', '-vcodec', 'rawvideo', '-s', '720x720', '-pix_fmt', 'rgba', '-r', '60',
+          '-f', 'rawvideo', '-vcodec', 'rawvideo', '-s', '720x720', '-pix_fmt', 'rgba', '-r', '30',
           '-i', 'pipe:0',
         ]);
 
@@ -27,6 +27,7 @@ module.exports = class Encoder extends EventEmitter {
         }
 
         args = args.concat([
+          '-hide_banner',
 
           '-shortest',
 
@@ -35,9 +36,11 @@ module.exports = class Encoder extends EventEmitter {
           '-c:a', 'aac',
           '-pix_fmt', 'yuv420p',
           // '-crf', '18',
-          '-crf', '18',
-          '-movflags', 'frag_keyframe+empty_moov',
-          '-framerate', '60',
+          '-crf', '28',
+          '-tune', 'fastdecode',
+          '-preset', 'ultrafast',
+          '-movflags', 'frag_keyframe+empty_moov+faststart',
+          '-framerate', '30',
 
           '-f', 'mp4',
 
