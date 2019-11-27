@@ -156,10 +156,10 @@ let makeWebServer = () => {
 
 let makeVideoAPI = ({ onDone = () => {}, onFinalising = () => {}, onLog = () => {} }) => {
   let core = {
-    fps: 30,
+    fps: 24,
     width: 720,
     height: 720,
-    videoLength: 10,
+    videoLength: 45,
     previewFolder: 'public/preview',
     tasks: {}
   }
@@ -180,7 +180,7 @@ let makeVideoAPI = ({ onDone = () => {}, onFinalising = () => {}, onLog = () => 
 
   const temp = os.tmpdir()
   const filename = './tempvid.mp4'
-  const encoder = new Encoder({ output: path.join(temp, filename) });
+  const encoder = new Encoder({ output: path.join(temp, filename), width: core.width, height: core.height, fps: core.fps });
   encoder.promise.then(({ output }) => {
     onFinalising({})
     let newFilename = `_${(Math.random() * 10000000).toFixed(0)}.mp4`

@@ -4,7 +4,7 @@ const EventEmitter = require('events');
 
 module.exports = class Encoder extends EventEmitter {
 
-  constructor({ music = false, output = 'out.mp4' }){
+  constructor({ music = false, output = 'out.mp4', fps = '30', width = '720', height = '720' }){
     super();
 
     this.passThrough = new Stream.PassThrough();
@@ -16,7 +16,7 @@ module.exports = class Encoder extends EventEmitter {
           '-y',
           // '-f', 'image2pipe',
           // raw 1080 pixel
-          '-f', 'rawvideo', '-vcodec', 'rawvideo', '-s', '720x720', '-pix_fmt', 'rgba', '-r', '30',
+          '-f', 'rawvideo', '-vcodec', 'rawvideo', '-s', `${width}x${height}`, '-pix_fmt', 'rgba', '-r', fps,
           '-i', 'pipe:0',
         ]);
 
