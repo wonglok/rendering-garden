@@ -112,13 +112,14 @@ let makeWebServer = ({ core }) => {
   app.use(express.static('public'))
 
   io.on('connection', function(socket){
+    console.log('connected')
     socket.on('chat message', function(msg){
       io.emit('chat message', msg);
     });
 
-    console.log('made a engine')
     socket.on('chat message', (msg) => {
       if (msg === 'start') {
+        console.log('made a engine')
         let videoAPI = core.makeVideoAPI({
           core,
           onDone: ({ file, filename }) => {
@@ -133,9 +134,13 @@ let makeWebServer = ({ core }) => {
         videoAPI.start()
 
         socket.once('chat message', () => {
-          if (msg === 'abort') {
+          if (msg === 'abort' && videoAPI) {
             videoAPI.abort()
           }
+        })
+        socket.once('disconnect', () => {
+          console.log('disconnected')
+          videoAPI = null
         })
       }
     })
@@ -174,7 +179,7 @@ let makeVideoAPI = ({ core, onDone = () => {}, onLog = () => {} }) => {
     });
   });
   encoder.on('console', (evt) => {
-    console.log(evt)
+    // console.log(evt)
   });
   encoder.on('done', (evt) => {
   });
@@ -232,7 +237,7 @@ let makeCinematicEngine = () => {
   let core = {
     width: 1080,
     height: 1080,
-    videoLength: 3,
+    videoLength: 2.5,
     previewFolder: 'public/preview',
     tasks: {}
   }

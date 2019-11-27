@@ -396,3 +396,1065 @@
 2019-11-27T01:01:34: file is at: /home/lok/video.wonglok.com/rendering-garden/public/preview/_6264605.mp4
 2019-11-27T01:01:34: cleanup complete!
 2019-11-27T01:03:04: made a engine
+2019-11-27T01:05:42: 
+2019-11-27T01:05:42: > rendering-garden@1.0.0 lin /home/lok/video.wonglok.com/rendering-garden
+2019-11-27T01:05:42: > xvfb-run -s "-ac -screen 0 1080x1080x24" node main.js
+2019-11-27T01:05:42: 
+2019-11-27T01:05:42: listening on *:3123
+2019-11-27T01:05:43: made a engine
+2019-11-27T01:05:43: made a engine
+2019-11-27T01:05:45: made a engine
+2019-11-27T01:05:51: progress { at: '0', total: '180', progress: '0.00' }
+2019-11-27T01:05:52: progress { at: '0', total: '180', progress: '0.00' }
+2019-11-27T01:05:52: progress { at: '1', total: '180', progress: '0.01' }
+2019-11-27T01:05:52: ffmpeg version 3.4.6-0ubuntu0.18.04.1 Copyright (c) 2000-2019 the FFmpeg developers
+2019-11-27T01:05:52:   built with gcc 7 (Ubuntu 7.3.0-16ubuntu3)
+2019-11-27T01:05:52:   configuration: --prefix=/usr --extra-version=0ubuntu0.18.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --enable-gpl --disable-stripping --enable-avresample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librubberband --enable-librsvg --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-omx --enable-openal --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libopencv --enable-libx264 --enable-shared
+2019-11-27T01:05:52:   libavutil      55. 78.100 / 55. 78.100
+2019-11-27T01:05:52:   libavcodec     57.107.100 / 57.107.100
+2019-11-27T01:05:52:   libavformat    57. 83.100 / 57. 83.100
+2019-11-27T01:05:52:   libavdevice    57. 10.100 / 57. 10.100
+2019-11-27T01:05:52:   libavfilter     6.107.100 /  6.107.100
+2019-11-27T01:05:52:   libavresample   3.  7.  0 /  3.  7.  0
+2019-11-27T01:05:52:   libswscale      4.  8.100 /  4.  8.100
+2019-11-27T01:05:52:   libswresample   2.  9.100 /  2.  9.100
+2019-11-27T01:05:52:   libpostproc    54.  7.100 / 54.  7.100
+2019-11-27T01:05:52: (node:8206) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2019-11-27T01:05:52: progress { at: '2', total: '180', progress: '0.01' }
+2019-11-27T01:05:52: Input #0, rawvideo, from 'pipe:0':
+2019-11-27T01:05:52:   Duration: N/A, start: 0.000000, bitrate: 2239488 kb/s
+2019-11-27T01:05:52:     Stream #0:0: Video: rawvideo (RGBA / 0x41424752), rgba, 1080x1080, 2239488 kb/s, 60 tbr, 60 tbn, 60 tbc
+2019-11-27T01:05:52: Stream mapping:
+2019-11-27T01:05:52:   Stream #0:0 -> #0:0 (rawvideo (native) -> h264 (libx264))
+2019-11-27T01:05:52: [libx264 @ 0x55d125b60bc0] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+2019-11-27T01:05:52: [libx264 @ 0x55d125b60bc0] profile High, level 4.2
+2019-11-27T01:05:52: [libx264 @ 0x55d125b60bc0] 264 - core 152 r2854 e9a5903 - H.264/MPEG-4 AVC codec - Copyleft 2003-2017 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=1 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=18.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+2019-11-27T01:05:52: Output #0, mp4, to '/tmp/tempvid.mp4':
+2019-11-27T01:05:52:   Metadata:
+2019-11-27T01:05:52:     encoder         : Lavf57.83.100
+2019-11-27T01:05:52:     Stream #0:0: Video: h264 (libx264) (avc1 / 0x31637661), yuv420p, 1080x1080, q=-1--1, 60 fps, 15360 tbn, 60 tbc
+2019-11-27T01:05:52:     Metadata:
+2019-11-27T01:05:52:       encoder         : Lavc57.107.100 libx264
+2019-11-27T01:05:52:     Side data:
+2019-11-27T01:05:52:       cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: -1
+2019-11-27T01:05:52: progress { at: '3', total: '180', progress: '0.02' }
+2019-11-27T01:05:52: progress { at: '4', total: '180', progress: '0.02' }
+2019-11-27T01:05:52: progress { at: '5', total: '180', progress: '0.03' }
+2019-11-27T01:05:52: progress { at: '6', total: '180', progress: '0.03' }
+2019-11-27T01:05:52: progress { at: '7', total: '180', progress: '0.04' }
+2019-11-27T01:05:52: progress { at: '8', total: '180', progress: '0.04' }
+2019-11-27T01:05:52: progress { at: '9', total: '180', progress: '0.05' }
+2019-11-27T01:05:52: progress { at: '10', total: '180', progress: '0.06' }
+2019-11-27T01:05:52: progress { at: '11', total: '180', progress: '0.06' }
+2019-11-27T01:05:53: frame=    8 fps=0.0 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:05:53: progress { at: '12', total: '180', progress: '0.07' }
+2019-11-27T01:05:53: progress { at: '13', total: '180', progress: '0.07' }
+2019-11-27T01:05:53: progress { at: '14', total: '180', progress: '0.08' }
+2019-11-27T01:05:53: frame=   13 fps= 11 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:05:53: progress { at: '15', total: '180', progress: '0.08' }
+2019-11-27T01:05:53: progress { at: '16', total: '180', progress: '0.09' }
+2019-11-27T01:05:53: progress { at: '17', total: '180', progress: '0.09' }
+2019-11-27T01:05:54: frame=   16 fps=9.3 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:05:54: progress { at: '18', total: '180', progress: '0.10' }
+2019-11-27T01:05:54: progress { at: '19', total: '180', progress: '0.11' }
+2019-11-27T01:05:54: progress { at: '20', total: '180', progress: '0.11' }
+2019-11-27T01:05:54: frame=   19 fps=8.2 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:05:54: progress { at: '21', total: '180', progress: '0.12' }
+2019-11-27T01:05:54: progress { at: '22', total: '180', progress: '0.12' }
+2019-11-27T01:05:55: progress { at: '23', total: '180', progress: '0.13' }
+2019-11-27T01:05:55: frame=   22 fps=7.4 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:05:55: progress { at: '24', total: '180', progress: '0.13' }
+2019-11-27T01:05:55: progress { at: '25', total: '180', progress: '0.14' }
+2019-11-27T01:05:55: progress { at: '26', total: '180', progress: '0.14' }
+2019-11-27T01:05:55: progress { at: '27', total: '180', progress: '0.15' }
+2019-11-27T01:05:55: progress { at: '28', total: '180', progress: '0.16' }
+2019-11-27T01:05:55: progress { at: '29', total: '180', progress: '0.16' }
+2019-11-27T01:05:55: progress { at: '30', total: '180', progress: '0.17' }
+2019-11-27T01:05:55: frame=   29 fps=8.2 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:05:55: progress { at: '31', total: '180', progress: '0.17' }
+2019-11-27T01:05:56: progress { at: '32', total: '180', progress: '0.18' }
+2019-11-27T01:05:56: progress { at: '33', total: '180', progress: '0.18' }
+2019-11-27T01:05:56: frame=   32 fps=7.5 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:05:56: progress { at: '34', total: '180', progress: '0.19' }
+2019-11-27T01:05:56: progress { at: '35', total: '180', progress: '0.19' }
+2019-11-27T01:05:56: progress { at: '36', total: '180', progress: '0.20' }
+2019-11-27T01:05:57: progress { at: '37', total: '180', progress: '0.21' }
+2019-11-27T01:05:57: frame=   36 fps=7.5 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:05:57: progress { at: '38', total: '180', progress: '0.21' }
+2019-11-27T01:05:57: progress { at: '39', total: '180', progress: '0.22' }
+2019-11-27T01:05:57: frame=   38 fps=7.1 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:05:57: progress { at: '40', total: '180', progress: '0.22' }
+2019-11-27T01:05:58: progress { at: '41', total: '180', progress: '0.23' }
+2019-11-27T01:05:58: frame=   40 fps=6.6 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:05:58: progress { at: '42', total: '180', progress: '0.23' }
+2019-11-27T01:05:58: progress { at: '43', total: '180', progress: '0.24' }
+2019-11-27T01:05:59: progress { at: '44', total: '180', progress: '0.24' }
+2019-11-27T01:05:59: frame=   43 fps=5.8 q=26.0 size=       1kB time=-00:00:00.01 bitrate=N/A speed=N/A    
+2019-11-27T01:05:59: progress { at: '45', total: '180', progress: '0.25' }
+2019-11-27T01:06:00: progress { at: '46', total: '180', progress: '0.26' }
+2019-11-27T01:06:00: frame=   45 fps=5.6 q=26.0 size=       1kB time=00:00:00.01 bitrate= 367.2kbits/s speed=0.00208x    
+2019-11-27T01:06:00: progress { at: '47', total: '180', progress: '0.26' }
+2019-11-27T01:06:00: progress { at: '48', total: '180', progress: '0.27' }
+2019-11-27T01:06:01: frame=   47 fps=5.4 q=26.0 size=       1kB time=00:00:00.05 bitrate= 122.7kbits/s speed=0.00578x    
+2019-11-27T01:06:01: progress { at: '49', total: '180', progress: '0.27' }
+2019-11-27T01:06:01: progress { at: '50', total: '180', progress: '0.28' }
+2019-11-27T01:06:02: frame=   49 fps=5.0 q=26.0 size=       1kB time=00:00:00.08 bitrate=  73.7kbits/s speed=0.00856x    
+2019-11-27T01:06:02: progress { at: '51', total: '180', progress: '0.28' }
+2019-11-27T01:06:02: progress { at: '52', total: '180', progress: '0.29' }
+2019-11-27T01:06:02: frame=   51 fps=5.0 q=26.0 size=       1kB time=00:00:00.11 bitrate=  52.6kbits/s speed=0.0114x    
+2019-11-27T01:06:02: progress { at: '53', total: '180', progress: '0.29' }
+2019-11-27T01:06:03: progress { at: '54', total: '180', progress: '0.30' }
+2019-11-27T01:06:03: frame=   53 fps=4.8 q=26.0 size=       1kB time=00:00:00.15 bitrate=  40.9kbits/s speed=0.0137x    
+2019-11-27T01:06:03: progress { at: '55', total: '180', progress: '0.31' }
+2019-11-27T01:06:03: progress { at: '56', total: '180', progress: '0.31' }
+2019-11-27T01:06:04: frame=   55 fps=4.8 q=26.0 size=       1kB time=00:00:00.18 bitrate=  33.5kbits/s speed=0.016x    
+2019-11-27T01:06:04: progress { at: '57', total: '180', progress: '0.32' }
+2019-11-27T01:06:04: progress { at: '58', total: '180', progress: '0.32' }
+2019-11-27T01:06:04: frame=   57 fps=4.7 q=26.0 size=       1kB time=00:00:00.21 bitrate=  28.3kbits/s speed=0.0178x    
+2019-11-27T01:06:04: progress { at: '59', total: '180', progress: '0.33' }
+2019-11-27T01:06:04: progress { at: '60', total: '180', progress: '0.33' }
+2019-11-27T01:06:05: frame=   59 fps=4.7 q=26.0 size=       1kB time=00:00:00.25 bitrate=  24.6kbits/s speed=0.0197x    
+2019-11-27T01:06:05: progress { at: '61', total: '180', progress: '0.34' }
+2019-11-27T01:06:05: progress { at: '62', total: '180', progress: '0.34' }
+2019-11-27T01:06:05: frame=   61 fps=4.6 q=26.0 size=       1kB time=00:00:00.28 bitrate=  21.7kbits/s speed=0.0212x    
+2019-11-27T01:06:05: progress { at: '63', total: '180', progress: '0.35' }
+2019-11-27T01:06:06: progress { at: '64', total: '180', progress: '0.36' }
+2019-11-27T01:06:06: frame=   63 fps=4.5 q=26.0 size=       1kB time=00:00:00.31 bitrate=  19.4kbits/s speed=0.0228x    
+2019-11-27T01:06:06: progress { at: '65', total: '180', progress: '0.36' }
+2019-11-27T01:06:06: progress { at: '66', total: '180', progress: '0.37' }
+2019-11-27T01:06:07: frame=   65 fps=4.5 q=26.0 size=       1kB time=00:00:00.35 bitrate=  17.6kbits/s speed=0.0241x    
+2019-11-27T01:06:07: progress { at: '67', total: '180', progress: '0.37' }
+2019-11-27T01:06:07: progress { at: '68', total: '180', progress: '0.38' }
+2019-11-27T01:06:07: frame=   67 fps=4.4 q=26.0 size=       1kB time=00:00:00.38 bitrate=  16.0kbits/s speed=0.0255x    
+2019-11-27T01:06:07: progress { at: '69', total: '180', progress: '0.38' }
+2019-11-27T01:06:07: progress { at: '70', total: '180', progress: '0.39' }
+2019-11-27T01:06:08: frame=   69 fps=4.4 q=26.0 size=       1kB time=00:00:00.41 bitrate=  14.7kbits/s speed=0.0265x    
+2019-11-27T01:06:08: progress { at: '71', total: '180', progress: '0.39' }
+2019-11-27T01:06:08: progress { at: '72', total: '180', progress: '0.40' }
+2019-11-27T01:06:08: frame=   71 fps=4.4 q=26.0 size=       1kB time=00:00:00.45 bitrate=  13.7kbits/s speed=0.0277x    
+2019-11-27T01:06:08: progress { at: '73', total: '180', progress: '0.41' }
+2019-11-27T01:06:09: progress { at: '74', total: '180', progress: '0.41' }
+2019-11-27T01:06:09: frame=   73 fps=4.3 q=26.0 size=       1kB time=00:00:00.48 bitrate=  12.7kbits/s speed=0.0285x    
+2019-11-27T01:06:09: progress { at: '75', total: '180', progress: '0.42' }
+2019-11-27T01:06:09: progress { at: '76', total: '180', progress: '0.42' }
+2019-11-27T01:06:10: frame=   75 fps=4.3 q=26.0 size=       1kB time=00:00:00.51 bitrate=  11.9kbits/s speed=0.0296x    
+2019-11-27T01:06:10: progress { at: '77', total: '180', progress: '0.43' }
+2019-11-27T01:06:10: progress { at: '78', total: '180', progress: '0.43' }
+2019-11-27T01:06:10: frame=   77 fps=4.2 q=26.0 size=       1kB time=00:00:00.55 bitrate=  11.2kbits/s speed=0.0303x    
+2019-11-27T01:06:10: progress { at: '79', total: '180', progress: '0.44' }
+2019-11-27T01:06:10: progress { at: '80', total: '180', progress: '0.44' }
+2019-11-27T01:06:11: frame=   79 fps=4.2 q=26.0 size=       1kB time=00:00:00.58 bitrate=  10.5kbits/s speed=0.0313x    
+2019-11-27T01:06:11: progress { at: '81', total: '180', progress: '0.45' }
+2019-11-27T01:06:11: progress { at: '82', total: '180', progress: '0.46' }
+2019-11-27T01:06:11: frame=   81 fps=4.2 q=26.0 size=       1kB time=00:00:00.61 bitrate=  10.0kbits/s speed=0.0319x    
+2019-11-27T01:06:11: progress { at: '83', total: '180', progress: '0.46' }
+2019-11-27T01:06:12: progress { at: '84', total: '180', progress: '0.47' }
+2019-11-27T01:06:12: frame=   83 fps=4.2 q=26.0 size=       1kB time=00:00:00.65 bitrate=   9.5kbits/s speed=0.0328x    
+2019-11-27T01:06:12: progress { at: '85', total: '180', progress: '0.47' }
+2019-11-27T01:06:12: progress { at: '86', total: '180', progress: '0.48' }
+2019-11-27T01:06:12: frame=   85 fps=4.1 q=26.0 size=       1kB time=00:00:00.68 bitrate=   9.0kbits/s speed=0.0334x    
+2019-11-27T01:06:12: progress { at: '87', total: '180', progress: '0.48' }
+2019-11-27T01:06:13: progress { at: '88', total: '180', progress: '0.49' }
+2019-11-27T01:06:13: progress { at: '89', total: '180', progress: '0.49' }
+2019-11-27T01:06:13: frame=   88 fps=4.1 q=26.0 size=       1kB time=00:00:00.73 bitrate=   8.4kbits/s speed=0.0343x    
+2019-11-27T01:06:13: progress { at: '90', total: '180', progress: '0.50' }
+2019-11-27T01:06:14: progress { at: '91', total: '180', progress: '0.51' }
+2019-11-27T01:06:14: frame=   90 fps=4.1 q=26.0 size=       1kB time=00:00:00.76 bitrate=   8.0kbits/s speed=0.0349x    
+2019-11-27T01:06:14: progress { at: '92', total: '180', progress: '0.51' }
+2019-11-27T01:06:14: progress { at: '93', total: '180', progress: '0.52' }
+2019-11-27T01:06:15: frame=   92 fps=4.1 q=26.0 size=       1kB time=00:00:00.80 bitrate=   7.7kbits/s speed=0.0354x    
+2019-11-27T01:06:15: progress { at: '94', total: '180', progress: '0.52' }
+2019-11-27T01:06:15: progress { at: '95', total: '180', progress: '0.53' }
+2019-11-27T01:06:15: frame=   94 fps=4.1 q=26.0 size=       1kB time=00:00:00.83 bitrate=   7.4kbits/s speed=0.0361x    
+2019-11-27T01:06:15: progress { at: '96', total: '180', progress: '0.53' }
+2019-11-27T01:06:15: progress { at: '97', total: '180', progress: '0.54' }
+2019-11-27T01:06:16: frame=   96 fps=4.0 q=26.0 size=       1kB time=00:00:00.86 bitrate=   7.1kbits/s speed=0.0365x    
+2019-11-27T01:06:16: progress { at: '98', total: '180', progress: '0.54' }
+2019-11-27T01:06:16: progress { at: '99', total: '180', progress: '0.55' }
+2019-11-27T01:06:16: frame=   98 fps=4.0 q=26.0 size=       1kB time=00:00:00.90 bitrate=   6.8kbits/s speed=0.0371x    
+2019-11-27T01:06:16: progress { at: '100', total: '180', progress: '0.56' }
+2019-11-27T01:06:17: progress { at: '101', total: '180', progress: '0.56' }
+2019-11-27T01:06:17: frame=  100 fps=4.0 q=26.0 size=       1kB time=00:00:00.93 bitrate=   6.6kbits/s speed=0.0375x    
+2019-11-27T01:06:17: progress { at: '102', total: '180', progress: '0.57' }
+2019-11-27T01:06:17: progress { at: '103', total: '180', progress: '0.57' }
+2019-11-27T01:06:17: frame=  102 fps=4.0 q=26.0 size=       1kB time=00:00:00.96 bitrate=   6.4kbits/s speed=0.038x    
+2019-11-27T01:06:17: progress { at: '104', total: '180', progress: '0.58' }
+2019-11-27T01:06:18: progress { at: '105', total: '180', progress: '0.58' }
+2019-11-27T01:06:18: frame=  104 fps=4.0 q=26.0 size=       1kB time=00:00:01.00 bitrate=   6.1kbits/s speed=0.0384x    
+2019-11-27T01:06:18: progress { at: '106', total: '180', progress: '0.59' }
+2019-11-27T01:06:18: progress { at: '107', total: '180', progress: '0.59' }
+2019-11-27T01:06:19: frame=  106 fps=4.0 q=26.0 size=       1kB time=00:00:01.03 bitrate=   5.9kbits/s speed=0.0389x    
+2019-11-27T01:06:19: progress { at: '108', total: '180', progress: '0.60' }
+2019-11-27T01:06:19: progress { at: '109', total: '180', progress: '0.61' }
+2019-11-27T01:06:19: frame=  108 fps=4.0 q=26.0 size=       1kB time=00:00:01.06 bitrate=   5.8kbits/s speed=0.0392x    
+2019-11-27T01:06:19: progress { at: '110', total: '180', progress: '0.61' }
+2019-11-27T01:06:19: progress { at: '111', total: '180', progress: '0.62' }
+2019-11-27T01:06:20: frame=  110 fps=4.0 q=26.0 size=       1kB time=00:00:01.10 bitrate=   5.6kbits/s speed=0.0397x    
+2019-11-27T01:06:20: progress { at: '112', total: '180', progress: '0.62' }
+2019-11-27T01:06:20: progress { at: '113', total: '180', progress: '0.63' }
+2019-11-27T01:06:20: frame=  112 fps=3.9 q=26.0 size=       1kB time=00:00:01.13 bitrate=   5.4kbits/s speed=0.04x    
+2019-11-27T01:06:20: progress { at: '114', total: '180', progress: '0.63' }
+2019-11-27T01:06:21: progress { at: '115', total: '180', progress: '0.64' }
+2019-11-27T01:06:21: frame=  114 fps=3.9 q=26.0 size=       1kB time=00:00:01.16 bitrate=   5.3kbits/s speed=0.0403x    
+2019-11-27T01:06:21: progress { at: '116', total: '180', progress: '0.64' }
+2019-11-27T01:06:21: progress { at: '117', total: '180', progress: '0.65' }
+2019-11-27T01:06:22: frame=  116 fps=3.9 q=26.0 size=       1kB time=00:00:01.20 bitrate=   5.1kbits/s speed=0.0406x    
+2019-11-27T01:06:22: progress { at: '118', total: '180', progress: '0.66' }
+2019-11-27T01:06:22: progress { at: '119', total: '180', progress: '0.66' }
+2019-11-27T01:06:22: frame=  118 fps=3.9 q=26.0 size=       1kB time=00:00:01.23 bitrate=   5.0kbits/s speed=0.041x    
+2019-11-27T01:06:22: progress { at: '120', total: '180', progress: '0.67' }
+2019-11-27T01:06:22: progress { at: '121', total: '180', progress: '0.67' }
+2019-11-27T01:06:23: frame=  120 fps=3.9 q=26.0 size=       1kB time=00:00:01.26 bitrate=   4.9kbits/s speed=0.0412x    
+2019-11-27T01:06:23: progress { at: '122', total: '180', progress: '0.68' }
+2019-11-27T01:06:23: progress { at: '123', total: '180', progress: '0.68' }
+2019-11-27T01:06:23: frame=  122 fps=3.9 q=26.0 size=       1kB time=00:00:01.30 bitrate=   4.7kbits/s speed=0.0416x    
+2019-11-27T01:06:23: progress { at: '124', total: '180', progress: '0.69' }
+2019-11-27T01:06:24: progress { at: '125', total: '180', progress: '0.69' }
+2019-11-27T01:06:24: frame=  124 fps=3.9 q=26.0 size=       1kB time=00:00:01.33 bitrate=   4.6kbits/s speed=0.0418x    
+2019-11-27T01:06:24: progress { at: '126', total: '180', progress: '0.70' }
+2019-11-27T01:06:24: progress { at: '127', total: '180', progress: '0.71' }
+2019-11-27T01:06:24: frame=  126 fps=3.9 q=26.0 size=       1kB time=00:00:01.36 bitrate=   4.5kbits/s speed=0.0422x    
+2019-11-27T01:06:24: progress { at: '128', total: '180', progress: '0.71' }
+2019-11-27T01:06:25: progress { at: '129', total: '180', progress: '0.72' }
+2019-11-27T01:06:25: frame=  128 fps=3.9 q=26.0 size=       1kB time=00:00:01.40 bitrate=   4.4kbits/s speed=0.0424x    
+2019-11-27T01:06:25: progress { at: '130', total: '180', progress: '0.72' }
+2019-11-27T01:06:25: progress { at: '131', total: '180', progress: '0.73' }
+2019-11-27T01:06:26: frame=  130 fps=3.9 q=26.0 size=       1kB time=00:00:01.43 bitrate=   4.3kbits/s speed=0.0427x    
+2019-11-27T01:06:26: progress { at: '132', total: '180', progress: '0.73' }
+2019-11-27T01:06:26: progress { at: '133', total: '180', progress: '0.74' }
+2019-11-27T01:06:26: frame=  132 fps=3.9 q=26.0 size=       1kB time=00:00:01.46 bitrate=   4.2kbits/s speed=0.0429x    
+2019-11-27T01:06:26: progress { at: '134', total: '180', progress: '0.74' }
+2019-11-27T01:06:26: progress { at: '135', total: '180', progress: '0.75' }
+2019-11-27T01:06:27: frame=  134 fps=3.9 q=26.0 size=       1kB time=00:00:01.50 bitrate=   4.1kbits/s speed=0.0432x    
+2019-11-27T01:06:27: progress { at: '136', total: '180', progress: '0.76' }
+2019-11-27T01:06:27: progress { at: '137', total: '180', progress: '0.76' }
+2019-11-27T01:06:27: frame=  136 fps=3.8 q=26.0 size=       1kB time=00:00:01.53 bitrate=   4.0kbits/s speed=0.0433x    
+2019-11-27T01:06:27: progress { at: '138', total: '180', progress: '0.77' }
+2019-11-27T01:06:28: progress { at: '139', total: '180', progress: '0.77' }
+2019-11-27T01:06:28: frame=  138 fps=3.8 q=26.0 size=       1kB time=00:00:01.56 bitrate=   3.9kbits/s speed=0.0436x    
+2019-11-27T01:06:28: progress { at: '140', total: '180', progress: '0.78' }
+2019-11-27T01:06:28: progress { at: '141', total: '180', progress: '0.78' }
+2019-11-27T01:06:29: frame=  140 fps=3.8 q=26.0 size=       1kB time=00:00:01.60 bitrate=   3.8kbits/s speed=0.0438x    
+2019-11-27T01:06:29: progress { at: '142', total: '180', progress: '0.79' }
+2019-11-27T01:06:29: progress { at: '143', total: '180', progress: '0.79' }
+2019-11-27T01:06:29: frame=  142 fps=3.8 q=26.0 size=       1kB time=00:00:01.63 bitrate=   3.8kbits/s speed=0.0441x    
+2019-11-27T01:06:29: progress { at: '144', total: '180', progress: '0.80' }
+2019-11-27T01:06:29: progress { at: '145', total: '180', progress: '0.81' }
+2019-11-27T01:06:30: frame=  144 fps=3.8 q=26.0 size=       1kB time=00:00:01.66 bitrate=   3.7kbits/s speed=0.0442x    
+2019-11-27T01:06:30: progress { at: '146', total: '180', progress: '0.81' }
+2019-11-27T01:06:30: progress { at: '147', total: '180', progress: '0.82' }
+2019-11-27T01:06:30: frame=  146 fps=3.8 q=26.0 size=       1kB time=00:00:01.70 bitrate=   3.6kbits/s speed=0.0444x    
+2019-11-27T01:06:30: progress { at: '148', total: '180', progress: '0.82' }
+2019-11-27T01:06:31: progress { at: '149', total: '180', progress: '0.83' }
+2019-11-27T01:06:31: frame=  148 fps=3.8 q=26.0 size=       1kB time=00:00:01.73 bitrate=   3.5kbits/s speed=0.0446x    
+2019-11-27T01:06:31: progress { at: '150', total: '180', progress: '0.83' }
+2019-11-27T01:06:31: progress { at: '151', total: '180', progress: '0.84' }
+2019-11-27T01:06:31: frame=  150 fps=3.8 q=26.0 size=       1kB time=00:00:01.76 bitrate=   3.5kbits/s speed=0.0448x    
+2019-11-27T01:06:31: progress { at: '152', total: '180', progress: '0.84' }
+2019-11-27T01:06:32: progress { at: '153', total: '180', progress: '0.85' }
+2019-11-27T01:06:32: frame=  152 fps=3.8 q=26.0 size=       1kB time=00:00:01.80 bitrate=   3.4kbits/s speed=0.045x    
+2019-11-27T01:06:32: progress { at: '154', total: '180', progress: '0.86' }
+2019-11-27T01:06:32: progress { at: '155', total: '180', progress: '0.86' }
+2019-11-27T01:06:33: frame=  154 fps=3.8 q=26.0 size=       1kB time=00:00:01.83 bitrate=   3.4kbits/s speed=0.0452x    
+2019-11-27T01:06:33: progress { at: '156', total: '180', progress: '0.87' }
+2019-11-27T01:06:33: progress { at: '157', total: '180', progress: '0.87' }
+2019-11-27T01:06:33: frame=  156 fps=3.8 q=26.0 size=       1kB time=00:00:01.86 bitrate=   3.3kbits/s speed=0.0453x    
+2019-11-27T01:06:33: progress { at: '158', total: '180', progress: '0.88' }
+2019-11-27T01:06:33: progress { at: '159', total: '180', progress: '0.88' }
+2019-11-27T01:06:34: frame=  158 fps=3.8 q=26.0 size=       1kB time=00:00:01.90 bitrate=   3.2kbits/s speed=0.0455x    
+2019-11-27T01:06:34: progress { at: '160', total: '180', progress: '0.89' }
+2019-11-27T01:06:34: progress { at: '161', total: '180', progress: '0.89' }
+2019-11-27T01:06:34: frame=  160 fps=3.8 q=26.0 size=       1kB time=00:00:01.93 bitrate=   3.2kbits/s speed=0.0456x    
+2019-11-27T01:06:34: progress { at: '162', total: '180', progress: '0.90' }
+2019-11-27T01:06:35: progress { at: '163', total: '180', progress: '0.91' }
+2019-11-27T01:06:35: frame=  162 fps=3.8 q=26.0 size=       1kB time=00:00:01.96 bitrate=   3.1kbits/s speed=0.0458x    
+2019-11-27T01:06:35: progress { at: '164', total: '180', progress: '0.91' }
+2019-11-27T01:06:35: progress { at: '165', total: '180', progress: '0.92' }
+2019-11-27T01:06:36: frame=  164 fps=3.8 q=26.0 size=       1kB time=00:00:02.00 bitrate=   3.1kbits/s speed=0.046x    
+2019-11-27T01:06:36: progress { at: '166', total: '180', progress: '0.92' }
+2019-11-27T01:06:36: progress { at: '167', total: '180', progress: '0.93' }
+2019-11-27T01:06:36: frame=  166 fps=3.8 q=26.0 size=       1kB time=00:00:02.03 bitrate=   3.0kbits/s speed=0.0461x    
+2019-11-27T01:06:36: progress { at: '168', total: '180', progress: '0.93' }
+2019-11-27T01:06:36: progress { at: '169', total: '180', progress: '0.94' }
+2019-11-27T01:06:37: frame=  168 fps=3.8 q=26.0 size=       1kB time=00:00:02.06 bitrate=   3.0kbits/s speed=0.0463x    
+2019-11-27T01:06:37: progress { at: '170', total: '180', progress: '0.94' }
+2019-11-27T01:06:37: progress { at: '171', total: '180', progress: '0.95' }
+2019-11-27T01:06:37: frame=  170 fps=3.8 q=26.0 size=       1kB time=00:00:02.10 bitrate=   2.9kbits/s speed=0.0464x    
+2019-11-27T01:06:37: progress { at: '172', total: '180', progress: '0.96' }
+2019-11-27T01:06:38: progress { at: '173', total: '180', progress: '0.96' }
+2019-11-27T01:06:38: frame=  172 fps=3.8 q=26.0 size=       1kB time=00:00:02.13 bitrate=   2.9kbits/s speed=0.0465x    
+2019-11-27T01:06:38: progress { at: '174', total: '180', progress: '0.97' }
+2019-11-27T01:06:38: progress { at: '175', total: '180', progress: '0.97' }
+2019-11-27T01:06:38: frame=  174 fps=3.8 q=26.0 size=       1kB time=00:00:02.16 bitrate=   2.8kbits/s speed=0.0467x    
+2019-11-27T01:06:38: progress { at: '176', total: '180', progress: '0.98' }
+2019-11-27T01:06:39: progress { at: '177', total: '180', progress: '0.98' }
+2019-11-27T01:06:39: frame=  176 fps=3.7 q=26.0 size=       1kB time=00:00:02.20 bitrate=   2.8kbits/s speed=0.0468x    
+2019-11-27T01:06:39: progress { at: '178', total: '180', progress: '0.99' }
+2019-11-27T01:06:39: progress { at: '179', total: '180', progress: '0.99' }
+2019-11-27T01:06:39: frame=  178 fps=3.7 q=26.0 size=       1kB time=00:00:02.23 bitrate=   2.8kbits/s speed=0.047x    
+2019-11-27T01:06:39: progress { at: '180', total: '180', progress: '1.00' }
+2019-11-27T01:06:40: frame=  180 fps=3.7 q=26.0 size=       1kB time=00:00:02.26 bitrate=   2.7kbits/s speed=0.0471x    
+2019-11-27T01:06:41: frame=  182 fps=3.7 q=26.0 size=       1kB time=00:00:02.30 bitrate=   2.7kbits/s speed=0.0471x    
+2019-11-27T01:06:50: frame=  182 fps=3.1 q=26.0 Lsize=   42165kB time=00:00:02.98 bitrate=115779.3kbits/s speed=0.0512x    
+2019-11-27T01:06:50: video:42163kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 
+2019-11-27T01:06:50: 0.005587%
+2019-11-27T01:06:50: 
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] 
+2019-11-27T01:06:50: frame I:1     Avg QP:22.93  size:432001
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] 
+2019-11-27T01:06:50: frame P:46    Avg QP:26.68  size:322231
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] 
+2019-11-27T01:06:50: frame B:135   Avg QP:30.22  size:206809
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] 
+2019-11-27T01:06:50: consecutive B-frames:  1.1%  0.0%  0.0% 98.9%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] 
+2019-11-27T01:06:50: mb I  I16..4: 23.2%  2.0% 74.8%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] 
+2019-11-27T01:06:50: mb P  I16..4:  1.0%  1.0% 11.6%  P16..4:  7.6% 13.1% 43.1%  0.0%  0.0%    skip:22.7%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] 
+2019-11-27T01:06:50: mb B  I16..4:  0.0%  0.1%  0.7%  B16..8:  7.3% 11.1% 46.4%  direct:11.1%  skip:23.3%  L0:39.4% L1:32.0% BI:28.6%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] 
+2019-11-27T01:06:50: 8x8 transform intra:7.8% inter:2.0%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] coded y,uvDC,uvAC intra: 91.5% 93.3% 93.1% inter: 60.3% 68.4% 67.8%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] i16 v,h,dc,p: 39%  5% 55%  2%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu:  1%  7% 63%  5%  2%  1%  5%  3% 13%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu:  7% 21% 29%  5%  5%  5% 12%  5% 10%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] i8c dc,h,v,p: 66% 15%  4% 15%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] Weighted P-Frames: Y:0.0% UV:0.0%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] ref P L0: 38.9%  9.9% 24.1% 27.0%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] ref B L0: 76.9% 16.1%  7.0%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] ref B L1: 89.7% 10.3%
+2019-11-27T01:06:50: [libx264 @ 0x55d125b60bc0] kb/s:113865.09
+2019-11-27T01:06:50: file is at: /home/lok/video.wonglok.com/rendering-garden/public/preview/_6315710.mp4
+2019-11-27T01:06:50: fs.js:126
+2019-11-27T01:06:50:     throw err;
+2019-11-27T01:06:50:     ^
+2019-11-27T01:06:50: 
+2019-11-27T01:06:50: Error: ENOENT: no such file or directory, unlink '/tmp/tempvid.mp4'
+2019-11-27T01:06:50:     at Object.unlinkSync (fs.js:976:3)
+2019-11-27T01:06:50:     at /home/lok/video.wonglok.com/rendering-garden/main.js:170:10
+2019-11-27T01:06:50:     at FSReqCallback.oncomplete (fs.js:153:23) {
+2019-11-27T01:06:50:   errno: -2,
+2019-11-27T01:06:50:   syscall: 'unlink',
+2019-11-27T01:06:50:   code: 'ENOENT',
+2019-11-27T01:06:50:   path: '/tmp/tempvid.mp4'
+2019-11-27T01:06:50: }
+2019-11-27T01:06:50: npm
+2019-11-27T01:06:50:  
+2019-11-27T01:06:50: ERR!
+2019-11-27T01:06:50:  
+2019-11-27T01:06:50: code
+2019-11-27T01:06:50:  ELIFECYCLE
+2019-11-27T01:06:50: npm
+2019-11-27T01:06:50:  
+2019-11-27T01:06:50: ERR!
+2019-11-27T01:06:50:  
+2019-11-27T01:06:50: errno
+2019-11-27T01:06:50:  1
+2019-11-27T01:06:50: npm
+2019-11-27T01:06:50:  
+2019-11-27T01:06:50: ERR!
+2019-11-27T01:06:50:  rendering-garden@1.0.0 lin: `xvfb-run -s "-ac -screen 0 1080x1080x24" node main.js`
+2019-11-27T01:06:50: npm
+2019-11-27T01:06:50:  
+2019-11-27T01:06:50: ERR!
+2019-11-27T01:06:50:  Exit status 1
+2019-11-27T01:06:50:  
+2019-11-27T01:06:50: npm ERR! Failed at the rendering-garden@1.0.0 lin script.
+2019-11-27T01:06:50: npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+2019-11-27T01:06:51: 
+2019-11-27T01:06:51: npm ERR! A complete log of this run can be found in:
+2019-11-27T01:06:51: npm ERR!     /home/lok/.npm/_logs/2019-11-27T01_06_50_847Z-debug.log
+2019-11-27T01:06:52: 
+2019-11-27T01:06:52: > rendering-garden@1.0.0 lin /home/lok/video.wonglok.com/rendering-garden
+2019-11-27T01:06:52: > xvfb-run -s "-ac -screen 0 1080x1080x24" node main.js
+2019-11-27T01:06:52: 
+2019-11-27T01:06:53: listening on *:3123
+2019-11-27T01:06:55: made a engine
+2019-11-27T01:06:57: made a engine
+2019-11-27T01:07:14: 
+2019-11-27T01:07:14: > rendering-garden@1.0.0 lin /home/lok/video.wonglok.com/rendering-garden
+2019-11-27T01:07:14: > xvfb-run -s "-ac -screen 0 1080x1080x24" node main.js
+2019-11-27T01:07:14: 
+2019-11-27T01:07:15: listening on *:3123
+2019-11-27T01:07:15: made a engine
+2019-11-27T01:07:18: made a engine
+2019-11-27T01:07:22: made a engine
+2019-11-27T01:07:25: progress { at: '0', total: '180', progress: '0.00' }
+2019-11-27T01:07:25: progress { at: '0', total: '180', progress: '0.00' }
+2019-11-27T01:07:25: progress { at: '1', total: '180', progress: '0.01' }
+2019-11-27T01:07:25: ffmpeg version 3.4.6-0ubuntu0.18.04.1 Copyright (c) 2000-2019 the FFmpeg developers
+2019-11-27T01:07:25:   built with gcc 7 (Ubuntu 7.3.0-16ubuntu3)
+2019-11-27T01:07:25:   configuration: --prefix=/usr --extra-version=0ubuntu0.18.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --enable-gpl --disable-stripping --enable-avresample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librubberband --enable-librsvg --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-omx --enable-openal --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libopencv --enable-libx264 --enable-shared
+2019-11-27T01:07:25:   libavutil      55. 78.100 / 55. 78.100
+2019-11-27T01:07:25:   libavcodec     57.107.100 / 57.107.100
+2019-11-27T01:07:25:   libavformat    57. 83.100 / 57. 83.100
+2019-11-27T01:07:25:   libavdevice    57. 10.100 / 57. 10.100
+2019-11-27T01:07:25:   libavfilter     6.107.100 /  6.107.100
+2019-11-27T01:07:25:   libavresample   3.  7.  0 /  3.  7.  0
+2019-11-27T01:07:25:   libswscale      4.  8.100 /  4.  8.100
+2019-11-27T01:07:25:   libswresample   2.  9.100 /  2.  9.100
+2019-11-27T01:07:25:   libpostproc    54.  7.100 / 54.  7.100
+2019-11-27T01:07:25: (node:8430) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2019-11-27T01:07:25: progress { at: '2', total: '180', progress: '0.01' }
+2019-11-27T01:07:25: progress { at: '3', total: '180', progress: '0.02' }
+2019-11-27T01:07:25: Input #0, rawvideo, from 'pipe:0':
+2019-11-27T01:07:25:   Duration: N/A, start: 0.000000, bitrate: 2239488 kb/s
+2019-11-27T01:07:25:     Stream #0:0: Video: rawvideo (RGBA / 0x41424752), rgba, 1080x1080, 2239488 kb/s, 60 tbr, 60 tbn, 60 tbc
+2019-11-27T01:07:25: Stream mapping:
+2019-11-27T01:07:25:   Stream #0:0 -> #0:0 (rawvideo (native) -> h264 (libx264))
+2019-11-27T01:07:25: [libx264 @ 0x55601e93bbc0] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+2019-11-27T01:07:25: [libx264 @ 0x55601e93bbc0] profile High, level 4.2
+2019-11-27T01:07:25: [libx264 @ 0x55601e93bbc0] 264 - core 152 r2854 e9a5903 - H.264/MPEG-4 AVC codec - Copyleft 2003-2017 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=1 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=18.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+2019-11-27T01:07:25: Output #0, mp4, to '/tmp/tempvid.mp4':
+2019-11-27T01:07:25:   Metadata:
+2019-11-27T01:07:25:     encoder         : Lavf57.83.100
+2019-11-27T01:07:25:     Stream #0:0: Video: h264 (libx264) (avc1 / 0x31637661), yuv420p, 1080x1080, q=-1--1, 60 fps, 15360 tbn, 60 tbc
+2019-11-27T01:07:25:     Metadata:
+2019-11-27T01:07:25:       encoder         : Lavc57.107.100 libx264
+2019-11-27T01:07:25:     Side data:
+2019-11-27T01:07:25:       cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: -1
+2019-11-27T01:07:25: progress { at: '4', total: '180', progress: '0.02' }
+2019-11-27T01:07:26: progress { at: '5', total: '180', progress: '0.03' }
+2019-11-27T01:07:26: progress { at: '6', total: '180', progress: '0.03' }
+2019-11-27T01:07:26: progress { at: '7', total: '180', progress: '0.04' }
+2019-11-27T01:07:26: progress { at: '8', total: '180', progress: '0.04' }
+2019-11-27T01:07:26: progress { at: '9', total: '180', progress: '0.05' }
+2019-11-27T01:07:26: progress { at: '10', total: '180', progress: '0.06' }
+2019-11-27T01:07:26: progress { at: '11', total: '180', progress: '0.06' }
+2019-11-27T01:07:26: progress { at: '12', total: '180', progress: '0.07' }
+2019-11-27T01:07:26: frame=   10 fps=0.0 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:07:26: progress { at: '13', total: '180', progress: '0.07' }
+2019-11-27T01:07:26: progress { at: '14', total: '180', progress: '0.08' }
+2019-11-27T01:07:26: progress { at: '15', total: '180', progress: '0.08' }
+2019-11-27T01:07:26: progress { at: '16', total: '180', progress: '0.09' }
+2019-11-27T01:07:26: progress { at: '17', total: '180', progress: '0.09' }
+2019-11-27T01:07:26: progress { at: '18', total: '180', progress: '0.10' }
+2019-11-27T01:07:26: progress { at: '19', total: '180', progress: '0.11' }
+2019-11-27T01:07:27: frame=   16 fps= 15 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:07:27: progress { at: '20', total: '180', progress: '0.11' }
+2019-11-27T01:07:27: progress { at: '21', total: '180', progress: '0.12' }
+2019-11-27T01:07:27: progress { at: '22', total: '180', progress: '0.12' }
+2019-11-27T01:07:27: progress { at: '23', total: '180', progress: '0.13' }
+2019-11-27T01:07:27: frame=   22 fps= 14 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:07:27: progress { at: '24', total: '180', progress: '0.13' }
+2019-11-27T01:07:27: progress { at: '25', total: '180', progress: '0.14' }
+2019-11-27T01:07:27: progress { at: '26', total: '180', progress: '0.14' }
+2019-11-27T01:07:27: progress { at: '27', total: '180', progress: '0.15' }
+2019-11-27T01:07:27: progress { at: '28', total: '180', progress: '0.16' }
+2019-11-27T01:07:28: progress { at: '29', total: '180', progress: '0.16' }
+2019-11-27T01:07:28: frame=   28 fps= 12 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:07:28: progress { at: '30', total: '180', progress: '0.17' }
+2019-11-27T01:07:28: progress { at: '31', total: '180', progress: '0.17' }
+2019-11-27T01:07:28: frame=   30 fps= 11 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:07:28: progress { at: '32', total: '180', progress: '0.18' }
+2019-11-27T01:07:28: progress { at: '33', total: '180', progress: '0.18' }
+2019-11-27T01:07:28: progress { at: '34', total: '180', progress: '0.19' }
+2019-11-27T01:07:28: progress { at: '35', total: '180', progress: '0.19' }
+2019-11-27T01:07:28: progress { at: '36', total: '180', progress: '0.20' }
+2019-11-27T01:07:29: progress { at: '37', total: '180', progress: '0.21' }
+2019-11-27T01:07:29: progress { at: '38', total: '180', progress: '0.21' }
+2019-11-27T01:07:29: frame=   37 fps= 11 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:07:29: progress { at: '39', total: '180', progress: '0.22' }
+2019-11-27T01:07:29: progress { at: '40', total: '180', progress: '0.22' }
+2019-11-27T01:07:29: progress { at: '41', total: '180', progress: '0.23' }
+2019-11-27T01:07:30: frame=   40 fps=9.8 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:07:30: progress { at: '42', total: '180', progress: '0.23' }
+2019-11-27T01:07:30: progress { at: '43', total: '180', progress: '0.24' }
+2019-11-27T01:07:31: progress { at: '44', total: '180', progress: '0.24' }
+2019-11-27T01:07:32: frame=   43 fps=7.4 q=26.0 size=       1kB time=-00:00:00.01 bitrate=N/A speed=N/A    
+2019-11-27T01:07:32: progress { at: '45', total: '180', progress: '0.25' }
+2019-11-27T01:07:32: frame=   44 fps=6.5 q=26.0 size=       1kB time=00:00:00.00 bitrate=94523.1kbits/s speed=9.54e-06x    
+2019-11-27T01:07:32: progress { at: '46', total: '180', progress: '0.26' }
+2019-11-27T01:07:33: progress { at: '47', total: '180', progress: '0.26' }
+2019-11-27T01:07:33: frame=   46 fps=6.0 q=26.0 size=       1kB time=00:00:00.03 bitrate= 184.0kbits/s speed=0.00437x    
+2019-11-27T01:07:33: progress { at: '48', total: '180', progress: '0.27' }
+2019-11-27T01:07:34: progress { at: '49', total: '180', progress: '0.27' }
+2019-11-27T01:07:34: frame=   48 fps=5.8 q=26.0 size=       1kB time=00:00:00.06 bitrate=  92.1kbits/s speed=0.00806x    
+2019-11-27T01:07:34: progress { at: '50', total: '180', progress: '0.28' }
+2019-11-27T01:07:34: frame=   49 fps=5.5 q=26.0 size=       1kB time=00:00:00.08 bitrate=  73.7kbits/s speed=0.00932x    
+2019-11-27T01:07:35: progress { at: '51', total: '180', progress: '0.28' }
+2019-11-27T01:07:35: progress { at: '52', total: '180', progress: '0.29' }
+2019-11-27T01:07:35: progress { at: '53', total: '180', progress: '0.29' }
+2019-11-27T01:07:35: frame=   52 fps=5.3 q=26.0 size=       1kB time=00:00:00.13 bitrate=  46.1kbits/s speed=0.0136x    
+2019-11-27T01:07:35: progress { at: '54', total: '180', progress: '0.30' }
+2019-11-27T01:07:36: progress { at: '55', total: '180', progress: '0.31' }
+2019-11-27T01:07:36: frame=   54 fps=5.2 q=26.0 size=       1kB time=00:00:00.16 bitrate=  36.8kbits/s speed=0.0161x    
+2019-11-27T01:07:36: progress { at: '56', total: '180', progress: '0.31' }
+2019-11-27T01:07:36: progress { at: '57', total: '180', progress: '0.32' }
+2019-11-27T01:07:37: frame=   56 fps=5.1 q=26.0 size=       1kB time=00:00:00.20 bitrate=  30.7kbits/s speed=0.0182x    
+2019-11-27T01:07:37: progress { at: '58', total: '180', progress: '0.32' }
+2019-11-27T01:07:37: progress { at: '59', total: '180', progress: '0.33' }
+2019-11-27T01:07:37: frame=   58 fps=5.0 q=26.0 size=       1kB time=00:00:00.23 bitrate=  26.3kbits/s speed=0.0203x    
+2019-11-27T01:07:37: progress { at: '60', total: '180', progress: '0.33' }
+2019-11-27T01:07:37: progress { at: '61', total: '180', progress: '0.34' }
+2019-11-27T01:07:38: frame=   60 fps=4.9 q=26.0 size=       1kB time=00:00:00.26 bitrate=  23.0kbits/s speed=0.022x    
+2019-11-27T01:07:38: progress { at: '62', total: '180', progress: '0.34' }
+2019-11-27T01:07:38: progress { at: '63', total: '180', progress: '0.35' }
+2019-11-27T01:07:38: frame=   62 fps=4.9 q=26.0 size=       1kB time=00:00:00.30 bitrate=  20.5kbits/s speed=0.0235x    
+2019-11-27T01:07:38: progress { at: '64', total: '180', progress: '0.36' }
+2019-11-27T01:07:39: progress { at: '65', total: '180', progress: '0.36' }
+2019-11-27T01:07:39: frame=   64 fps=4.8 q=26.0 size=       1kB time=00:00:00.33 bitrate=  18.4kbits/s speed=0.0249x    
+2019-11-27T01:07:39: progress { at: '66', total: '180', progress: '0.37' }
+2019-11-27T01:07:39: progress { at: '67', total: '180', progress: '0.37' }
+2019-11-27T01:07:39: frame=   66 fps=4.7 q=26.0 size=       1kB time=00:00:00.36 bitrate=  16.8kbits/s speed=0.0263x    
+2019-11-27T01:07:39: progress { at: '68', total: '180', progress: '0.38' }
+2019-11-27T01:07:40: progress { at: '69', total: '180', progress: '0.38' }
+2019-11-27T01:07:40: frame=   68 fps=4.7 q=26.0 size=       1kB time=00:00:00.40 bitrate=  15.4kbits/s speed=0.0275x    
+2019-11-27T01:07:40: progress { at: '70', total: '180', progress: '0.39' }
+2019-11-27T01:07:40: progress { at: '71', total: '180', progress: '0.39' }
+2019-11-27T01:07:41: frame=   70 fps=4.6 q=26.0 size=       1kB time=00:00:00.43 bitrate=  14.2kbits/s speed=0.0287x    
+2019-11-27T01:07:41: progress { at: '72', total: '180', progress: '0.40' }
+2019-11-27T01:07:41: progress { at: '73', total: '180', progress: '0.41' }
+2019-11-27T01:07:41: frame=   72 fps=4.6 q=26.0 size=       1kB time=00:00:00.46 bitrate=  13.2kbits/s speed=0.0297x    
+2019-11-27T01:07:41: progress { at: '74', total: '180', progress: '0.41' }
+2019-11-27T01:07:42: progress { at: '75', total: '180', progress: '0.42' }
+2019-11-27T01:07:42: frame=   74 fps=4.6 q=26.0 size=       1kB time=00:00:00.50 bitrate=  12.3kbits/s speed=0.0308x    
+2019-11-27T01:07:42: progress { at: '76', total: '180', progress: '0.42' }
+2019-11-27T01:07:42: progress { at: '77', total: '180', progress: '0.43' }
+2019-11-27T01:07:42: frame=   76 fps=4.5 q=26.0 size=       1kB time=00:00:00.53 bitrate=  11.5kbits/s speed=0.0316x    
+2019-11-27T01:07:42: progress { at: '78', total: '180', progress: '0.43' }
+2019-11-27T01:07:43: progress { at: '79', total: '180', progress: '0.44' }
+2019-11-27T01:07:43: frame=   78 fps=4.5 q=26.0 size=       1kB time=00:00:00.56 bitrate=  10.8kbits/s speed=0.0325x    
+2019-11-27T01:07:43: progress { at: '80', total: '180', progress: '0.44' }
+2019-11-27T01:07:43: progress { at: '81', total: '180', progress: '0.45' }
+2019-11-27T01:07:44: frame=   80 fps=4.4 q=26.0 size=       1kB time=00:00:00.60 bitrate=  10.2kbits/s speed=0.0332x    
+2019-11-27T01:07:44: progress { at: '82', total: '180', progress: '0.46' }
+2019-11-27T01:07:44: progress { at: '83', total: '180', progress: '0.46' }
+2019-11-27T01:07:44: frame=   82 fps=4.4 q=26.0 size=       1kB time=00:00:00.63 bitrate=   9.7kbits/s speed=0.034x    
+2019-11-27T01:07:44: progress { at: '84', total: '180', progress: '0.47' }
+2019-11-27T01:07:45: progress { at: '85', total: '180', progress: '0.47' }
+2019-11-27T01:07:45: frame=   84 fps=4.4 q=26.0 size=       1kB time=00:00:00.66 bitrate=   9.2kbits/s speed=0.0346x    
+2019-11-27T01:07:45: progress { at: '86', total: '180', progress: '0.48' }
+2019-11-27T01:07:45: progress { at: '87', total: '180', progress: '0.48' }
+2019-11-27T01:07:45: frame=   86 fps=4.3 q=26.0 size=       1kB time=00:00:00.70 bitrate=   8.8kbits/s speed=0.0354x    
+2019-11-27T01:07:45: progress { at: '88', total: '180', progress: '0.49' }
+2019-11-27T01:07:46: progress { at: '89', total: '180', progress: '0.49' }
+2019-11-27T01:07:46: frame=   88 fps=4.3 q=26.0 size=       1kB time=00:00:00.73 bitrate=   8.4kbits/s speed=0.0359x    
+2019-11-27T01:07:46: progress { at: '90', total: '180', progress: '0.50' }
+2019-11-27T01:07:46: progress { at: '91', total: '180', progress: '0.51' }
+2019-11-27T01:07:47: frame=   90 fps=4.3 q=26.0 size=       1kB time=00:00:00.76 bitrate=   8.0kbits/s speed=0.0365x    
+2019-11-27T01:07:47: progress { at: '92', total: '180', progress: '0.51' }
+2019-11-27T01:07:47: progress { at: '93', total: '180', progress: '0.52' }
+2019-11-27T01:07:47: frame=   92 fps=4.3 q=26.0 size=       1kB time=00:00:00.80 bitrate=   7.7kbits/s speed=0.037x    
+2019-11-27T01:07:47: progress { at: '94', total: '180', progress: '0.52' }
+2019-11-27T01:07:47: progress { at: '95', total: '180', progress: '0.53' }
+2019-11-27T01:07:48: frame=   94 fps=4.2 q=26.0 size=       1kB time=00:00:00.83 bitrate=   7.4kbits/s speed=0.0376x    
+2019-11-27T01:07:48: progress { at: '96', total: '180', progress: '0.53' }
+2019-11-27T01:07:48: progress { at: '97', total: '180', progress: '0.54' }
+2019-11-27T01:07:48: frame=   96 fps=4.2 q=26.0 size=       1kB time=00:00:00.86 bitrate=   7.1kbits/s speed=0.038x    
+2019-11-27T01:07:48: progress { at: '98', total: '180', progress: '0.54' }
+2019-11-27T01:07:49: progress { at: '99', total: '180', progress: '0.55' }
+2019-11-27T01:07:49: frame=   98 fps=4.2 q=26.0 size=       1kB time=00:00:00.90 bitrate=   6.8kbits/s speed=0.0386x    
+2019-11-27T01:07:49: progress { at: '100', total: '180', progress: '0.56' }
+2019-11-27T01:07:49: progress { at: '101', total: '180', progress: '0.56' }
+2019-11-27T01:07:50: frame=  100 fps=4.2 q=26.0 size=       1kB time=00:00:00.93 bitrate=   6.6kbits/s speed=0.039x    
+2019-11-27T01:07:50: progress { at: '102', total: '180', progress: '0.57' }
+2019-11-27T01:07:50: progress { at: '103', total: '180', progress: '0.57' }
+2019-11-27T01:07:50: frame=  102 fps=4.2 q=26.0 size=       1kB time=00:00:00.96 bitrate=   6.4kbits/s speed=0.0395x    
+2019-11-27T01:07:50: progress { at: '104', total: '180', progress: '0.58' }
+2019-11-27T01:07:50: progress { at: '105', total: '180', progress: '0.58' }
+2019-11-27T01:07:51: frame=  104 fps=4.1 q=26.0 size=       1kB time=00:00:01.00 bitrate=   6.1kbits/s speed=0.0398x    
+2019-11-27T01:07:51: progress { at: '106', total: '180', progress: '0.59' }
+2019-11-27T01:07:51: progress { at: '107', total: '180', progress: '0.59' }
+2019-11-27T01:07:51: frame=  106 fps=4.1 q=26.0 size=       1kB time=00:00:01.03 bitrate=   5.9kbits/s speed=0.0403x    
+2019-11-27T01:07:51: progress { at: '108', total: '180', progress: '0.60' }
+2019-11-27T01:07:52: progress { at: '109', total: '180', progress: '0.61' }
+2019-11-27T01:07:52: frame=  108 fps=4.1 q=26.0 size=       1kB time=00:00:01.06 bitrate=   5.8kbits/s speed=0.0407x    
+2019-11-27T01:07:52: progress { at: '110', total: '180', progress: '0.61' }
+2019-11-27T01:07:52: progress { at: '111', total: '180', progress: '0.62' }
+2019-11-27T01:07:52: frame=  110 fps=4.1 q=26.0 size=       1kB time=00:00:01.10 bitrate=   5.6kbits/s speed=0.0411x    
+2019-11-27T01:07:52: progress { at: '112', total: '180', progress: '0.62' }
+2019-11-27T01:07:53: progress { at: '113', total: '180', progress: '0.63' }
+2019-11-27T01:07:53: frame=  112 fps=4.1 q=26.0 size=       1kB time=00:00:01.13 bitrate=   5.4kbits/s speed=0.0414x    
+2019-11-27T01:07:53: progress { at: '114', total: '180', progress: '0.63' }
+2019-11-27T01:07:53: progress { at: '115', total: '180', progress: '0.64' }
+2019-11-27T01:07:53: frame=  114 fps=4.1 q=26.0 size=       1kB time=00:00:01.16 bitrate=   5.3kbits/s speed=0.0418x    
+2019-11-27T01:07:53: progress { at: '116', total: '180', progress: '0.64' }
+2019-11-27T01:07:54: progress { at: '117', total: '180', progress: '0.65' }
+2019-11-27T01:07:54: frame=  116 fps=4.1 q=26.0 size=       1kB time=00:00:01.20 bitrate=   5.1kbits/s speed=0.0421x    
+2019-11-27T01:07:54: progress { at: '118', total: '180', progress: '0.66' }
+2019-11-27T01:07:54: progress { at: '119', total: '180', progress: '0.66' }
+2019-11-27T01:07:55: frame=  118 fps=4.1 q=26.0 size=       1kB time=00:00:01.23 bitrate=   5.0kbits/s speed=0.0425x    
+2019-11-27T01:07:55: progress { at: '120', total: '180', progress: '0.67' }
+2019-11-27T01:07:55: progress { at: '121', total: '180', progress: '0.67' }
+2019-11-27T01:07:55: frame=  120 fps=4.0 q=26.0 size=       1kB time=00:00:01.26 bitrate=   4.9kbits/s speed=0.0427x    
+2019-11-27T01:07:55: progress { at: '122', total: '180', progress: '0.68' }
+2019-11-27T01:07:56: progress { at: '123', total: '180', progress: '0.68' }
+2019-11-27T01:07:56: frame=  122 fps=4.0 q=26.0 size=       1kB time=00:00:01.30 bitrate=   4.7kbits/s speed=0.043x    
+2019-11-27T01:07:56: progress { at: '124', total: '180', progress: '0.69' }
+2019-11-27T01:07:56: progress { at: '125', total: '180', progress: '0.69' }
+2019-11-27T01:07:56: frame=  124 fps=4.0 q=26.0 size=       1kB time=00:00:01.33 bitrate=   4.6kbits/s speed=0.0432x    
+2019-11-27T01:07:56: progress { at: '126', total: '180', progress: '0.70' }
+2019-11-27T01:07:57: progress { at: '127', total: '180', progress: '0.71' }
+2019-11-27T01:07:57: frame=  126 fps=4.0 q=26.0 size=       1kB time=00:00:01.36 bitrate=   4.5kbits/s speed=0.0435x    
+2019-11-27T01:07:57: progress { at: '128', total: '180', progress: '0.71' }
+2019-11-27T01:07:57: progress { at: '129', total: '180', progress: '0.72' }
+2019-11-27T01:07:58: frame=  128 fps=4.0 q=26.0 size=       1kB time=00:00:01.40 bitrate=   4.4kbits/s speed=0.0437x    
+2019-11-27T01:07:58: progress { at: '130', total: '180', progress: '0.72' }
+2019-11-27T01:07:58: progress { at: '131', total: '180', progress: '0.73' }
+2019-11-27T01:07:58: frame=  130 fps=4.0 q=26.0 size=       1kB time=00:00:01.43 bitrate=   4.3kbits/s speed=0.044x    
+2019-11-27T01:07:58: progress { at: '132', total: '180', progress: '0.73' }
+2019-11-27T01:07:58: progress { at: '133', total: '180', progress: '0.74' }
+2019-11-27T01:07:59: frame=  132 fps=4.0 q=26.0 size=       1kB time=00:00:01.46 bitrate=   4.2kbits/s speed=0.0442x    
+2019-11-27T01:07:59: progress { at: '134', total: '180', progress: '0.74' }
+2019-11-27T01:07:59: progress { at: '135', total: '180', progress: '0.75' }
+2019-11-27T01:07:59: frame=  134 fps=4.0 q=26.0 size=       1kB time=00:00:01.50 bitrate=   4.1kbits/s speed=0.0445x    
+2019-11-27T01:07:59: progress { at: '136', total: '180', progress: '0.76' }
+2019-11-27T01:08:00: progress { at: '137', total: '180', progress: '0.76' }
+2019-11-27T01:08:00: frame=  136 fps=4.0 q=26.0 size=       1kB time=00:00:01.53 bitrate=   4.0kbits/s speed=0.0446x    
+2019-11-27T01:08:00: progress { at: '138', total: '180', progress: '0.77' }
+2019-11-27T01:08:00: progress { at: '139', total: '180', progress: '0.77' }
+2019-11-27T01:08:00: frame=  138 fps=4.0 q=26.0 size=       1kB time=00:00:01.56 bitrate=   3.9kbits/s speed=0.0449x    
+2019-11-27T01:08:00: progress { at: '140', total: '180', progress: '0.78' }
+2019-11-27T01:08:01: progress { at: '141', total: '180', progress: '0.78' }
+2019-11-27T01:08:01: frame=  140 fps=3.9 q=26.0 size=       1kB time=00:00:01.60 bitrate=   3.8kbits/s speed=0.0451x    
+2019-11-27T01:08:01: progress { at: '142', total: '180', progress: '0.79' }
+2019-11-27T01:08:01: progress { at: '143', total: '180', progress: '0.79' }
+2019-11-27T01:08:02: frame=  142 fps=3.9 q=26.0 size=       1kB time=00:00:01.63 bitrate=   3.8kbits/s speed=0.0453x    
+2019-11-27T01:08:02: progress { at: '144', total: '180', progress: '0.80' }
+2019-11-27T01:08:02: progress { at: '145', total: '180', progress: '0.81' }
+2019-11-27T01:08:02: frame=  144 fps=3.9 q=26.0 size=       1kB time=00:00:01.66 bitrate=   3.7kbits/s speed=0.0455x    
+2019-11-27T01:08:02: progress { at: '146', total: '180', progress: '0.81' }
+2019-11-27T01:08:03: progress { at: '147', total: '180', progress: '0.82' }
+2019-11-27T01:08:03: frame=  146 fps=3.9 q=26.0 size=       1kB time=00:00:01.70 bitrate=   3.6kbits/s speed=0.0457x    
+2019-11-27T01:08:03: progress { at: '148', total: '180', progress: '0.82' }
+2019-11-27T01:08:03: progress { at: '149', total: '180', progress: '0.83' }
+2019-11-27T01:08:03: frame=  148 fps=3.9 q=26.0 size=       1kB time=00:00:01.73 bitrate=   3.5kbits/s speed=0.0458x    
+2019-11-27T01:08:03: progress { at: '150', total: '180', progress: '0.83' }
+2019-11-27T01:08:04: progress { at: '151', total: '180', progress: '0.84' }
+2019-11-27T01:08:04: frame=  150 fps=3.9 q=26.0 size=       1kB time=00:00:01.76 bitrate=   3.5kbits/s speed=0.046x    
+2019-11-27T01:08:04: progress { at: '152', total: '180', progress: '0.84' }
+2019-11-27T01:08:04: progress { at: '153', total: '180', progress: '0.85' }
+2019-11-27T01:08:05: frame=  152 fps=3.9 q=26.0 size=       1kB time=00:00:01.80 bitrate=   3.4kbits/s speed=0.0461x    
+2019-11-27T01:08:05: progress { at: '154', total: '180', progress: '0.86' }
+2019-11-27T01:08:05: progress { at: '155', total: '180', progress: '0.86' }
+2019-11-27T01:08:05: frame=  154 fps=3.9 q=26.0 size=       1kB time=00:00:01.83 bitrate=   3.4kbits/s speed=0.0463x    
+2019-11-27T01:08:05: progress { at: '156', total: '180', progress: '0.87' }
+2019-11-27T01:08:06: progress { at: '157', total: '180', progress: '0.87' }
+2019-11-27T01:08:06: frame=  156 fps=3.9 q=26.0 size=       1kB time=00:00:01.86 bitrate=   3.3kbits/s speed=0.0464x    
+2019-11-27T01:08:06: progress { at: '158', total: '180', progress: '0.88' }
+2019-11-27T01:08:06: progress { at: '159', total: '180', progress: '0.88' }
+2019-11-27T01:08:06: frame=  158 fps=3.9 q=26.0 size=       1kB time=00:00:01.90 bitrate=   3.2kbits/s speed=0.0466x    
+2019-11-27T01:08:06: progress { at: '160', total: '180', progress: '0.89' }
+2019-11-27T01:08:07: progress { at: '161', total: '180', progress: '0.89' }
+2019-11-27T01:08:07: frame=  160 fps=3.9 q=26.0 size=       1kB time=00:00:01.93 bitrate=   3.2kbits/s speed=0.0467x    
+2019-11-27T01:08:07: progress { at: '162', total: '180', progress: '0.90' }
+2019-11-27T01:08:07: progress { at: '163', total: '180', progress: '0.91' }
+2019-11-27T01:08:07: frame=  162 fps=3.9 q=26.0 size=       1kB time=00:00:01.96 bitrate=   3.1kbits/s speed=0.0469x    
+2019-11-27T01:08:07: progress { at: '164', total: '180', progress: '0.91' }
+2019-11-27T01:08:08: progress { at: '165', total: '180', progress: '0.92' }
+2019-11-27T01:08:08: frame=  164 fps=3.9 q=26.0 size=       1kB time=00:00:02.00 bitrate=   3.1kbits/s speed=0.0471x    
+2019-11-27T01:08:08: progress { at: '166', total: '180', progress: '0.92' }
+2019-11-27T01:08:08: progress { at: '167', total: '180', progress: '0.93' }
+2019-11-27T01:08:09: frame=  166 fps=3.9 q=26.0 size=       1kB time=00:00:02.03 bitrate=   3.0kbits/s speed=0.0472x    
+2019-11-27T01:08:09: progress { at: '168', total: '180', progress: '0.93' }
+2019-11-27T01:08:09: progress { at: '169', total: '180', progress: '0.94' }
+2019-11-27T01:08:09: frame=  168 fps=3.8 q=26.0 size=       1kB time=00:00:02.06 bitrate=   3.0kbits/s speed=0.0473x    
+2019-11-27T01:08:09: progress { at: '170', total: '180', progress: '0.94' }
+2019-11-27T01:08:10: progress { at: '171', total: '180', progress: '0.95' }
+2019-11-27T01:08:10: frame=  170 fps=3.8 q=26.0 size=       1kB time=00:00:02.10 bitrate=   2.9kbits/s speed=0.0475x    
+2019-11-27T01:08:10: progress { at: '172', total: '180', progress: '0.96' }
+2019-11-27T01:08:10: progress { at: '173', total: '180', progress: '0.96' }
+2019-11-27T01:08:10: frame=  172 fps=3.8 q=26.0 size=       1kB time=00:00:02.13 bitrate=   2.9kbits/s speed=0.0476x    
+2019-11-27T01:08:10: progress { at: '174', total: '180', progress: '0.97' }
+2019-11-27T01:08:11: progress { at: '175', total: '180', progress: '0.97' }
+2019-11-27T01:08:11: frame=  174 fps=3.8 q=26.0 size=       1kB time=00:00:02.16 bitrate=   2.8kbits/s speed=0.0478x    
+2019-11-27T01:08:11: progress { at: '176', total: '180', progress: '0.98' }
+2019-11-27T01:08:11: progress { at: '177', total: '180', progress: '0.98' }
+2019-11-27T01:08:12: frame=  176 fps=3.8 q=26.0 size=       1kB time=00:00:02.20 bitrate=   2.8kbits/s speed=0.0478x    
+2019-11-27T01:08:12: progress { at: '178', total: '180', progress: '0.99' }
+2019-11-27T01:08:12: progress { at: '179', total: '180', progress: '0.99' }
+2019-11-27T01:08:12: frame=  178 fps=3.8 q=26.0 size=       1kB time=00:00:02.23 bitrate=   2.8kbits/s speed=0.048x    
+2019-11-27T01:08:12: progress { at: '180', total: '180', progress: '1.00' }
+2019-11-27T01:08:13: frame=  180 fps=3.8 q=26.0 size=       1kB time=00:00:02.26 bitrate=   2.7kbits/s speed=0.0481x    
+2019-11-27T01:08:13: frame=  182 fps=3.8 q=26.0 size=       1kB time=00:00:02.30 bitrate=   2.7kbits/s speed=0.0481x    
+2019-11-27T01:08:23: frame=  182 fps=3.2 q=26.0 Lsize=   42165kB time=00:00:02.98 bitrate=115779.3kbits/s speed=0.0519x    
+2019-11-27T01:08:23: video:42163kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 
+2019-11-27T01:08:23: 0.005587%
+2019-11-27T01:08:23: 
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] 
+2019-11-27T01:08:23: frame I:1     Avg QP:22.93  size:432001
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] 
+2019-11-27T01:08:23: frame P:46    Avg QP:26.68  size:322231
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] 
+2019-11-27T01:08:23: frame B:135   Avg QP:30.22  size:206809
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] 
+2019-11-27T01:08:23: consecutive B-frames:  1.1%  0.0%  0.0% 98.9%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] mb I  I16..4: 23.2%  2.0% 74.8%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] mb P  I16..4:  1.0%  1.0% 11.6%  P16..4:  7.6% 13.1% 43.1%  0.0%  0.0%    skip:22.7%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] mb B  I16..4:  0.0%  0.1%  0.7%  B16..8:  7.3% 11.1% 46.4%  direct:11.1%  skip:23.3%  L0:39.4% L1:32.0% BI:28.6%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] 8x8 transform intra:7.8% inter:2.0%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] coded y,uvDC,uvAC intra: 91.5% 93.3% 93.1% inter: 60.3% 68.4% 67.8%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] i16 v,h,dc,p: 39%  5% 55%  2%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu:  1%  7% 63%  5%  2%  1%  5%  3% 13%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu:  7% 21% 29%  5%  5%  5% 12%  5% 10%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] i8c dc,h,v,p: 66% 15%  4% 15%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] Weighted P-Frames: Y:0.0% UV:0.0%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] ref P L0: 38.9%  9.9% 24.1% 27.0%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] ref B L0: 76.9% 16.1%  7.0%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] ref B L1: 89.7% 10.3%
+2019-11-27T01:08:23: [libx264 @ 0x55601e93bbc0] kb/s:113865.09
+2019-11-27T01:08:23: file is at: /home/lok/video.wonglok.com/rendering-garden/public/preview/_4164642.mp4
+2019-11-27T01:08:23: cleanup complete!
+2019-11-27T01:08:53: made a engine
+2019-11-27T01:10:45: made a engine
+2019-11-27T01:10:52: progress { at: '0', total: '180', progress: '0.00' }
+2019-11-27T01:10:52: /home/lok/video.wonglok.com/rendering-garden/node_modules/gl/src/javascript/webgl-rendering-context.js:1387
+2019-11-27T01:10:52:     return super.clear(mask | 0)
+2019-11-27T01:10:52:                  ^
+2019-11-27T01:10:52: 
+2019-11-27T01:10:52: Error: Invalid GL context
+2019-11-27T01:10:52:     at WebGLRenderingContext.clear (/home/lok/video.wonglok.com/rendering-garden/node_modules/gl/src/javascript/webgl-rendering-context.js:1387:18)
+2019-11-27T01:10:52:     at WebGLRenderer.clear (/home/lok/video.wonglok.com/rendering-garden/node_modules/three/build/three.js:23957:8)
+2019-11-27T01:10:52:     at Object.render (/home/lok/video.wonglok.com/rendering-garden/node_modules/three/build/three.js:15252:14)
+2019-11-27T01:10:52:     at WebGLRenderer.render (/home/lok/video.wonglok.com/rendering-garden/node_modules/three/build/three.js:24623:15)
+2019-11-27T01:10:52:     at Object.api.render (/home/lok/video.wonglok.com/rendering-garden/main.js:47:14)
+2019-11-27T01:10:52:     at repeat (/home/lok/video.wonglok.com/rendering-garden/main.js:205:34)
+2019-11-27T01:10:52:     at Object.start (/home/lok/video.wonglok.com/rendering-garden/main.js:221:7)
+2019-11-27T01:10:52:     at Socket.<anonymous> (/home/lok/video.wonglok.com/rendering-garden/main.js:133:18)
+2019-11-27T01:10:52:     at Socket.emit (events.js:208:15)
+2019-11-27T01:10:52:     at /home/lok/video.wonglok.com/rendering-garden/node_modules/socket.io/lib/socket.js:528:12
+2019-11-27T01:10:52: npm
+2019-11-27T01:10:52:  
+2019-11-27T01:10:52: ERR!
+2019-11-27T01:10:52:  
+2019-11-27T01:10:52: code
+2019-11-27T01:10:52:  ELIFECYCLE
+2019-11-27T01:10:52: npm
+2019-11-27T01:10:52:  
+2019-11-27T01:10:52: ERR!
+2019-11-27T01:10:52:  
+2019-11-27T01:10:52: errno
+2019-11-27T01:10:52:  1
+2019-11-27T01:10:52: npm
+2019-11-27T01:10:52:  
+2019-11-27T01:10:52: ERR!
+2019-11-27T01:10:52:  rendering-garden@1.0.0 lin: `xvfb-run -s "-ac -screen 0 1080x1080x24" node main.js`
+2019-11-27T01:10:52: npm ERR! Exit status 1
+2019-11-27T01:10:52: npm ERR! 
+2019-11-27T01:10:52: npm ERR! Failed at the rendering-garden@1.0.0 lin script.
+2019-11-27T01:10:52: npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+2019-11-27T01:10:54: 
+2019-11-27T01:10:54: npm ERR! A complete log of this run can be found in:
+2019-11-27T01:10:54: npm ERR!     /home/lok/.npm/_logs/2019-11-27T01_10_52_654Z-debug.log
+2019-11-27T01:10:55: 
+2019-11-27T01:10:55: > rendering-garden@1.0.0 lin /home/lok/video.wonglok.com/rendering-garden
+2019-11-27T01:10:55: > xvfb-run -s "-ac -screen 0 1080x1080x24" node main.js
+2019-11-27T01:10:55: 
+2019-11-27T01:10:55: listening on *:3123
+2019-11-27T01:10:56: made a engine
+2019-11-27T01:10:57: made a engine
+2019-11-27T01:11:02: made a engine
+2019-11-27T01:11:03: made a engine
+2019-11-27T01:11:03: made a engine
+2019-11-27T01:11:03: made a engine
+2019-11-27T01:11:03: made a engine
+2019-11-27T01:11:03: made a engine
+2019-11-27T01:11:04: made a engine
+2019-11-27T01:11:04: made a engine
+2019-11-27T01:11:20: progress { at: '0', total: '150', progress: '0.00' }
+2019-11-27T01:11:20: progress { at: '0', total: '150', progress: '0.00' }
+2019-11-27T01:11:20: progress { at: '1', total: '150', progress: '0.01' }
+2019-11-27T01:11:20: ffmpeg version 3.4.6-0ubuntu0.18.04.1 Copyright (c) 2000-2019 the FFmpeg developers
+2019-11-27T01:11:20:   built with gcc 7 (Ubuntu 7.3.0-16ubuntu3)
+2019-11-27T01:11:20:   configuration: --prefix=/usr --extra-version=0ubuntu0.18.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --enable-gpl --disable-stripping --enable-avresample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librubberband --enable-librsvg --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-omx --enable-openal --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libopencv --enable-libx264 --enable-shared
+2019-11-27T01:11:20:   libavutil      55. 78.100 / 55. 78.100
+2019-11-27T01:11:20:   libavcodec     57.107.100 / 57.107.100
+2019-11-27T01:11:20:   libavformat    57. 83.100 / 57. 83.100
+2019-11-27T01:11:20:   libavdevice    57. 10.100 / 57. 10.100
+2019-11-27T01:11:20:   libavfilter     6.107.100 /  6.107.100
+2019-11-27T01:11:20:   libavresample   3.  7.  0 /  3.  7.  0
+2019-11-27T01:11:20:   libswscale      4.  8.100 /  4.  8.100
+2019-11-27T01:11:20:   libswresample   2.  9.100 /  2.  9.100
+2019-11-27T01:11:20:   libpostproc    54.  7.100 / 54.  7.100
+2019-11-27T01:11:20: (node:8599) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2019-11-27T01:11:20: progress { at: '2', total: '150', progress: '0.01' }
+2019-11-27T01:11:20: Input #0, rawvideo, from 'pipe:0':
+2019-11-27T01:11:20:   Duration: N/A, start: 0.000000, bitrate: 2239488 kb/s
+2019-11-27T01:11:20:     Stream #0:0: Video: rawvideo (RGBA / 0x41424752), rgba, 1080x1080, 2239488 kb/s, 60 tbr, 60 tbn, 60 tbc
+2019-11-27T01:11:20: Stream mapping:
+2019-11-27T01:11:20:   Stream #0:0 -> #0:0 (rawvideo (native) -> h264 (libx264))
+2019-11-27T01:11:21: [libx264 @ 0x55ee7c995bc0] 
+2019-11-27T01:11:21: using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+2019-11-27T01:11:21: [libx264 @ 0x55ee7c995bc0] 
+2019-11-27T01:11:21: profile High, level 4.2
+2019-11-27T01:11:21: [libx264 @ 0x55ee7c995bc0] 
+2019-11-27T01:11:21: 264 - core 152 r2854 e9a5903 - H.264/MPEG-4 AVC codec - Copyleft 2003-2017 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=1 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=18.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+2019-11-27T01:11:21: Output #0, mp4, to '/tmp/tempvid.mp4':
+2019-11-27T01:11:21:   Metadata:
+2019-11-27T01:11:21:     encoder         : Lavf57.83.100
+2019-11-27T01:11:21:     Stream #0:0: Video: h264 (libx264) (avc1 / 0x31637661), yuv420p, 1080x1080, q=-1--1, 60 fps, 15360 tbn, 60 tbc
+2019-11-27T01:11:21:     Metadata:
+2019-11-27T01:11:21:       encoder         : Lavc57.107.100 libx264
+2019-11-27T01:11:21:     Side data:
+2019-11-27T01:11:21:       cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: -1
+2019-11-27T01:11:21: progress { at: '3', total: '150', progress: '0.02' }
+2019-11-27T01:11:21: frame=    2 fps=0.0 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:11:21: progress { at: '4', total: '150', progress: '0.03' }
+2019-11-27T01:11:21: progress { at: '5', total: '150', progress: '0.03' }
+2019-11-27T01:11:21: progress { at: '6', total: '150', progress: '0.04' }
+2019-11-27T01:11:21: progress { at: '7', total: '150', progress: '0.05' }
+2019-11-27T01:11:21: progress { at: '8', total: '150', progress: '0.05' }
+2019-11-27T01:11:21: progress { at: '9', total: '150', progress: '0.06' }
+2019-11-27T01:11:22: progress { at: '10', total: '150', progress: '0.07' }
+2019-11-27T01:11:22: progress { at: '11', total: '150', progress: '0.07' }
+2019-11-27T01:11:22: frame=    9 fps=7.9 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:11:22: progress { at: '12', total: '150', progress: '0.08' }
+2019-11-27T01:11:22: progress { at: '13', total: '150', progress: '0.09' }
+2019-11-27T01:11:22: progress { at: '14', total: '150', progress: '0.09' }
+2019-11-27T01:11:22: frame=   13 fps=7.5 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:11:22: progress { at: '15', total: '150', progress: '0.10' }
+2019-11-27T01:11:23: progress { at: '16', total: '150', progress: '0.11' }
+2019-11-27T01:11:23: progress { at: '17', total: '150', progress: '0.11' }
+2019-11-27T01:11:23: frame=   16 fps=6.8 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:11:23: progress { at: '18', total: '150', progress: '0.12' }
+2019-11-27T01:11:23: progress { at: '19', total: '150', progress: '0.13' }
+2019-11-27T01:11:23: progress { at: '20', total: '150', progress: '0.13' }
+2019-11-27T01:11:23: progress { at: '21', total: '150', progress: '0.14' }
+2019-11-27T01:11:23: progress { at: '22', total: '150', progress: '0.15' }
+2019-11-27T01:11:23: progress { at: '23', total: '150', progress: '0.15' }
+2019-11-27T01:11:23: frame=   21 fps=7.3 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:11:24: progress { at: '24', total: '150', progress: '0.16' }
+2019-11-27T01:11:24: progress { at: '25', total: '150', progress: '0.17' }
+2019-11-27T01:11:24: progress { at: '26', total: '150', progress: '0.17' }
+2019-11-27T01:11:24: progress { at: '27', total: '150', progress: '0.18' }
+2019-11-27T01:11:24: progress { at: '28', total: '150', progress: '0.19' }
+2019-11-27T01:11:24: progress { at: '29', total: '150', progress: '0.19' }
+2019-11-27T01:11:24: progress { at: '30', total: '150', progress: '0.20' }
+2019-11-27T01:11:24: frame=   28 fps=8.2 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:11:24: progress { at: '31', total: '150', progress: '0.21' }
+2019-11-27T01:11:24: progress { at: '32', total: '150', progress: '0.21' }
+2019-11-27T01:11:24: progress { at: '33', total: '150', progress: '0.22' }
+2019-11-27T01:11:24: frame=   32 fps=8.1 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:11:24: progress { at: '34', total: '150', progress: '0.23' }
+2019-11-27T01:11:25: progress { at: '35', total: '150', progress: '0.23' }
+2019-11-27T01:11:25: progress { at: '36', total: '150', progress: '0.24' }
+2019-11-27T01:11:25: frame=   35 fps=7.8 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:11:25: progress { at: '37', total: '150', progress: '0.25' }
+2019-11-27T01:11:26: progress { at: '38', total: '150', progress: '0.25' }
+2019-11-27T01:11:26: progress { at: '39', total: '150', progress: '0.26' }
+2019-11-27T01:11:26: frame=   37 fps=7.2 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:11:26: progress { at: '40', total: '150', progress: '0.27' }
+2019-11-27T01:11:26: progress { at: '41', total: '150', progress: '0.27' }
+2019-11-27T01:11:26: frame=   40 fps=7.0 q=0.0 size=       1kB time=00:00:00.00 bitrate=N/A speed=   0x    
+2019-11-27T01:11:27: progress { at: '42', total: '150', progress: '0.28' }
+2019-11-27T01:11:27: progress { at: '43', total: '150', progress: '0.29' }
+2019-11-27T01:11:28: frame=   42 fps=6.2 q=26.0 size=       1kB time=-00:00:00.03 bitrate=N/A speed=N/A    
+2019-11-27T01:11:28: progress { at: '44', total: '150', progress: '0.29' }
+2019-11-27T01:11:29: frame=   43 fps=5.4 q=26.0 size=       1kB time=-00:00:00.01 bitrate=N/A speed=N/A    
+2019-11-27T01:11:29: progress { at: '45', total: '150', progress: '0.30' }
+2019-11-27T01:11:29: frame=   44 fps=5.1 q=26.0 size=       1kB time=00:00:00.00 bitrate=94523.1kbits/s speed=7.53e-06x    
+2019-11-27T01:11:29: progress { at: '46', total: '150', progress: '0.31' }
+2019-11-27T01:11:30: progress { at: '47', total: '150', progress: '0.31' }
+2019-11-27T01:11:30: frame=   46 fps=5.0 q=26.0 size=       1kB time=00:00:00.03 bitrate= 184.0kbits/s speed=0.00365x    
+2019-11-27T01:11:30: progress { at: '48', total: '150', progress: '0.32' }
+2019-11-27T01:11:30: progress { at: '49', total: '150', progress: '0.33' }
+2019-11-27T01:11:30: frame=   48 fps=4.9 q=26.0 size=       1kB time=00:00:00.06 bitrate=  92.1kbits/s speed=0.00681x    
+2019-11-27T01:11:30: progress { at: '50', total: '150', progress: '0.33' }
+2019-11-27T01:11:31: progress { at: '51', total: '150', progress: '0.34' }
+2019-11-27T01:11:31: frame=   50 fps=4.8 q=26.0 size=       1kB time=00:00:00.10 bitrate=  61.4kbits/s speed=0.00967x    
+2019-11-27T01:11:31: progress { at: '52', total: '150', progress: '0.35' }
+2019-11-27T01:11:31: progress { at: '53', total: '150', progress: '0.35' }
+2019-11-27T01:11:32: frame=   52 fps=4.7 q=26.0 size=       1kB time=00:00:00.13 bitrate=  46.1kbits/s speed=0.0121x    
+2019-11-27T01:11:32: progress { at: '54', total: '150', progress: '0.36' }
+2019-11-27T01:11:32: progress { at: '55', total: '150', progress: '0.37' }
+2019-11-27T01:11:33: frame=   54 fps=4.5 q=26.0 size=       1kB time=00:00:00.16 bitrate=  36.8kbits/s speed=0.014x    
+2019-11-27T01:11:33: progress { at: '56', total: '150', progress: '0.37' }
+2019-11-27T01:11:33: progress { at: '57', total: '150', progress: '0.38' }
+2019-11-27T01:11:33: frame=   56 fps=4.4 q=26.0 size=       1kB time=00:00:00.20 bitrate=  30.7kbits/s speed=0.0157x    
+2019-11-27T01:11:33: progress { at: '58', total: '150', progress: '0.39' }
+2019-11-27T01:11:34: progress { at: '59', total: '150', progress: '0.39' }
+2019-11-27T01:11:34: frame=   58 fps=4.3 q=26.0 size=       1kB time=00:00:00.23 bitrate=  26.3kbits/s speed=0.0175x    
+2019-11-27T01:11:34: progress { at: '60', total: '150', progress: '0.40' }
+2019-11-27T01:11:34: progress { at: '61', total: '150', progress: '0.41' }
+2019-11-27T01:11:35: frame=   60 fps=4.3 q=26.0 size=       1kB time=00:00:00.26 bitrate=  23.0kbits/s speed=0.0189x    
+2019-11-27T01:11:35: progress { at: '62', total: '150', progress: '0.41' }
+2019-11-27T01:11:35: progress { at: '63', total: '150', progress: '0.42' }
+2019-11-27T01:11:35: frame=   62 fps=4.2 q=26.0 size=       1kB time=00:00:00.30 bitrate=  20.5kbits/s speed=0.0205x    
+2019-11-27T01:11:35: progress { at: '64', total: '150', progress: '0.43' }
+2019-11-27T01:11:36: progress { at: '65', total: '150', progress: '0.43' }
+2019-11-27T01:11:36: frame=   64 fps=4.2 q=26.0 size=       1kB time=00:00:00.33 bitrate=  18.4kbits/s speed=0.0218x    
+2019-11-27T01:11:36: progress { at: '66', total: '150', progress: '0.44' }
+2019-11-27T01:11:36: progress { at: '67', total: '150', progress: '0.45' }
+2019-11-27T01:11:37: frame=   66 fps=4.1 q=26.0 size=       1kB time=00:00:00.36 bitrate=  16.8kbits/s speed=0.023x    
+2019-11-27T01:11:37: progress { at: '68', total: '150', progress: '0.45' }
+2019-11-27T01:11:38: progress { at: '69', total: '150', progress: '0.46' }
+2019-11-27T01:11:39: frame=   68 fps=3.9 q=26.0 size=       1kB time=00:00:00.40 bitrate=  15.4kbits/s speed=0.0231x    
+2019-11-27T01:11:39: progress { at: '70', total: '150', progress: '0.47' }
+2019-11-27T01:11:40: frame=   69 fps=3.7 q=26.0 size=       1kB time=00:00:00.41 bitrate=  14.7kbits/s speed=0.0224x    
+2019-11-27T01:11:40: progress { at: '71', total: '150', progress: '0.47' }
+2019-11-27T01:11:41: frame=   70 fps=3.6 q=26.0 size=       1kB time=00:00:00.43 bitrate=  14.2kbits/s speed=0.0222x    
+2019-11-27T01:11:41: progress { at: '72', total: '150', progress: '0.48' }
+2019-11-27T01:11:42: frame=   71 fps=3.5 q=26.0 size=       1kB time=00:00:00.45 bitrate=  13.7kbits/s speed=0.0222x    
+2019-11-27T01:11:42: progress { at: '73', total: '150', progress: '0.49' }
+2019-11-27T01:11:42: frame=   72 fps=3.4 q=26.0 size=       1kB time=00:00:00.46 bitrate=  13.2kbits/s speed=0.0219x    
+2019-11-27T01:11:42: progress { at: '74', total: '150', progress: '0.49' }
+2019-11-27T01:11:42: progress { at: '75', total: '150', progress: '0.50' }
+2019-11-27T01:11:43: frame=   74 fps=3.4 q=26.0 size=       1kB time=00:00:00.50 bitrate=  12.3kbits/s speed=0.0226x    
+2019-11-27T01:11:43: progress { at: '76', total: '150', progress: '0.51' }
+2019-11-27T01:11:43: progress { at: '77', total: '150', progress: '0.51' }
+2019-11-27T01:11:44: frame=   76 fps=3.3 q=26.0 size=       1kB time=00:00:00.53 bitrate=  11.5kbits/s speed=0.0233x    
+2019-11-27T01:11:44: progress { at: '78', total: '150', progress: '0.52' }
+2019-11-27T01:11:44: frame=   77 fps=3.3 q=26.0 size=       1kB time=00:00:00.55 bitrate=  11.2kbits/s speed=0.0235x    
+2019-11-27T01:11:44: progress { at: '79', total: '150', progress: '0.53' }
+2019-11-27T01:11:45: frame=   78 fps=3.3 q=26.0 size=       1kB time=00:00:00.56 bitrate=  10.8kbits/s speed=0.0236x    
+2019-11-27T01:11:45: progress { at: '80', total: '150', progress: '0.53' }
+2019-11-27T01:11:47: frame=   79 fps=3.2 q=26.0 size=       1kB time=00:00:00.58 bitrate=  10.5kbits/s speed=0.0236x    
+2019-11-27T01:11:47: progress { at: '81', total: '150', progress: '0.54' }
+2019-11-27T01:11:48: frame=   80 fps=3.0 q=26.0 size=       1kB time=00:00:00.60 bitrate=  10.2kbits/s speed=0.0224x    
+2019-11-27T01:11:48: progress { at: '82', total: '150', progress: '0.55' }
+2019-11-27T01:11:50: frame=   81 fps=2.9 q=26.0 size=       1kB time=00:00:00.61 bitrate=  10.0kbits/s speed=0.0221x    
+2019-11-27T01:11:50: progress { at: '83', total: '150', progress: '0.55' }
+2019-11-27T01:11:51: frame=   82 fps=2.8 q=26.0 size=       1kB time=00:00:00.63 bitrate=   9.7kbits/s speed=0.0216x    
+2019-11-27T01:11:51: progress { at: '84', total: '150', progress: '0.56' }
+2019-11-27T01:11:52: frame=   83 fps=2.7 q=26.0 size=       1kB time=00:00:00.65 bitrate=   9.5kbits/s speed=0.0213x    
+2019-11-27T01:11:52: progress { at: '85', total: '150', progress: '0.57' }
+2019-11-27T01:11:53: frame=   84 fps=2.6 q=26.0 size=       1kB time=00:00:00.66 bitrate=   9.2kbits/s speed=0.021x    
+2019-11-27T01:11:53: progress { at: '86', total: '150', progress: '0.57' }
+2019-11-27T01:11:53: frame=   85 fps=2.6 q=26.0 size=       1kB time=00:00:00.68 bitrate=   9.0kbits/s speed=0.0211x    
+2019-11-27T01:11:53: progress { at: '87', total: '150', progress: '0.58' }
+2019-11-27T01:11:54: frame=   86 fps=2.6 q=26.0 size=       1kB time=00:00:00.70 bitrate=   8.8kbits/s speed=0.0212x    
+2019-11-27T01:11:54: progress { at: '88', total: '150', progress: '0.59' }
+2019-11-27T01:11:55: frame=   87 fps=2.6 q=26.0 size=       1kB time=00:00:00.71 bitrate=   8.6kbits/s speed=0.0211x    
+2019-11-27T01:11:55: progress { at: '89', total: '150', progress: '0.59' }
+2019-11-27T01:11:56: frame=   88 fps=2.5 q=26.0 size=       1kB time=00:00:00.73 bitrate=   8.4kbits/s speed=0.0212x    
+2019-11-27T01:11:56: progress { at: '90', total: '150', progress: '0.60' }
+2019-11-27T01:11:57: frame=   89 fps=2.5 q=26.0 size=       1kB time=00:00:00.75 bitrate=   8.2kbits/s speed=0.021x    
+2019-11-27T01:11:57: progress { at: '91', total: '150', progress: '0.61' }
+2019-11-27T01:11:58: frame=   90 fps=2.4 q=26.0 size=       1kB time=00:00:00.76 bitrate=   8.0kbits/s speed=0.0208x    
+2019-11-27T01:11:59: progress { at: '92', total: '150', progress: '0.61' }
+2019-11-27T01:12:11: frame=   91 fps=2.4 q=26.0 size=       1kB time=00:00:00.78 bitrate=   7.8kbits/s speed=0.0208x    
+2019-11-27T01:12:11: progress { at: '93', total: '150', progress: '0.62' }
+2019-11-27T01:12:11: frame=   92 fps=1.8 q=26.0 size=       1kB time=00:00:00.80 bitrate=   7.7kbits/s speed=0.0159x    
+2019-11-27T01:12:11: progress { at: '94', total: '150', progress: '0.63' }
+2019-11-27T01:12:11: frame=   93 fps=1.8 q=26.0 size=       1kB time=00:00:00.81 bitrate=   7.5kbits/s speed=0.0161x    
+2019-11-27T01:12:11: progress { at: '95', total: '150', progress: '0.63' }
+2019-11-27T01:12:12: progress { at: '96', total: '150', progress: '0.64' }
+2019-11-27T01:12:12: frame=   95 fps=1.9 q=26.0 size=       1kB time=00:00:00.85 bitrate=   7.2kbits/s speed=0.0166x    
+2019-11-27T01:12:12: progress { at: '97', total: '150', progress: '0.65' }
+2019-11-27T01:12:12: progress { at: '98', total: '150', progress: '0.65' }
+2019-11-27T01:12:13: frame=   97 fps=1.9 q=26.0 size=       1kB time=00:00:00.88 bitrate=   7.0kbits/s speed=0.017x    
+2019-11-27T01:12:13: progress { at: '99', total: '150', progress: '0.66' }
+2019-11-27T01:12:13: progress { at: '100', total: '150', progress: '0.67' }
+2019-11-27T01:12:13: frame=   99 fps=1.9 q=26.0 size=       1kB time=00:00:00.91 bitrate=   6.7kbits/s speed=0.0175x    
+2019-11-27T01:12:13: progress { at: '101', total: '150', progress: '0.67' }
+2019-11-27T01:12:14: progress { at: '102', total: '150', progress: '0.68' }
+2019-11-27T01:12:14: frame=  101 fps=1.9 q=26.0 size=       1kB time=00:00:00.95 bitrate=   6.5kbits/s speed=0.0179x    
+2019-11-27T01:12:14: progress { at: '103', total: '150', progress: '0.69' }
+2019-11-27T01:12:14: progress { at: '104', total: '150', progress: '0.69' }
+2019-11-27T01:12:14: progress { at: '105', total: '150', progress: '0.70' }
+2019-11-27T01:12:15: frame=  104 fps=1.9 q=26.0 size=       1kB time=00:00:01.00 bitrate=   6.1kbits/s speed=0.0185x    
+2019-11-27T01:12:15: progress { at: '106', total: '150', progress: '0.71' }
+2019-11-27T01:12:15: progress { at: '107', total: '150', progress: '0.71' }
+2019-11-27T01:12:15: frame=  106 fps=1.9 q=26.0 size=       1kB time=00:00:01.03 bitrate=   5.9kbits/s speed=0.0189x    
+2019-11-27T01:12:15: progress { at: '108', total: '150', progress: '0.72' }
+2019-11-27T01:12:16: progress { at: '109', total: '150', progress: '0.73' }
+2019-11-27T01:12:17: frame=  108 fps=1.9 q=26.0 size=       1kB time=00:00:01.06 bitrate=   5.8kbits/s speed=0.0192x    
+2019-11-27T01:12:17: progress { at: '110', total: '150', progress: '0.73' }
+2019-11-27T01:12:17: frame=  109 fps=1.9 q=26.0 size=       1kB time=00:00:01.08 bitrate=   5.7kbits/s speed=0.0193x    
+2019-11-27T01:12:17: progress { at: '111', total: '150', progress: '0.74' }
+2019-11-27T01:12:18: frame=  110 fps=1.9 q=26.0 size=       1kB time=00:00:01.10 bitrate=   5.6kbits/s speed=0.0194x    
+2019-11-27T01:12:18: progress { at: '112', total: '150', progress: '0.75' }
+2019-11-27T01:12:18: frame=  111 fps=1.9 q=26.0 size=       1kB time=00:00:01.11 bitrate=   5.5kbits/s speed=0.0194x    
+2019-11-27T01:12:18: progress { at: '113', total: '150', progress: '0.75' }
+2019-11-27T01:12:19: frame=  112 fps=1.9 q=26.0 size=       1kB time=00:00:01.13 bitrate=   5.4kbits/s speed=0.0195x    
+2019-11-27T01:12:19: progress { at: '114', total: '150', progress: '0.76' }
+2019-11-27T01:12:19: progress { at: '115', total: '150', progress: '0.77' }
+2019-11-27T01:12:19: frame=  114 fps=1.9 q=26.0 size=       1kB time=00:00:01.16 bitrate=   5.3kbits/s speed=0.0199x    
+2019-11-27T01:12:19: progress { at: '116', total: '150', progress: '0.77' }
+2019-11-27T01:12:20: progress { at: '117', total: '150', progress: '0.78' }
+2019-11-27T01:12:20: frame=  116 fps=2.0 q=26.0 size=       1kB time=00:00:01.20 bitrate=   5.1kbits/s speed=0.0202x    
+2019-11-27T01:12:20: progress { at: '118', total: '150', progress: '0.79' }
+2019-11-27T01:12:20: progress { at: '119', total: '150', progress: '0.79' }
+2019-11-27T01:12:20: frame=  118 fps=2.0 q=26.0 size=       1kB time=00:00:01.23 bitrate=   5.0kbits/s speed=0.0206x    
+2019-11-27T01:12:20: progress { at: '120', total: '150', progress: '0.80' }
+2019-11-27T01:12:21: progress { at: '121', total: '150', progress: '0.81' }
+2019-11-27T01:12:21: frame=  120 fps=2.0 q=26.0 size=       1kB time=00:00:01.26 bitrate=   4.9kbits/s speed=0.021x    
+2019-11-27T01:12:21: progress { at: '122', total: '150', progress: '0.81' }
+2019-11-27T01:12:21: progress { at: '123', total: '150', progress: '0.82' }
+2019-11-27T01:12:22: frame=  122 fps=2.0 q=26.0 size=       1kB time=00:00:01.30 bitrate=   4.7kbits/s speed=0.0213x    
+2019-11-27T01:12:22: progress { at: '124', total: '150', progress: '0.83' }
+2019-11-27T01:12:22: progress { at: '125', total: '150', progress: '0.83' }
+2019-11-27T01:12:22: frame=  124 fps=2.0 q=26.0 size=       1kB time=00:00:01.33 bitrate=   4.6kbits/s speed=0.0216x    
+2019-11-27T01:12:22: progress { at: '126', total: '150', progress: '0.84' }
+2019-11-27T01:12:23: progress { at: '127', total: '150', progress: '0.85' }
+2019-11-27T01:12:23: frame=  126 fps=2.0 q=26.0 size=       1kB time=00:00:01.36 bitrate=   4.5kbits/s speed=0.0219x    
+2019-11-27T01:12:23: progress { at: '128', total: '150', progress: '0.85' }
+2019-11-27T01:12:23: progress { at: '129', total: '150', progress: '0.86' }
+2019-11-27T01:12:24: frame=  128 fps=2.0 q=26.0 size=       1kB time=00:00:01.40 bitrate=   4.4kbits/s speed=0.0222x    
+2019-11-27T01:12:24: progress { at: '130', total: '150', progress: '0.87' }
+2019-11-27T01:12:24: progress { at: '131', total: '150', progress: '0.87' }
+2019-11-27T01:12:24: frame=  130 fps=2.0 q=26.0 size=       1kB time=00:00:01.43 bitrate=   4.3kbits/s speed=0.0226x    
+2019-11-27T01:12:24: progress { at: '132', total: '150', progress: '0.88' }
+2019-11-27T01:12:25: progress { at: '133', total: '150', progress: '0.89' }
+2019-11-27T01:12:25: frame=  132 fps=2.1 q=26.0 size=       1kB time=00:00:01.46 bitrate=   4.2kbits/s speed=0.0229x    
+2019-11-27T01:12:25: progress { at: '134', total: '150', progress: '0.89' }
+2019-11-27T01:12:25: progress { at: '135', total: '150', progress: '0.90' }
+2019-11-27T01:12:25: frame=  134 fps=2.1 q=26.0 size=       1kB time=00:00:01.50 bitrate=   4.1kbits/s speed=0.0232x    
+2019-11-27T01:12:25: progress { at: '136', total: '150', progress: '0.91' }
+2019-11-27T01:12:26: progress { at: '137', total: '150', progress: '0.91' }
+2019-11-27T01:12:26: frame=  136 fps=2.1 q=26.0 size=       1kB time=00:00:01.53 bitrate=   4.0kbits/s speed=0.0235x    
+2019-11-27T01:12:26: progress { at: '138', total: '150', progress: '0.92' }
+2019-11-27T01:12:26: progress { at: '139', total: '150', progress: '0.93' }
+2019-11-27T01:12:27: frame=  138 fps=2.1 q=26.0 size=       1kB time=00:00:01.56 bitrate=   3.9kbits/s speed=0.0238x    
+2019-11-27T01:12:27: progress { at: '140', total: '150', progress: '0.93' }
+2019-11-27T01:12:27: progress { at: '141', total: '150', progress: '0.94' }
+2019-11-27T01:12:27: frame=  140 fps=2.1 q=26.0 size=       1kB time=00:00:01.60 bitrate=   3.8kbits/s speed=0.024x    
+2019-11-27T01:12:27: progress { at: '142', total: '150', progress: '0.95' }
+2019-11-27T01:12:27: progress { at: '143', total: '150', progress: '0.95' }
+2019-11-27T01:12:28: frame=  142 fps=2.1 q=26.0 size=       1kB time=00:00:01.63 bitrate=   3.8kbits/s speed=0.0243x    
+2019-11-27T01:12:28: progress { at: '144', total: '150', progress: '0.96' }
+2019-11-27T01:12:28: progress { at: '145', total: '150', progress: '0.97' }
+2019-11-27T01:12:28: frame=  144 fps=2.1 q=26.0 size=       1kB time=00:00:01.66 bitrate=   3.7kbits/s speed=0.0246x    
+2019-11-27T01:12:28: progress { at: '146', total: '150', progress: '0.97' }
+2019-11-27T01:12:29: progress { at: '147', total: '150', progress: '0.98' }
+2019-11-27T01:12:29: frame=  146 fps=2.1 q=26.0 size=       1kB time=00:00:01.70 bitrate=   3.6kbits/s speed=0.0249x    
+2019-11-27T01:12:29: progress { at: '148', total: '150', progress: '0.99' }
+2019-11-27T01:12:29: progress { at: '149', total: '150', progress: '0.99' }
+2019-11-27T01:12:30: frame=  148 fps=2.1 q=26.0 size=       1kB time=00:00:01.73 bitrate=   3.5kbits/s speed=0.0251x    
+2019-11-27T01:12:30: progress { at: '150', total: '150', progress: '1.00' }
+2019-11-27T01:12:30: frame=  150 fps=2.2 q=26.0 size=       1kB time=00:00:01.76 bitrate=   3.5kbits/s speed=0.0254x    
+2019-11-27T01:12:31: frame=  152 fps=2.2 q=26.0 size=       1kB time=00:00:01.80 bitrate=   3.4kbits/s speed=0.0257x    
+2019-11-27T01:12:40: frame=  152 fps=1.9 q=26.0 Lsize=   35224kB time=00:00:02.48 bitrate=116193.9kbits/s speed=0.0312x    
+2019-11-27T01:12:40: video:35222kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 
+2019-11-27T01:12:40: 0.006022%
+2019-11-27T01:12:40: 
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] 
+2019-11-27T01:12:40: frame I:1     Avg QP:22.93  size:432001
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] 
+2019-11-27T01:12:40: frame P:38    Avg QP:26.66  size:323749
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] 
+2019-11-27T01:12:40: frame B:113   Avg QP:30.23  size:206479
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] 
+2019-11-27T01:12:40: consecutive B-frames:  0.7%  0.0%  2.0% 97.4%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] 
+2019-11-27T01:12:40: mb I  I16..4: 23.2%  2.0% 74.8%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] 
+2019-11-27T01:12:40: mb P  I16..4:  0.9%  1.0% 11.9%  P16..4:  7.6% 12.9% 43.1%  0.0%  0.0%    skip:22.6%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] 
+2019-11-27T01:12:40: mb B  I16..4:  0.0%  0.1%  0.6%  B16..8:  7.4% 11.1% 46.3%  direct:11.1%  skip:23.3%  L0:39.5% L1:32.0% BI:28.5%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] 8x8 transform intra:7.6% inter:2.0%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] coded y,uvDC,uvAC intra: 91.3% 93.1% 92.8% inter: 60.2% 68.4% 67.7%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] i16 v,h,dc,p: 44%  5% 50%  2%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu:  1%  8% 63%  5%  1%  1%  5%  3% 13%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu:  7% 21% 29%  5%  5%  5% 12%  5% 10%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] i8c dc,h,v,p: 66% 15%  4% 15%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] Weighted P-Frames: Y:0.0% UV:0.0%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] ref P L0: 38.6%  9.9% 24.3% 27.2%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] ref B L0: 76.8% 16.2%  7.0%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] ref B L1: 89.8% 10.2%
+2019-11-27T01:12:40: [libx264 @ 0x55ee7c995bc0] kb/s:113894.50
+2019-11-27T01:12:40: file is at: /home/lok/video.wonglok.com/rendering-garden/public/preview/_1229780.mp4
+2019-11-27T01:12:40: cleanup complete!
+2019-11-27T01:13:22: made a engine
+2019-11-27T01:13:23: made a engine
+2019-11-27T01:13:24: made a engine
+2019-11-27T01:13:24: made a engine
+2019-11-27T01:14:25: 
+2019-11-27T01:14:25: > rendering-garden@1.0.0 lin /home/lok/video.wonglok.com/rendering-garden
+2019-11-27T01:14:25: > xvfb-run -s "-ac -screen 0 1080x1080x24" node main.js
+2019-11-27T01:14:25: 
+2019-11-27T01:14:26: listening on *:3123
+2019-11-27T01:14:26: connected
+2019-11-27T01:14:30: connected
