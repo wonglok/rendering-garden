@@ -4,7 +4,7 @@ let makeEngine = ({ camera, scene, width, height }) => {
   const api = {}
   const gl = createContext(width, height, {
     preserveDrawingBuffer: true,
-    // antialias: true
+    antialias: true
   })
   let _getExtension = gl.getExtension
   gl.getExtension = (v) => {
@@ -24,7 +24,7 @@ let makeEngine = ({ camera, scene, width, height }) => {
   };
 
   const renderer = new THREE.WebGLRenderer({
-    // antialias: true,
+    antialias: true,
     width: 0,
     height: 0,
     canvas: canvas,
@@ -76,20 +76,81 @@ let makeCamera = ({ scene, width, height }) => {
   return camera
 }
 
-let makeBox = ({ tasks, scene }) => {
-  const THREE = require('three')
+let loadTexture = ({ file }) => {
+  return new Promise((resolve, reject) => {
+    const THREE = require('three')
+    var getPixels = require('get-pixels')
+    getPixels(file, (err, pixels) => {
+      if (err) {
+        console.log('Bad image path')
+        reject(err)
+        return
+      }
 
+      let info = pixels.shape
+      console.log('got pixels', info)
+
+      let texture = new THREE.DataTexture(pixels.data, info[0], info[1], info[2] === 4 ? THREE.RGBAFormat : THREE.RGBFormat)
+      texture.needsUpdate = true
+      resolve({
+        width: info[0],
+        height: info[1],
+        texture
+      })
+    })
+  })
+}
+
+let getID = () => {
+  return `_${(Math.random() * 10000000).toFixed(0)}`
+}
+
+let makeBox = async ({ tasks, scene, web }) => {
+  const id = getID()
+  const THREE = require('three')
+  const path = require('path')
+  web.notify('loading texture....')
+  let { texture, width, height } = await loadTexture({ file: path.join(__dirname, './img/nirmal-rajendharkumar-FMwrQjB0q-U-unsplash.jpg') })
+  let glsl = v => v[0]
   let geo = new THREE.SphereBufferGeometry(30, 64, 64)
-  let mat = new THREE.MeshBasicMaterial({
-    color: 0xff00ff,
-    wireframe: true,
+  let mat = new THREE.ShaderMaterial({
+    uniforms: {
+      time: { value: 0 },
+      tex: { value: texture }
+    },
+    vertexShader: glsl`
+      #include <common>
+      varying vec2 vUv;
+      uniform float time;
+      void main (void) {
+        vUv = uv;
+        vec3 nPos = position;
+        nPos.x += sin(nPos.y * 0.1 + time * 10.0) * 2.0;
+
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(nPos, 1.0);
+      }
+    `,
+    fragmentShader: glsl`
+      varying vec2 vUv;
+      uniform sampler2D tex;
+      uniform float time;
+
+      void main (void) {
+        vec4 color = texture2D(tex, vUv);
+        color.r *= abs(sin(time));
+        gl_FragColor = vec4(color);
+      }
+    `,
+    // color: 0xff00ff,
+    // wireframe: true,
     side: THREE.DoubleSide
   })
 
   let mesh = new THREE.Mesh(geo, mat)
   scene.add(mesh)
 
-  tasks.box = ({ clock, delta }) => {
+  tasks[id] = ({ clock, delta }) => {
+    mat.uniforms.time.value = clock * 0.0001
     mesh.rotation.x += delta * 0.0001
   }
 
@@ -117,22 +178,14 @@ let makeWebServer = () => {
       io.emit('chat message', msg);
     });
 
-    socket.on('chat message', (msg) => {
+    socket.on('chat message', async (msg) => {
       if (msg === 'start') {
         console.log('made a engine')
-        let videoAPI = makeVideoAPI({
-          onFinalising: () => {
-            io.emit('chat message', `
-              Finalising Video... Please wait....
-            `);
-          },
-          onDone: ({ file, filename }) => {
-            io.emit('chat message', `
-              <a target="_blank" href="/preview/${filename}">${filename}</a>
-            `);
-          },
-          onLog: ({ at, total, progress }) => {
-            io.emit('chat message', `Progress: ${(progress * 100).toFixed(2)}%`);
+        let videoAPI = await makeVideoAPI({
+          web: {
+            notify: (msg) => {
+              io.emit('chat message', `${msg}`);
+            }
           }
         })
         videoAPI.start()
@@ -141,9 +194,7 @@ let makeWebServer = () => {
     socket.once('disconnect', () => {
       console.log('disconnect')
     })
-
   });
-
 
   http.listen(port, function(){
     console.log('listening on *:' + port);
@@ -153,20 +204,23 @@ let makeWebServer = () => {
     io
   }
 }
+let webShim = {
+  notify: () => {}
+}
 
-let makeVideoAPI = ({ onDone = () => {}, onFinalising = () => {}, onLog = () => {} }) => {
+let makeVideoAPI = async ({ web = webShim }) => {
   let core = {
-    fps: 24,
+    fps: 30,
     width: 720,
     height: 720,
-    videoLength: 45,
+    videoLength: 3,
     previewFolder: 'public/preview',
     tasks: {}
   }
   core.scene = makeScene()
   core.camera = makeCamera({ ...core })
   core.renderAPI = makeEngine({ ...core })
-  core.boxAPI = makeBox({ ...core })
+  core.boxAPI = await makeBox({ ...core, web })
   core.computeTasks = ({ clock, delta }) => {
     for (var kn in core.tasks) {
       core.tasks[kn]({ clock, delta })
@@ -182,23 +236,24 @@ let makeVideoAPI = ({ onDone = () => {}, onFinalising = () => {}, onLog = () => 
   const filename = './tempvid.mp4'
   const encoder = new Encoder({ output: path.join(temp, filename), width: core.width, height: core.height, fps: core.fps });
   encoder.promise.then(({ output }) => {
-    onFinalising({})
+    web.notify('Video is online....')
     let newFilename = `_${(Math.random() * 10000000).toFixed(0)}.mp4`
     let newfile = path.join(__dirname, core.previewFolder, newFilename)
     fs.rename(output, newfile, (err) => {
       if (err) throw err;
       console.log('file is at:', newfile);
+
+      web.notify(`Video is ready. <a target="_blank" href="/preview/${newFilename}">Generated Video File: ${newFilename}</a>`)
       // fs.unlinkSync(output)
       console.log('cleanup complete!');
       // encoder.kill()
-      onDone({ file: newfile, filename: newFilename })
     });
   });
   // encoder.on('console', (evt) => {
   //   // console.log(evt)
   // });
   encoder.on('done', (evt) => {
-    onFinalising({})
+    web.notify('Finished encoding video....')
   });
 
   var abort = false
@@ -219,7 +274,7 @@ let makeVideoAPI = ({ onDone = () => {}, onFinalising = () => {}, onLog = () => 
     }
 
     console.log('progress', progress)
-    onLog(progress)
+    web.notify(`Progress: ${((now / total) * 100).toFixed(2).padStart(6, '0')}%, ${now.toFixed(0).padStart(6, '0')} / ${total.toFixed(0).padStart(6, '0')} Frames Compiled`);
 
     clockNow += DELTA
     core.computeTasks({ clock: clockNow, delta: DELTA })

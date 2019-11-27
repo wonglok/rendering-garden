@@ -36,11 +36,11 @@ module.exports = class Encoder extends EventEmitter {
           '-c:a', 'aac',
           '-pix_fmt', 'yuv420p',
           // '-crf', '18',
-          '-crf', '28',
+          '-crf', '18',
           '-tune', 'fastdecode',
           '-preset', 'ultrafast',
           '-movflags', 'frag_keyframe+empty_moov+faststart',
-          '-framerate', '30',
+          '-framerate', `${fps}`,
 
           '-f', 'mp4',
 
