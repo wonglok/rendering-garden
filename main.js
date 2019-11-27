@@ -98,7 +98,7 @@ let makeBox = ({ tasks, scene }) => {
   }
 }
 
-let makeWebServer = ({ core }) => {
+let makeWebServer = () => {
   let express = require('express');
   var app = express();
   var http = require('http').Server(app);
@@ -120,9 +120,7 @@ let makeWebServer = ({ core }) => {
     socket.on('chat message', (msg) => {
       if (msg === 'start') {
         console.log('made a engine')
-        core.renderAPI = makeEngine({ ...core })
-        let videoAPI = core.makeVideoAPI({
-          core,
+        let videoAPI = makeVideoAPI({
           onFinalising: () => {
             io.emit('chat message', `
               Finalising Video... Please wait....
@@ -156,7 +154,25 @@ let makeWebServer = ({ core }) => {
   }
 }
 
-let makeVideoAPI = ({ core, onDone = () => {}, onFinalising = () => {}, onLog = () => {} }) => {
+let makeVideoAPI = ({ onDone = () => {}, onFinalising = () => {}, onLog = () => {} }) => {
+  let core = {
+    fps: 30,
+    width: 720,
+    height: 720,
+    videoLength: 10,
+    previewFolder: 'public/preview',
+    tasks: {}
+  }
+  core.scene = makeScene()
+  core.camera = makeCamera({ ...core })
+  core.renderAPI = makeEngine({ ...core })
+  core.boxAPI = makeBox({ ...core })
+  core.computeTasks = ({ clock, delta }) => {
+    for (var kn in core.tasks) {
+      core.tasks[kn]({ clock, delta })
+    }
+  }
+
   const path = require('path');
   const os = require('os');
   const fs = require('fs');
@@ -169,10 +185,10 @@ let makeVideoAPI = ({ core, onDone = () => {}, onFinalising = () => {}, onLog = 
     onFinalising({})
     let newFilename = `_${(Math.random() * 10000000).toFixed(0)}.mp4`
     let newfile = path.join(__dirname, core.previewFolder, newFilename)
-    fs.copyFile(output, newfile, (err) => {
+    fs.rename(output, newfile, (err) => {
       if (err) throw err;
       console.log('file is at:', newfile);
-      fs.unlinkSync(output)
+      // fs.unlinkSync(output)
       console.log('cleanup complete!');
       // encoder.kill()
       onDone({ file: newfile, filename: newFilename })
@@ -231,52 +247,4 @@ let makeVideoAPI = ({ core, onDone = () => {}, onFinalising = () => {}, onLog = 
   }
 }
 
-let makeCinematicEngine = () => {
-  let Tests = {}
-
-  let core = {
-    fps: 30,
-    width: 720,
-    height: 720,
-    videoLength: 10,
-    previewFolder: 'public/preview',
-    tasks: {}
-  }
-
-
-  core.makeVideoAPI = makeVideoAPI
-
-  core.scene = makeScene()
-  core.camera = makeCamera({ ...core })
-  core.renderAPI = makeEngine({ ...core })
-  core.boxAPI = makeBox({ ...core })
-  core.computeTasks = ({ clock, delta }) => {
-    for (var kn in core.tasks) {
-      core.tasks[kn]({ clock, delta })
-    }
-  }
-
-  core.web = makeWebServer({ ...core, core })
-
-  // Tests.video = () => {
-  //   // experiment
-  //   let videoAPI = makeVideo({
-  //     core,
-  //     onLog: ({ at, total, progress }) => {
-  //       // console.log(progress + '%')
-  //     },
-  //     onDone: ({ file }) => {
-
-  //     }
-  //   })
-  //   videoAPI.start()
-  //   // setTimeout(() => {
-  //   //   videoAPI.abort()
-  //   // }, 2000)
-  // }
-  return core
-}
-
-makeCinematicEngine()
-
-// grep server_name /etc/nginx/sites-enabled/* -RiI
+makeWebServer()
