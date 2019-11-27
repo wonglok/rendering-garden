@@ -6,7 +6,12 @@
   "scripts": {
     "start": "node main.js",
     "dev": "nodemon main.js",
-    "lin": "xvfb-run -s \"-ac -screen 0 1280x1024x24\" node main.js"
+    "lin": "xvfb-run -s \"-ac -screen 0 1080x1080x24\" node main.js",
+    "pm2create": "pm2 start ecosystem.config.js",
+    "kill1337": "sudo kill -9 `sudo lsof -t -i:1337`",
+    "pm2kill": "pm2 delete ecosystem.config.js",
+    "pm2restart": "npm run pm2kill; npm run pm2create;",
+    "log": "tail -f ./.cache/logs/combined.log"
   },
   "author": "",
   "license": "ISC",

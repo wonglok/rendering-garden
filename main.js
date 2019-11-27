@@ -193,7 +193,7 @@ let makeVideoAPI = ({ core, onDone = () => {}, onLog = () => {} }) => {
     const progress = {
       at: now.toFixed(0),
       total: total.toFixed(0),
-      progress: Number((now / total).toFixed(2))
+      progress: (now / total).toFixed(2)
     }
     console.log('progress', progress);
     onLog(progress)
@@ -232,7 +232,7 @@ let makeCinematicEngine = () => {
   let core = {
     width: 1080,
     height: 1080,
-    videoLength: 5,
+    videoLength: 3,
     previewFolder: 'public/preview',
     tasks: {}
   }

@@ -46,7 +46,7 @@ module.exports = class Encoder extends EventEmitter {
 
         ]);
 
-        this.ffmpegProcess  = spawn('./ffmpeg.bin', args);
+        this.ffmpegProcess  = spawn('ffmpeg', args);
 
         this.ffmpegProcess.stderr.on('data', (data) => {
           var buff = new Buffer(data);
