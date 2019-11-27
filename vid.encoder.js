@@ -16,7 +16,7 @@ module.exports = class Encoder extends EventEmitter {
           '-y',
           // '-f', 'image2pipe',
           // raw 1080 pixel
-          '-f', 'rawvideo', '-vcodec', 'rawvideo', '-s', '1080x1080', '-pix_fmt', 'rgba', '-r', '60',
+          '-f', 'rawvideo', '-vcodec', 'rawvideo', '-s', '720x720', '-pix_fmt', 'rgba', '-r', '60',
           '-i', 'pipe:0',
         ]);
 
@@ -48,12 +48,12 @@ module.exports = class Encoder extends EventEmitter {
 
         this.ffmpegProcess  = spawn('ffmpeg', args);
 
-        this.ffmpegProcess.stderr.on('data', (data) => {
-          var buff = new Buffer(data);
-          let str = buff.toString('utf8');
-          // console.log(str);
-          this.emit('console', str);
-        });
+        // this.ffmpegProcess.stderr.on('data', (data) => {
+        //   var buff = new Buffer(data);
+        //   let str = buff.toString('utf8');
+        //   // console.log(str);
+        //   this.emit('console', str);
+        // });
 
         // this.ffmpegProcess.stderr.on('end', function(data){
         //   // var buff = new Buffer(data);

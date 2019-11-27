@@ -120,29 +120,28 @@ let makeWebServer = ({ core }) => {
     socket.on('chat message', (msg) => {
       if (msg === 'start') {
         console.log('made a engine')
+        core.renderAPI = makeEngine({ ...core })
         let videoAPI = core.makeVideoAPI({
           core,
+          onFinalising: () => {
+            io.emit('chat message', `
+              Finalising Video... Please wait....
+            `);
+          },
           onDone: ({ file, filename }) => {
             io.emit('chat message', `
               <a target="_blank" href="/preview/${filename}">${filename}</a>
             `);
           },
           onLog: ({ at, total, progress }) => {
-            io.emit('chat message', `Progress: ${progress * 100}%`);
+            io.emit('chat message', `Progress: ${(progress * 100).toFixed(2)}%`);
           }
         })
         videoAPI.start()
-
-        socket.once('chat message', () => {
-          if (msg === 'abort' && videoAPI) {
-            videoAPI.abort()
-          }
-        })
-        socket.once('disconnect', () => {
-          console.log('disconnected')
-          videoAPI = null
-        })
       }
+    })
+    socket.once('disconnect', () => {
+      console.log('disconnect')
     })
 
   });
@@ -157,7 +156,7 @@ let makeWebServer = ({ core }) => {
   }
 }
 
-let makeVideoAPI = ({ core, onDone = () => {}, onLog = () => {} }) => {
+let makeVideoAPI = ({ core, onDone = () => {}, onFinalising = () => {}, onLog = () => {} }) => {
   const path = require('path');
   const os = require('os');
   const fs = require('fs');
@@ -167,6 +166,7 @@ let makeVideoAPI = ({ core, onDone = () => {}, onLog = () => {} }) => {
   const filename = './tempvid.mp4'
   const encoder = new Encoder({ output: path.join(temp, filename) });
   encoder.promise.then(({ output }) => {
+    onFinalising({})
     let newFilename = `_${(Math.random() * 10000000).toFixed(0)}.mp4`
     let newfile = path.join(__dirname, core.previewFolder, newFilename)
     fs.copyFile(output, newfile, (err) => {
@@ -174,13 +174,13 @@ let makeVideoAPI = ({ core, onDone = () => {}, onLog = () => {} }) => {
       console.log('file is at:', newfile);
       fs.unlinkSync(output)
       console.log('cleanup complete!');
-      encoder.kill()
+      // encoder.kill()
       onDone({ file: newfile, filename: newFilename })
     });
   });
-  encoder.on('console', (evt) => {
-    // console.log(evt)
-  });
+  // encoder.on('console', (evt) => {
+  //   // console.log(evt)
+  // });
   encoder.on('done', (evt) => {
   });
 
@@ -198,22 +198,21 @@ let makeVideoAPI = ({ core, onDone = () => {}, onLog = () => {} }) => {
     const progress = {
       at: now.toFixed(0),
       total: total.toFixed(0),
-      progress: (now / total).toFixed(2)
+      progress: (now / total).toFixed(4)
     }
-    console.log('progress', progress);
+
+    console.log('progress', progress)
     onLog(progress)
 
-    const { renderAPI, updateAnimation } = core
-
     clockNow += DELTA
-    updateAnimation({ clock: clockNow, delta: DELTA })
-    const { pixels } = renderAPI.render()
+    core.computeTasks({ clock: clockNow, delta: DELTA })
+    const { pixels } = core.renderAPI.render()
     const combined = Buffer.from(pixels);
     encoder.passThrough.write(combined, () => {
       if (i > total || abort) {
         encoder.passThrough.end();
         process.nextTick(() => {
-          renderAPI.destory();
+          core.renderAPI.destory();
         });
       } else {
         process.nextTick(repeat);
@@ -235,44 +234,42 @@ let makeCinematicEngine = () => {
   let Tests = {}
 
   let core = {
-    width: 1080,
-    height: 1080,
-    videoLength: 2.5,
+    width: 720,
+    height: 720,
+    videoLength: 10,
     previewFolder: 'public/preview',
     tasks: {}
   }
 
 
+  core.makeVideoAPI = makeVideoAPI
+
   core.scene = makeScene()
   core.camera = makeCamera({ ...core })
   core.renderAPI = makeEngine({ ...core })
-
   core.boxAPI = makeBox({ ...core })
-
-  core.makeVideoAPI = makeVideoAPI
-
-  core.updateAnimation = ({ clock, delta }) => {
+  core.computeTasks = ({ clock, delta }) => {
     for (var kn in core.tasks) {
       core.tasks[kn]({ clock, delta })
     }
   }
 
-  Tests.video = () => {
-    // experiment
-    let videoAPI = makeVideo({
-      core,
-      onLog: ({ at, total, progress }) => {
-        // console.log(progress + '%')
-      },
-      onDone: ({ file }) => {
+  // Tests.video = () => {
+  //   // experiment
+  //   let videoAPI = makeVideo({
+  //     core,
+  //     onLog: ({ at, total, progress }) => {
+  //       // console.log(progress + '%')
+  //     },
+  //     onDone: ({ file }) => {
 
-      }
-    })
-    videoAPI.start()
-    // setTimeout(() => {
-    //   videoAPI.abort()
-    // }, 2000)
-  }
+  //     }
+  //   })
+  //   videoAPI.start()
+  //   // setTimeout(() => {
+  //   //   videoAPI.abort()
+  //   // }, 2000)
+  // }
 
   core.web = makeWebServer({ ...core, core })
 
@@ -280,3 +277,5 @@ let makeCinematicEngine = () => {
 }
 
 makeCinematicEngine()
+
+// grep server_name /etc/nginx/sites-enabled/* -RiI

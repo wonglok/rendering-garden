@@ -47,3 +47,70 @@
 2019-11-27T01:10:54: 
 2019-11-27T01:10:54: npm ERR! A complete log of this run can be found in:
 2019-11-27T01:10:54: npm ERR!     /home/lok/.npm/_logs/2019-11-27T01_10_52_654Z-debug.log
+2019-11-27T01:26:33: npm
+2019-11-27T01:26:33:  
+2019-11-27T01:26:33: ERR!
+2019-11-27T01:26:33:  
+2019-11-27T01:26:33: code
+2019-11-27T01:26:33:  ELIFECYCLE
+2019-11-27T01:26:33: npm
+2019-11-27T01:26:33:  
+2019-11-27T01:26:33: ERR!
+2019-11-27T01:26:33:  errno 1
+2019-11-27T01:26:33: npm ERR! rendering-garden@1.0.0 lin: `xvfb-run -s "-ac -screen 0 1080x1080x24" node main.js`
+2019-11-27T01:26:33: npm ERR! Exit status 1
+2019-11-27T01:26:33: npm ERR! 
+2019-11-27T01:26:33: npm ERR! Failed at the rendering-garden@1.0.0 lin script.
+2019-11-27T01:26:33: npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+2019-11-27T01:26:35: 
+2019-11-27T01:26:35: npm
+2019-11-27T01:26:35:  ERR! A complete log of this run can be found in:
+2019-11-27T01:26:35: npm ERR!     /home/lok/.npm/_logs/2019-11-27T01_26_33_486Z-debug.log
+2019-11-27T02:42:30: npm
+2019-11-27T02:42:30:  
+2019-11-27T02:42:30: ERR!
+2019-11-27T02:42:30:  
+2019-11-27T02:42:30: code
+2019-11-27T02:42:30:  ELIFECYCLE
+2019-11-27T02:42:30: npm
+2019-11-27T02:42:30:  
+2019-11-27T02:42:30: ERR! errno 1
+2019-11-27T02:42:30: npm
+2019-11-27T02:42:30:  
+2019-11-27T02:42:30: ERR!
+2019-11-27T02:42:30:  rendering-garden@1.0.0 lin: `xvfb-run -s "-ac -screen 0 1080x1080x24" node main.js`
+2019-11-27T02:42:30: npm
+2019-11-27T02:42:30:  
+2019-11-27T02:42:30: ERR!
+2019-11-27T02:42:30:  Exit status 1
+2019-11-27T02:42:30: npm ERR! 
+2019-11-27T02:42:30:  ERR! Failed at the rendering-garden@1.0.0 lin script.
+2019-11-27T02:42:30: npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+2019-11-27T02:42:34: 
+2019-11-27T02:42:34: npm
+2019-11-27T02:42:34:  
+2019-11-27T02:42:34: ERR!
+2019-11-27T02:42:34:  A complete log of this run can be found in:
+2019-11-27T02:42:34: npm
+2019-11-27T02:42:34:  
+2019-11-27T02:42:34: ERR!
+2019-11-27T02:42:34:      /home/lok/.npm/_logs/2019-11-27T02_42_30_024Z-debug.log
+2019-11-27T03:04:30: npm
+2019-11-27T03:04:30:  
+2019-11-27T03:04:30: ERR!
+2019-11-27T03:04:30:  
+2019-11-27T03:04:30: code
+2019-11-27T03:04:30:  ELIFECYCLE
+2019-11-27T03:04:30: npm
+2019-11-27T03:04:30:  ERR! errno 1
+2019-11-27T03:04:30: npm ERR! rendering-garden@1.0.0 lin: `xvfb-run -s "-ac -screen 0 1080x1080x24" node main.js`
+2019-11-27T03:04:30: npm ERR! Exit status 1
+2019-11-27T03:04:30: npm ERR! 
+2019-11-27T03:04:30: npm ERR! Failed at the rendering-garden@1.0.0 lin script.
+2019-11-27T03:04:30: npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+2019-11-27T03:04:33: 
+2019-11-27T03:04:33: npm
+2019-11-27T03:04:33:  
+2019-11-27T03:04:33: ERR!
+2019-11-27T03:04:33:  A complete log of this run can be found in:
+2019-11-27T03:04:33: npm ERR!     /home/lok/.npm/_logs/2019-11-27T03_04_30_707Z-debug.log
