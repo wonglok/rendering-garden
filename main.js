@@ -180,7 +180,7 @@ let makeWebServer = () => {
 
     socket.on('chat message', async (msg) => {
       if (msg === 'start') {
-        console.log('made a engine')
+        // console.log('made a engine')
         let videoAPI = await makeVideoAPI({
           web: {
             notify: (msg) => {
@@ -191,9 +191,9 @@ let makeWebServer = () => {
         videoAPI.start()
       }
     })
-    socket.once('disconnect', () => {
-      console.log('disconnect')
-    })
+    // socket.once('disconnect', () => {
+    //   console.log('disconnect')
+    // })
   });
 
   http.listen(port, function(){
@@ -208,19 +208,161 @@ let webShim = {
   notify: () => {}
 }
 
+
+const visibleHeightAtZDepth = (depth, camera) => {
+  // compensate for cameras not positioned at z=0
+  const cameraOffset = camera.position.z
+  if (depth < cameraOffset) depth -= cameraOffset
+  else depth += cameraOffset
+
+  // vertical fov in radians
+  const vFOV = camera.fov * Math.PI / 180
+
+  // Math.abs to ensure the result is always positive
+  return 2 * Math.tan(vFOV / 2) * Math.abs(depth)
+}
+
+const visibleWidthAtZDepth = (depth, camera) => {
+  const height = visibleHeightAtZDepth(depth, camera)
+  return height * camera.aspect
+}
+let nodeCanvasToTexture = (canvas) => {
+  var THREE = require('three')
+  var buf = canvas.toBuffer('raw')
+  var ab = new ArrayBuffer(buf.length)
+  var view = new Uint8Array(ab)
+  for (var i = 0; i < buf.length; ++i) {
+    view[i] = buf[i]
+  }
+  return new THREE.DataTexture(ab, canvas.width, canvas.height, THREE.RGBAFormat)
+}
+
+let getCanvasWords = async ({ scene, camera, tasks, web }) => {
+  let id = getID()
+  let THREE = require('three')
+
+  let makeMaterial = () => {
+    let glsl = v => v[0]
+    let mat = new THREE.ShaderMaterial({
+      transparent: true,
+      uniforms: {
+        time: { value: 0 },
+        tex: { value: null }
+      },
+      vertexShader: glsl`
+        #include <common>
+        varying vec2 vUv;
+        uniform float time;
+        void main (void) {
+          vUv = uv;
+          vec3 nPos = position;
+          nPos.z += sin(nPos.x * 0.1 + time * 10.0) * 2.0;
+
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(nPos, 1.0);
+        }
+      `,
+      fragmentShader: glsl`
+        varying vec2 vUv;
+        uniform sampler2D tex;
+        uniform float time;
+
+        void main (void) {
+          vec4 color = texture2D(tex, vUv);
+          // color.r *= abs(sin(time));
+          gl_FragColor = vec4(color.rgba);
+        }
+      `,
+      // color: 0xff00ff,
+      // wireframe: true,
+      side: THREE.DoubleSide
+    })
+    return mat
+  }
+
+
+
+  let sleep = (t) => new Promise(resolve => setTimeout(resolve, t))
+  var opentype = require('opentype.js')
+  let makeCanvasTexture = async () => {
+
+
+    /* eslint-disable */
+    var Canvas = eval('require')('canvas')
+    // Canvas.registerFont('./shared/font/RalewayThin.ttf', { family: 'Raleway' })
+    /* eslint-enable */
+
+    let drawText = require('node-canvas-text').default
+
+    let width = 720 * 2
+    let height = 720 * 2
+    var canvas = Canvas.createCanvas(width, height)
+    canvas.width = width
+    canvas.height = height
+
+    var ctx = canvas.getContext('2d')
+
+    let area = {
+      x: 0,
+      y: 0,
+      width: canvas.width,
+      height: canvas.height
+    }
+    let style = {
+      minSize: 10,
+      maxSize: 200,
+      granularity: 5,
+      hAlign: 'center',
+      vAlign: 'center',
+      fitMethod: 'box',
+      textFillStyle: '#000',
+      rectFillStyle: '#fff',
+      rectFillOnlyText: false,
+      textPadding: 0,
+      fillPadding: 0,
+      drawRect: false
+    }
+
+    let titleFont = opentype.loadSync(__dirname + '/fonts/PTN57F.ttf');
+    let titleString = 'omg omg omg omg omg omg omg omg omg omg omg omg omg omg omg omg omg omg omg omg omg omg  omg omg omg omg omg ';
+    drawText(ctx, titleString, titleFont, area, style);
+
+    return nodeCanvasToTexture(canvas)
+  }
+
+  web.notify('drawing text....')
+  let width = visibleWidthAtZDepth(1, camera)
+  console.log(width)
+  console.log(width)
+  console.log(width)
+  console.log(width)
+  console.log(width)
+  let geo = new THREE.PlaneBufferGeometry(width, width, 20, 20)
+  let mat = makeMaterial()
+  mat.uniforms.tex.value = await makeCanvasTexture()
+  let mesh = new THREE.Mesh(geo, mat)
+  scene.add(mesh)
+  scene.background = new THREE.Color('#ffffff')
+
+  tasks[id] = ({ clock }) => {
+    mat.uniforms.time.value = clock
+  }
+
+}
+
 let makeVideoAPI = async ({ web = webShim }) => {
   let core = {
     fps: 30,
     width: 720,
     height: 720,
-    videoLength: 3,
+    videoLength: 45,
     previewFolder: 'public/preview',
     tasks: {}
   }
   core.scene = makeScene()
   core.camera = makeCamera({ ...core })
   core.renderAPI = makeEngine({ ...core })
-  core.boxAPI = await makeBox({ ...core, web })
+  // core.boxAPI = await makeBox({ ...core, web })
+  core.words = await getCanvasWords({ ...core, web })
   core.computeTasks = ({ clock, delta }) => {
     for (var kn in core.tasks) {
       core.tasks[kn]({ clock, delta })
@@ -243,7 +385,7 @@ let makeVideoAPI = async ({ web = webShim }) => {
       if (err) throw err;
       console.log('file is at:', newfile);
 
-      web.notify(`Video is ready. <a target="_blank" href="/preview/${newFilename}">Generated Video File: ${newFilename}</a>`)
+      web.notify(`Video is ready. <a target="_blank" href="/preview/${newFilename}">${newFilename}</a>`)
       // fs.unlinkSync(output)
       console.log('cleanup complete!');
       // encoder.kill()
@@ -282,6 +424,7 @@ let makeVideoAPI = async ({ web = webShim }) => {
     const combined = Buffer.from(pixels);
     encoder.passThrough.write(combined, () => {
       if (i > total || abort) {
+        web.notify('Begin packing video');
         encoder.passThrough.end();
         process.nextTick(() => {
           core.renderAPI.destory();
