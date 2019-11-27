@@ -4,7 +4,7 @@ let makeEngine = ({ camera, scene, width, height }) => {
   const api = {}
   const gl = createContext(width, height, {
     preserveDrawingBuffer: true,
-    antialias: true
+    // antialias: true
   })
   let _getExtension = gl.getExtension
   gl.getExtension = (v) => {
@@ -24,7 +24,7 @@ let makeEngine = ({ camera, scene, width, height }) => {
   };
 
   const renderer = new THREE.WebGLRenderer({
-    antialias: true,
+    // antialias: true,
     width: 0,
     height: 0,
     canvas: canvas,
@@ -182,6 +182,7 @@ let makeVideoAPI = ({ core, onDone = () => {}, onFinalising = () => {}, onLog = 
   //   // console.log(evt)
   // });
   encoder.on('done', (evt) => {
+    onFinalising({})
   });
 
   var abort = false
@@ -254,6 +255,8 @@ let makeCinematicEngine = () => {
     }
   }
 
+  core.web = makeWebServer({ ...core, core })
+
   // Tests.video = () => {
   //   // experiment
   //   let videoAPI = makeVideo({
@@ -270,9 +273,6 @@ let makeCinematicEngine = () => {
   //   //   videoAPI.abort()
   //   // }, 2000)
   // }
-
-  core.web = makeWebServer({ ...core, core })
-
   return core
 }
 
