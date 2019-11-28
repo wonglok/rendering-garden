@@ -155,45 +155,45 @@ def.drawText = ({ CanvasTextWrapper, canvas, width, height }) => {
   CanvasTextWrapper(canvas, text, config);
 }
 
-def.makeTextMaterial = () => {
-  let THREE = require('three')
-  let glsl = v => v[0]
-  let mat = new THREE.ShaderMaterial({
-    transparent: true,
-    uniforms: {
-      time: { value: 0 },
-      tex: { value: null }
-    },
-    vertexShader: glsl`
-      #include <common>
-      varying vec2 vUv;
-      uniform float time;
-      void main (void) {
-        vUv = uv;
-        vec3 nPos = position;
-        nPos.z += sin(nPos.x * 0.1 + time * 10.0) * 2.0;
+// def.makeTextMaterial = () => {
+//   let THREE = require('three')
+//   let glsl = v => v[0]
+//   let mat = new THREE.ShaderMaterial({
+//     transparent: true,
+//     uniforms: {
+//       time: { value: 0 },
+//       tex: { value: null }
+//     },
+//     vertexShader: glsl`
+//       #include <common>
+//       varying vec2 vUv;
+//       uniform float time;
+//       void main (void) {
+//         vUv = uv;
+//         vec3 nPos = position;
+//         nPos.z += sin(nPos.x * 0.1 + time * 10.0) * 2.0;
 
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(nPos, 1.0);
-      }
-    `,
-    fragmentShader: glsl`
-      varying vec2 vUv;
-      uniform sampler2D tex;
-      uniform float time;
+//         gl_Position = projectionMatrix * modelViewMatrix * vec4(nPos, 1.0);
+//       }
+//     `,
+//     fragmentShader: glsl`
+//       varying vec2 vUv;
+//       uniform sampler2D tex;
+//       uniform float time;
 
-      void main (void) {
-        vec4 color = texture2D(tex, vUv);
-        // color.r *= abs(sin(time));
-        // float avg = (color.r + color.b + color.g) / 3.0;
-        gl_FragColor = vec4(color.rgb, color.a);
-      }
-    `,
-    // color: 0xff00ff,
-    // wireframe: true,
-    side: THREE.DoubleSide
-  })
-  return mat
-}
+//       void main (void) {
+//         vec4 color = texture2D(tex, vUv);
+//         // color.r *= abs(sin(time));
+//         // float avg = (color.r + color.b + color.g) / 3.0;
+//         gl_FragColor = vec4(color.rgb, color.a);
+//       }
+//     `,
+//     // color: 0xff00ff,
+//     // wireframe: true,
+//     side: THREE.DoubleSide
+//   })
+//   return mat
+// }
 
 
 def.sleep = (t) => new Promise(resolve => setTimeout(resolve, t))
