@@ -202,7 +202,7 @@ def.defineCore = async ({ THREE, makeEngine }) => {
   let core = {
     makeEngine,
     THREE,
-    fps: 30,
+    fps: 60,
     width: 1080,
     height: 1080,
     videoDuration: 5,
