@@ -138,7 +138,7 @@ let makeWebServer = () => {
     });
 
     socket.on('chat message', async (msg) => {
-      if (msg === 'start') {
+      if (msg === 'video') {
         // console.log('made a engine')
         let videoAPI = await makeVideoAPI({
           web: {
@@ -149,6 +149,9 @@ let makeWebServer = () => {
           }
         })
         videoAPI.start()
+      }
+      if (msg === 'pic') {
+        io.emit('chat message', `<img src="/img" style="max-width: 100%" onload="window.scrollBottom" alt="image">`)
       }
     })
     // socket.once('disconnect', () => {

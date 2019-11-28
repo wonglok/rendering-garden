@@ -26,12 +26,13 @@
 </head>
 <body>
   <ul id="messages">
-    <li>type start to begin encode webgl video</li>
+    <li>type video to begin encode webgl video</li>
+    <li>type pic to download rendererd picture</li>
     <li>
       <canvas width="1080" height="1080" style="max-width: 100%" id="canvas">
     </li>
     <li>
-      <img src="https://video-encoder.wonglok.com/img" style="max-width: 100%"  alt="image">
+      <!-- <img src="https://video-encoder.wonglok.com/img" style="max-width: 100%"  alt="image"> -->
     </li>
 
   </ul>
@@ -61,6 +62,9 @@
       socket.on('reload', () => {
         window.location.reload()
       })
+      window.scrollBottom = () => {
+        window.location.reload()
+      }
     });
   </script>
   <script type="module" src="/js/app.js"></script>
