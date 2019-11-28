@@ -118,7 +118,7 @@ let getID = () => {
   return `_${(Math.random() * 10000000).toFixed(0)}`
 }
 
-let makeBox = async ({ tasks, scene, camera, web }) => {
+let make3DItem = async ({ tasks, scene, camera, web }) => {
   const id = getID()
   const THREE = require('three')
   const path = require('path')
@@ -148,7 +148,7 @@ let makeBox = async ({ tasks, scene, camera, web }) => {
       uniform float time;
 
       void main (void) {
-        vec4 color = texture2D(tex, vUv);
+        vec4 color = texture2D(tex, mod(vUv + time, 1.0));
         // color.r *= abs(sin(time));
         gl_FragColor = vec4(color.rgb + 0.32,color.a);
       }
@@ -163,11 +163,11 @@ let makeBox = async ({ tasks, scene, camera, web }) => {
   mesh.scale = 1.0
   mesh.scale = 1.0
   mesh.scale = 1.0
+  mesh.rotation.x += Math.PI * 0.5
   scene.add(mesh)
 
   tasks[id] = ({ clock, delta }) => {
     mat.uniforms.time.value = clock * 0.0001
-    mesh.rotation.x += delta * 0.0001
   }
 
   return {
@@ -237,7 +237,6 @@ let webShim = {
   notify: () => {}
 }
 
-
 const visibleHeightAtZDepth = (depth, camera) => {
   // compensate for cameras not positioned at z=0
   const cameraOffset = camera.position.z
@@ -306,63 +305,59 @@ let makeTextMaterial = () => {
   return mat
 }
 
+let makeTitleText = async ({ width, height }) => {
+  /* eslint-disable */
+  var Canvas = eval('require')('canvas')
+
+  Canvas.registerFont('./fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf', { family: 'NotoSans' })
+  // Canvas.registerFont('./fonts/RalewayThin.ttf', { family: 'RalewayThin' })
+  // Canvas.registerFont('./fonts/Raleway-Regular.ttf', { family: 'RalewayReguar' })
+  /* eslint-enable */
+
+  var canvas = Canvas.createCanvas(width, height)
+  canvas.width = width
+  canvas.height = height
+  var ctx = canvas.getContext('2d')
+
+  var CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper;
+  let config = {
+    font: '30px NotoSans, sans-serif',
+    lineHeight: 1,
+    textAlign: 'center',
+    verticalAlign: 'middle', // top, middle, bottom
+    paddingX: 40,
+    paddingY: 40,
+    fitParent: false,
+    lineBreak: 'auto',
+    strokeText: false,
+    sizeToFill: true,
+    maxFontSizeToFill: 60,
+    allowNewLine: true,
+    justifyLines: false,
+    renderHDPI: true,
+    textDecoration: 'none'
+  }
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = '#ff0000';
+
+  let text = `您好 How are u? I'm fine thank you!`
+  CanvasTextWrapper(canvas, text, config);
+
+  return nodeCanvasToTexture(canvas)
+}
+
+let sleep = (t) => new Promise(resolve => setTimeout(resolve, t))
+
 let getCanvasWords = async ({ width, height, scene, camera, tasks, web }) => {
   let id = getID()
   let THREE = require('three')
-  let sleep = (t) => new Promise(resolve => setTimeout(resolve, t))
-  var opentype = require('opentype.js')
-  let makeCanvasTexture = async () => {
-    /* eslint-disable */
-    var Canvas = eval('require')('canvas')
-    // Canvas.registerFont('./shared/font/RalewayThin.ttf', { family: 'Raleway' })
-    /* eslint-enable */
 
-    let drawText = require('node-canvas-text').default
-    var canvas = Canvas.createCanvas(width, height)
-    canvas.width = width
-    canvas.height = height
-
-    var ctx = canvas.getContext('2d')
-
-    let area = {
-      x: width * 0.1,
-      y: height * 0.1,
-      width: width * 0.8,
-      height: height * 0.8
-    }
-    let style = {
-      minSize: 5,
-      maxSize: 200,
-      granularity: 4,
-      hAlign: 'center',
-      vAlign: 'center',
-      fitMethod: 'box',
-      textFillStyle: 'rgba(0,0,0,1.0)',
-      rectFillStyle: 'rgba(255,255,255,0.0)',
-      rectFillOnlyText: true,
-      textPadding: 20,
-      fillPadding: 20,
-      drawRect: false
-    }
-    ctx.imageSmoothingEnabled = true
-
-    ctx.fillStyle = 'rgba(255,255,255,0.0)'
-    ctx.fillRect(0, 0, width, height)
-
-    // let titleFont = opentype.loadSync(__dirname + '/fonts/NotoSansCJKtc-hinted/notosanscjktc_regular.otf');
-    let titleFont = opentype.loadSync(__dirname + '/fonts/PTN57F.ttf');
-    let titleString = `How are you? I'm fine thank you!`;
-    drawText(ctx, titleString, titleFont, area, style);
-
-    return nodeCanvasToTexture(canvas)
-  }
-
+  let texture = await makeTitleText({ width, height })
   web.notify('drawing text....')
   let widthGeo = visibleWidthAtZDepth(0, camera)
-  let geo = new THREE.PlaneBufferGeometry(widthGeo, widthGeo, 20, 20)
-  // let mat = makeTextMaterial()
+  let geo = new THREE.PlaneBufferGeometry(widthGeo, widthGeo, 127, 127)
   let mat = new THREE.MeshBasicMaterial({
-    map: await makeCanvasTexture(),
+    map: texture,
     transparent: true
   })
   // mat.uniforms.tex.value = await makeCanvasTexture()
@@ -391,7 +386,7 @@ let createOnePic = async ({ web = webShim }) => {
   core.scene.scale.x = -1
   core.camera = makeCamera({ ...core })
   core.renderAPI = makeEngine({ ...core })
-  core.boxAPI = await makeBox({ ...core, web })
+  core.boxAPI = await make3DItem({ ...core, web })
   core.words = await getCanvasWords({ ...core, web })
   core.computeTasks = ({ clock, delta }) => {
     for (var kn in core.tasks) {
@@ -432,7 +427,7 @@ let makeVideoAPI = async ({ web = webShim }) => {
   core.scene = makeScene()
   core.camera = makeCamera({ ...core })
   core.renderAPI = makeEngine({ ...core })
-  core.boxAPI = await makeBox({ ...core, web })
+  core.boxAPI = await make3DItem({ ...core, web })
   core.words = await getCanvasWords({ ...core, web })
   core.computeTasks = ({ clock, delta }) => {
     for (var kn in core.tasks) {
