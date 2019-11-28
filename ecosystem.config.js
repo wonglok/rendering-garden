@@ -12,7 +12,7 @@ module.exports = {
     // ],
     // ignore_watch : ['node_modules', './global/public'],
     // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
-    args: 'run lin',
+    args: 'run dev',
     instances: 1,
     autorestart: true,
     max_memory_restart: '1G',

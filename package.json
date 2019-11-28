@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "dev": "xvfb-run -s \"-ac -screen 0 1080x1080x24\" nodemon main.js",
+    "dev2": "xvfb-run -s \"-ac -screen 0 1080x1080x24\" nodemon main.js",
+    "dev": "xvfb-run -a nodemon main.js",
     "lin": "xvfb-run -s \"-ac -screen 0 1080x1080x24\" node main.js",
     "pm2create": "pm2 start ecosystem.config.js",
     "kill1337": "sudo kill -9 `sudo lsof -t -i:1337`",
