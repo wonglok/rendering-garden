@@ -4,7 +4,7 @@ const EventEmitter = require('events');
 
 module.exports = class Encoder extends EventEmitter {
 
-  constructor({ music = false, output = 'out.mp4', fps = '30', width = '720', height = '720' }){
+  constructor({ music = false, output = 'out.mp4', fps = '30', width = '720', height = '720', onDone = () => {} }){
     super();
 
     this.passThrough = new Stream.PassThrough();
@@ -72,9 +72,10 @@ module.exports = class Encoder extends EventEmitter {
         //   buffers.push(dataBuffers);
         // });
         this.ffmpegProcess.stdout.on('end', () => {
+          onDone({ output })
+          resolve({ output });
           this.emit('done', { output })
           this.ffmpegProcess.kill();
-          resolve({ output });
         });
     });
   }
