@@ -150,7 +150,7 @@ let makeBox = async ({ tasks, scene, camera, web }) => {
       void main (void) {
         vec4 color = texture2D(tex, vUv);
         // color.r *= abs(sin(time));
-        gl_FragColor = vec4(color.rgb + 0.5, 0.6);
+        gl_FragColor = vec4(color.rgb + 0.32,color.a);
       }
     `,
     // color: 0xff00ff,
@@ -318,7 +318,6 @@ let getCanvasWords = async ({ width, height, scene, camera, tasks, web }) => {
     /* eslint-enable */
 
     let drawText = require('node-canvas-text').default
-
     var canvas = Canvas.createCanvas(width, height)
     canvas.width = width
     canvas.height = height
@@ -326,30 +325,33 @@ let getCanvasWords = async ({ width, height, scene, camera, tasks, web }) => {
     var ctx = canvas.getContext('2d')
 
     let area = {
-      x: 0,
-      y: 0,
-      width: canvas.width,
-      height: canvas.height
+      x: width * 0.1,
+      y: height * 0.1,
+      width: width * 0.8,
+      height: height * 0.8
     }
     let style = {
       minSize: 5,
       maxSize: 200,
-      granularity: 2.5,
+      granularity: 4,
       hAlign: 'center',
       vAlign: 'center',
       fitMethod: 'box',
       textFillStyle: 'rgba(0,0,0,1.0)',
       rectFillStyle: 'rgba(255,255,255,0.0)',
       rectFillOnlyText: true,
-      textPadding: 0,
-      fillPadding: 0,
+      textPadding: 20,
+      fillPadding: 20,
       drawRect: false
     }
+    ctx.imageSmoothingEnabled = true
+
     ctx.fillStyle = 'rgba(255,255,255,0.0)'
     ctx.fillRect(0, 0, width, height)
 
-    let titleFont = opentype.loadSync(__dirname + '/fonts/baskervville/baskervville-regular.ttf');
-    let titleString = 'omg omg omg omg';
+    // let titleFont = opentype.loadSync(__dirname + '/fonts/NotoSansCJKtc-hinted/notosanscjktc_regular.otf');
+    let titleFont = opentype.loadSync(__dirname + '/fonts/PTN57F.ttf');
+    let titleString = `How are you? I'm fine thank you!`;
     drawText(ctx, titleString, titleFont, area, style);
 
     return nodeCanvasToTexture(canvas)
@@ -365,8 +367,8 @@ let getCanvasWords = async ({ width, height, scene, camera, tasks, web }) => {
   })
   // mat.uniforms.tex.value = await makeCanvasTexture()
   let mesh = new THREE.Mesh(geo, mat)
-  mesh.scale.x = 0.9
-  mesh.scale.y = 0.9
+  mesh.scale.x = 1.0
+  mesh.scale.y = 1.0
   scene.add(mesh)
   scene.background = new THREE.Color('#ffffff')
 
@@ -419,10 +421,10 @@ let createOnePic = async ({ web = webShim }) => {
 
 let makeVideoAPI = async ({ web = webShim }) => {
   let core = {
-    fps: 36,
-    width: 720,
-    height: 720,
-    videoDuration: 5,
+    fps: 34.56,
+    width: 1080,
+    height: 1080,
+    videoDuration: 15,
     previewFolder: 'public/preview',
     tasks: {}
   }
@@ -506,7 +508,7 @@ let makeVideoAPI = async ({ web = webShim }) => {
           core.renderAPI.destory();
         });
       } else {
-        process.nextTick(repeat);
+        setTimeout(repeat, 0);
       }
     })
   }
