@@ -1,12 +1,12 @@
 var THREE = require('three')
 let Adapter = {
-  makeEngine: ({ width, height, scene, camera }) => {
+  makeEngine: ({ width, height, scene, camera, dom }) => {
     var api = {}
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       width: width,
       height: height,
-      canvas: document.querySelector('#canvas'),
+      canvas: dom || document.querySelector('#canvas'),
       preserveDrawingBuffer: true
     });
 

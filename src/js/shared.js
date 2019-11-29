@@ -5,7 +5,7 @@ let Shared = {}
 let AdapterLoader = globalThis.document ? () => require('./adapter-front-end.js').default : () => eval('require')('./adapter-back-end.js').default
 let Adapter = AdapterLoader()
 
-Shared.generateCore = async ({ web } = {}) => {
+Shared.generateCore = async ({ web, dom } = {}) => {
   let core = {
     fps: 60,
     width: 1080,
@@ -14,6 +14,7 @@ Shared.generateCore = async ({ web } = {}) => {
     previewFolder: '/public/preview/',
     tasks: {},
     web: web || Shared.webShim,
+    dom: dom || false,
     fonts: [
       {
         path: '/public/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf',

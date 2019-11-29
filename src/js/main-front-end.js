@@ -1,10 +1,9 @@
-import Vue from 'vue'
 // import * as THREE from 'three'
 import * as Shared from './shared.js'
 // import { CanvasTextWrapper } from 'canvas-text-wrapper'
 
-let makeRenderEngine = async () => {
-  let core = await Shared.generateCore()
+window.makeRenderEngine = async ({ dom }) => {
+  let core = await Shared.generateCore({ dom })
   // let Texture = await Shared.prepareTextures({ core, Adapter })
   // core = await Shared.makeCore({ core, web, Texture, Adapter })
 
@@ -28,15 +27,5 @@ let makeRenderEngine = async () => {
 }
 
 setTimeout(() => {
-  makeRenderEngine()
+  window.makeRenderEngine({ dom: false })
 }, 0)
-
-var newVue = new Vue({
-  el: '#app',
-  render: h => h(require('../vue/App.vue').default),
-  data () {
-    return {
-      dat: 123
-    }
-  }
-})
