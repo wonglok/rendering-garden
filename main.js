@@ -1,8 +1,8 @@
 // const THREE = require('three')
 const path = require('path')
-const Shared = require('./src/js/shared.js')
+const Shared = require('./src-api/js/shared.js')
 // var CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper;
-// var Adapter = require('./src/js/adapter-back-end.js').default;
+// var Adapter = require('./src-api/js/adapter-back-end.js').default;
 
 let makeWebServer = () => {
   const webpack = require('webpack')
@@ -12,7 +12,7 @@ let makeWebServer = () => {
   const compiler = webpack({
     mode: 'development',
     // webpack options
-    entry: './src/js/main-front-end.js',
+    entry: './src-api/js/main-front-end.js',
     output: {
       filename: './dist/bundle.js',
       path: path.resolve(__dirname, 'dist'),
@@ -59,10 +59,10 @@ let makeWebServer = () => {
   );
 
   app.get('/', function(req, res){
-    res.sendFile(__dirname + '/public/index.html');
+    res.sendFile(__dirname + '/e-public/index.html');
   });
 
-  app.use('/public', express.static('public'))
+  app.use('/e-public', express.static('e-public'))
   app.get('/img', (req, res) => {
     createScreenShot({
       web: {

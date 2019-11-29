@@ -12,7 +12,10 @@
     "kill1337": "sudo kill -9 `sudo lsof -t -i:1337`",
     "pm2kill": "pm2 delete ecosystem.config.js",
     "pm2restart": "npm run pm2kill; npm run pm2create;",
-    "log": "tail -f ./.cache/logs/combined.log"
+    "log": "tail -f ./.cache/logs/combined.log",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "author": "",
   "license": "ISC",
@@ -34,14 +37,26 @@
     "three": "^0.110.0",
     "tmp": "^0.1.0",
     "vue": "^2.6.10",
-    "webpack": "^4.41.2"
+    "webpack": "^4.41.2",
+    "core-js": "^3.4.3",
+    "vue-router": "^3.1.3",
+    "vuex": "^3.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "babel-loader": "^8.0.6",
     "vue-loader": "^15.7.2",
-    "vue-template-compiler": "^2.6.10",
-    "webpack-dev-middleware": "^3.7.2"
+    "webpack-dev-middleware": "^3.7.2",
+    "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-plugin-router": "^4.1.0",
+    "@vue/cli-plugin-vuex": "^4.1.0",
+    "@vue/cli-service": "^4.1.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.6.10"
   }
 }
