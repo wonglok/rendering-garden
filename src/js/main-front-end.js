@@ -1,3 +1,4 @@
+import Vue from 'vue'
 // import * as THREE from 'three'
 import * as Shared from './shared.js'
 // import { CanvasTextWrapper } from 'canvas-text-wrapper'
@@ -29,3 +30,13 @@ let makeRenderEngine = async () => {
 setTimeout(() => {
   makeRenderEngine()
 }, 0)
+
+var newVue = new Vue({
+  el: '#app',
+  render: h => h(require('../vue/App.vue').default),
+  data () {
+    return {
+      dat: 123
+    }
+  }
+})
