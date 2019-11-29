@@ -1,45 +1,9 @@
-import * as THREE from 'three'
+// import * as THREE from 'three'
 import * as Shared from './shared.js'
-import { CanvasTextWrapper } from 'canvas-text-wrapper'
-
-let Adapter = {
-  makeEngine: ({ scene, camera }) => {
-    var api = {}
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      width: 1080,
-      height: 1080,
-      canvas: document.querySelector('#canvas'),
-      preserveDrawingBuffer: true
-    });
-
-    api.destory = () => {
-    }
-
-    api.render = () => {
-      renderer.render(scene, camera);
-    }
-
-    return api
-  },
-  loadTexture: ({ file }) => {
-    return new Promise((resolve, reject) => {
-      new THREE.TextureLoader().load(file, resolve)
-    })
-  },
-  makeTitleText: ({ width, height }) => {
-    let canvas = document.createElement('canvas')
-    Shared.drawText({ CanvasTextWrapper: CanvasTextWrapper, canvas, width, height })
-    return new THREE.CanvasTexture(canvas)
-  }
-}
+// import { CanvasTextWrapper } from 'canvas-text-wrapper'
 
 let makeRenderEngine = async () => {
-  let web = Shared.webShim
-  let core = await Shared.generateCore({
-    Adapter,
-    web
-  })
+  let core = await Shared.generateCore()
   // let Texture = await Shared.prepareTextures({ core, Adapter })
   // core = await Shared.makeCore({ core, web, Texture, Adapter })
 

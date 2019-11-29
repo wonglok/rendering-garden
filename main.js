@@ -1,134 +1,8 @@
-const THREE = require('three')
+// const THREE = require('three')
 const path = require('path')
 const Shared = require('./src/js/shared.js')
-var CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper;
-
-var LRU = require("lru-cache")
-var options = {
-  max: 500,
-  maxAge: 1000 * 60 * 60
-}
-let TextureCache = new LRU(options)
-
-// let nodeCanvasToTexture =
-let Adapter = {
-  makeTitleText: async ({ width, height }) => {
-    /* eslint-disable */
-    var Canvas = eval('require')('canvas')
-    Canvas.registerFont('./public/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf', { family: 'NotoSans' })
-    /* eslint-enable */
-    var canvas = Canvas.createCanvas(width, height)
-    Shared.drawText({ CanvasTextWrapper, canvas, width, height })
-    return Adapter.nodeCanvasToTexture(canvas)
-  },
-  // prepareTexture: async ({ core }) => {
-  //   let Texture = {}
-  //   Texture.leafBG = await Adapter.loadTexture({ file: '/public/img/139-1920x1920.jpg' })
-  //   Adapter.loadFont()
-  //   Texture.text = await Adapter.makeTitleText({ width: core.width, height: core.height })
-  //   return Texture
-  // },
-  nodeCanvasToTexture: (canvas) => {
-    var THREE = require('three')
-    var buf = canvas.toBuffer('raw')
-    var ab = new ArrayBuffer(buf.length)
-    var view = new Uint8Array(ab)
-    for (var i = 0; i < buf.length; ++i) {
-      view[i] = buf[i]
-    }
-    return new THREE.DataTexture(ab, canvas.width, canvas.height, THREE.RGBAFormat)
-  },
-  loadTexture: ({ file }) => {
-    file = path.join(__dirname, file)
-    return new Promise((resolve, reject) => {
-      if (TextureCache.has(file)) {
-        resolve(TextureCache.get(file))
-        return
-      }
-      const THREE = require('three')
-      var getPixels = require('get-pixels')
-      getPixels(file, (err, pixels) => {
-        if (err) {
-          console.log('Bad image path')
-          reject(err)
-          return
-        }
-
-        let info = pixels.shape
-        console.log('got pixels', info)
-
-        let texture = new THREE.DataTexture(pixels.data, info[0], info[1], info[2] === 4 ? THREE.RGBAFormat : THREE.RGBFormat)
-        texture.needsUpdate = true
-        let output = {
-          width: info[0],
-          height: info[1],
-          texture
-        }
-        TextureCache.set(file, output)
-        resolve(texture)
-      })
-    })
-  },
-  makeEngine: ({ camera, scene, width, height }) => {
-    const THREE = require('three');
-    const createContext = require('gl')
-    const api = {}
-    const gl = createContext(width, height, {
-      preserveDrawingBuffer: true,
-      antialias: true
-    })
-    let _getExtension = gl.getExtension
-    gl.getExtension = (v) => {
-      if (v === 'STACKGL_destroy_context') {
-        var ext = _getExtension('STACKGL_destroy_context')
-        return ext
-      }
-      return true
-    };
-
-    const canvas = {
-      getContext () {
-        return gl
-      },
-      addEventListener () {
-      }
-    };
-
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      width: 0,
-      height: 0,
-      canvas: canvas,
-      context: gl
-    });
-
-    const rtTexture = new THREE.WebGLRenderTarget(width, height, {
-      minFilter: THREE.LinearFilter,
-      magFilter: THREE.NearestFilter,
-      format: THREE.RGBAFormat
-    });
-
-    api.destory = () => {
-      const ext = gl.getExtension('STACKGL_destroy_context')
-      ext.destroy()
-    }
-
-    api.render = () => {
-      renderer.setRenderTarget(rtTexture);
-      renderer.render(scene, camera);
-
-      const gl = renderer.getContext();
-      const pixels = new Uint8Array(4 * width * height);
-      gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
-
-      return {
-        pixels
-      }
-    }
-
-    return api
-  }
-}
+// var CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper;
+// var Adapter = require('./src/js/adapter-back-end.js').default;
 
 let makeWebServer = () => {
   const webpack = require('webpack')
@@ -210,7 +84,7 @@ let makeWebServer = () => {
 }
 
 let createScreenShot = async ({ web = Shared.webShim }) => {
-  let core = await Shared.generateCore({ web, Adapter })
+  let core = await Shared.generateCore({ web })
 
   core.scene.scale.y = -1
   core.scene.rotation.z = Math.PI * 0.5
@@ -235,7 +109,7 @@ let createScreenShot = async ({ web = Shared.webShim }) => {
 }
 
 let makeVideoAPI = async ({ web = Shared.webShim }) => {
-  let core = await Shared.generateCore({ web, Adapter })
+  let core = await Shared.generateCore({ web })
 
   const path = require('path');
   const os = require('os');

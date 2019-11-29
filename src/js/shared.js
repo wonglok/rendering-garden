@@ -1,25 +1,36 @@
 let THREE = require('three')
+let CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper
 let Shared = {}
 
-Shared.generateCore = async ({ Adapter, web }) => {
+let AdapterLoader = globalThis.document ? () => require('./adapter-front-end.js').default : () => eval('require')('./adapter-back-end.js').default
+let Adapter = AdapterLoader()
+
+Shared.generateCore = async ({ web } = {}) => {
   let core = {
     fps: 60,
     width: 1080,
     height: 1080,
-    videoDuration: 1,
+    videoDuration: 1.5,
     previewFolder: '/public/preview/',
-    tasks: {}
+    tasks: {},
+    web: web || Shared.webShim,
+    fonts: [
+      {
+        path: '/public/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf',
+        name: 'NotoSans'
+      }
+    ]
   }
-  await Shared.ensureFonts()
-  let textBG = await Adapter.makeTitleText({ width: core.width, height: core.height })
+
+  let textBG = await Shared.makeTitleText({ ...core })
   let leafBG = await Adapter.loadTexture({ file: '/public/img/139-1920x1920.jpg' })
 
   core.scene = Shared.makeScene()
   core.camera = Shared.makeCamera({ ...core })
   core.renderAPI = Adapter.makeEngine({ ...core })
 
-  core.boxAPI = await Shared.make3DItem({ ...core, web, texture: leafBG })
-  core.words = await Shared.get3DWords({ ...core, web, texture: textBG })
+  core.boxAPI = await Shared.make3DItem({ ...core, texture: leafBG })
+  core.words = await Shared.get3DWords({ ...core, texture: textBG })
   core.computeTasks = ({ clock, delta }) => {
     for (var kn in core.tasks) {
       core.tasks[kn]({ clock, delta })
@@ -29,10 +40,14 @@ Shared.generateCore = async ({ Adapter, web }) => {
   return core
 }
 
-Shared.ensureFonts = async () => {
-  if (globalThis.document) {
-    await globalThis.document.fonts.load('20pt "NotoSans"')
-  }
+Shared.makeTitleText = async ({ fonts, width, height }) => {
+  let canvas = await Adapter.provideCanvas2D({
+    width,
+    height,
+    fonts
+  })
+  Shared.drawText({ CanvasTextWrapper: CanvasTextWrapper, canvas, width, height })
+  return Adapter.makeCanvasIntoTexture({ canvas })
 }
 
 Shared.makeScene = () => {
@@ -93,7 +108,7 @@ Shared.make3DItem = async ({ texture, tasks, scene, camera, web }) => {
           vec3 cc = vec3(color.rgb + 0.35);
           cc *= cc;
 
-          gl_FragColor = vec4(cc.rgb,color.a);
+          gl_FragColor = vec4(cc.bgr + 0.5, color.a);
         } else {
           discard;
         }
