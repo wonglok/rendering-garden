@@ -134,7 +134,6 @@ Shared.drawText = ({ CanvasTextWrapper, canvas, width, height }) => {
   canvas.width = width
   canvas.height = height
   var ctx = canvas.getContext('2d')
-
   let config = {
     font: '30px NotoSans, sans-serif',
     lineHeight: 1,
