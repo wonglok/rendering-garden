@@ -1,6 +1,6 @@
 const THREE = require('three')
 const path = require('path')
-const Shared = require('./public/js/shared.js')
+const Shared = require('./src/js/shared.js')
 var CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper;
 
 var LRU = require("lru-cache")
@@ -9,6 +9,7 @@ var options = {
   maxAge: 1000 * 60 * 60
 }
 let TextureCache = new LRU(options)
+
 
 // let nodeCanvasToTexture =
 let Adapter = {
@@ -130,11 +131,29 @@ let Adapter = {
 }
 
 let makeWebServer = () => {
+  const webpack = require('webpack')
+  const middleware = require('webpack-dev-middleware')
+  const compiler = webpack({
+    mode: 'development',
+    // webpack options
+    entry: './src/js/main-front-end.js',
+    output: {
+      filename: './dist/bundle.js',
+      path: path.resolve(__dirname, 'dist'),
+    },
+  });
+
   let express = require('express');
   var app = express();
   var http = require('http').Server(app);
   var io = require('socket.io')(http);
   var port = process.env.PORT || 3123;
+
+  app.use(
+    middleware(compiler, {
+      // webpack-dev-middleware options
+    })
+  );
 
   app.get('/', function(req, res){
     res.sendFile(__dirname + '/public/index.html');
