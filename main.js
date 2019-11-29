@@ -10,10 +10,8 @@ var options = {
 }
 let TextureCache = new LRU(options)
 
-
 // let nodeCanvasToTexture =
 let Adapter = {
-  THREE,
   makeTitleText: async ({ width, height }) => {
     /* eslint-disable */
     var Canvas = eval('require')('canvas')
@@ -23,12 +21,13 @@ let Adapter = {
     Shared.drawText({ CanvasTextWrapper, canvas, width, height })
     return Adapter.nodeCanvasToTexture(canvas)
   },
-  prepareTexture: async ({ core }) => {
-    let Texture = {}
-    Texture.leafBG = (await Adapter.loadTexture({ file: path.join(__dirname, './public/img/139-1920x1920.jpg') })).texture
-    Texture.text = await Adapter.makeTitleText({ width: core.width, height: core.height })
-    return Texture
-  },
+  // prepareTexture: async ({ core }) => {
+  //   let Texture = {}
+  //   Texture.leafBG = await Adapter.loadTexture({ file: '/public/img/139-1920x1920.jpg' })
+  //   Adapter.loadFont()
+  //   Texture.text = await Adapter.makeTitleText({ width: core.width, height: core.height })
+  //   return Texture
+  // },
   nodeCanvasToTexture: (canvas) => {
     var THREE = require('three')
     var buf = canvas.toBuffer('raw')
@@ -40,6 +39,7 @@ let Adapter = {
     return new THREE.DataTexture(ab, canvas.width, canvas.height, THREE.RGBAFormat)
   },
   loadTexture: ({ file }) => {
+    file = path.join(__dirname, file)
     return new Promise((resolve, reject) => {
       if (TextureCache.has(file)) {
         resolve(TextureCache.get(file))
@@ -65,7 +65,7 @@ let Adapter = {
           texture
         }
         TextureCache.set(file, output)
-        resolve(output)
+        resolve(texture)
       })
     })
   },
@@ -159,7 +159,7 @@ let makeWebServer = () => {
     res.sendFile(__dirname + '/public/index.html');
   });
 
-  app.use(express.static('public'))
+  app.use('/public', express.static('public'))
   app.get('/img', (req, res) => {
     createScreenShot({
       web: {
@@ -210,9 +210,7 @@ let makeWebServer = () => {
 }
 
 let createScreenShot = async ({ web = Shared.webShim }) => {
-  let core = await Shared.defineCore({ ...Adapter })
-  let Texture = await Adapter.prepareTexture({ core })
-  core = await Shared.makeCore({ core, Texture, web })
+  let core = await Shared.generateCore({ web, Adapter })
 
   core.scene.scale.y = -1
   core.scene.rotation.z = Math.PI * 0.5
@@ -237,9 +235,7 @@ let createScreenShot = async ({ web = Shared.webShim }) => {
 }
 
 let makeVideoAPI = async ({ web = Shared.webShim }) => {
-  let core = await Shared.defineCore({ THREE, ...Adapter })
-  let Texture = await Adapter.prepareTexture({ core })
-  core = await Shared.makeCore({ core, web, Texture })
+  let core = await Shared.generateCore({ web, Adapter })
 
   const path = require('path');
   const os = require('os');
@@ -253,13 +249,13 @@ let makeVideoAPI = async ({ web = Shared.webShim }) => {
     let newFilename = `_${(Math.random() * 10000000).toFixed(0)}.mp4`
     let newfile = path.join(__dirname, core.previewFolder, newFilename)
 
-    web.notify(`<a class="link-box" target="_blank" href="/preview/${newFilename}">/preview/${newFilename}</a>`)
-    web.notify(`<video autoplay loop controls class="video-box" src="/preview/${newFilename}">${newFilename}</video>`)
+    web.notify(`<a class="link-box" target="_blank" href="${core.previewFolder}${newFilename}">/preview/${newFilename}</a>`)
+    web.notify(`<video autoplay loop controls class="video-box" src="${core.previewFolder}${newFilename}">${newFilename}</video>`)
     fs.rename(output, newfile, (err) => {
       if (err) throw err;
       console.log('file is at:', newfile);
       // fs.unlinkSync(output)
-      console.log(`https://video-encoder.wonglok.com/preview/${newFilename}`)
+      console.log(`https://video-encoder.wonglok.com${core.previewFolder}${newFilename}`)
       console.log('cleanup complete!');
       // encoder.kill()
     });

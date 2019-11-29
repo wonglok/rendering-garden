@@ -1,11 +1,46 @@
+let THREE = require('three')
 let Shared = {}
 
-Shared.makeScene = ({ THREE }) => {
+Shared.generateCore = async ({ Adapter, web }) => {
+  let core = {
+    fps: 60,
+    width: 1080,
+    height: 1080,
+    videoDuration: 1,
+    previewFolder: '/public/preview/',
+    tasks: {}
+  }
+  await Shared.ensureFonts()
+  let textBG = await Adapter.makeTitleText({ width: core.width, height: core.height })
+  let leafBG = await Adapter.loadTexture({ file: '/public/img/139-1920x1920.jpg' })
+
+  core.scene = Shared.makeScene()
+  core.camera = Shared.makeCamera({ ...core })
+  core.renderAPI = Adapter.makeEngine({ ...core })
+
+  core.boxAPI = await Shared.make3DItem({ ...core, web, texture: leafBG })
+  core.words = await Shared.get3DWords({ ...core, web, texture: textBG })
+  core.computeTasks = ({ clock, delta }) => {
+    for (var kn in core.tasks) {
+      core.tasks[kn]({ clock, delta })
+    }
+  }
+
+  return core
+}
+
+Shared.ensureFonts = async () => {
+  if (globalThis.document) {
+    await globalThis.document.fonts.load('20pt "NotoSans"')
+  }
+}
+
+Shared.makeScene = () => {
   var scene = new THREE.Scene();
   return scene
 }
 
-Shared.makeCamera = ({ THREE, scene, width, height }) => {
+Shared.makeCamera = ({ scene, width, height }) => {
   const VIEW_ANGLE = 75
   const ASPECT = width / height
   const NEAR = 0.1
@@ -20,7 +55,7 @@ Shared.getID = () => {
   return `_${(Math.random() * 10000000).toFixed(0)}`
 }
 
-Shared.make3DItem = async ({ THREE, texture, tasks, scene, camera, web }) => {
+Shared.make3DItem = async ({ texture, tasks, scene, camera, web }) => {
   const id = Shared.getID()
   web.notify('loading texture....')
   let glsl = v => v[0]
@@ -41,7 +76,7 @@ Shared.make3DItem = async ({ THREE, texture, tasks, scene, camera, web }) => {
         nPos.y += sin(nPos.y * 0.1 + time * 30.0) * 5.0;
 
         gl_Position = projectionMatrix * modelViewMatrix * vec4(nPos, 1.0);
-        gl_PointSize = 2.0;
+        gl_PointSize = 6.0;
       }
     `,
     fragmentShader: glsl`
@@ -109,7 +144,7 @@ Shared.webShim = {
   notify: () => {}
 }
 
-Shared.get3DWords = async ({ THREE, width, height, scene, camera, tasks, web, texture }) => {
+Shared.get3DWords = async ({ width, height, scene, camera, tasks, web, texture }) => {
   let id = Shared.getID()
 
   web.notify('drawing text....')
@@ -162,32 +197,5 @@ Shared.drawText = ({ CanvasTextWrapper, canvas, width, height }) => {
 
 Shared.sleep = (t) => new Promise(resolve => setTimeout(resolve, t))
 
-Shared.defineCore = async (deps) => {
-  let core = {
-    ...deps,
-    fps: 60,
-    width: 1080,
-    height: 1080,
-    videoDuration: 5,
-    previewFolder: 'public/preview',
-    tasks: {}
-  }
-  return core
-}
-
-Shared.makeCore = async ({ core, web, Texture }) => {
-  core.scene = Shared.makeScene({ ...core })
-  core.camera = Shared.makeCamera({ ...core })
-  core.renderAPI = core.makeEngine({ ...core })
-
-  core.boxAPI = await Shared.make3DItem({ ...core, web, texture: Texture.leafBG })
-  core.words = await Shared.get3DWords({ ...core, web, texture: Texture.text })
-  core.computeTasks = ({ clock, delta }) => {
-    for (var kn in core.tasks) {
-      core.tasks[kn]({ clock, delta })
-    }
-  }
-  return core
-}
 
 module.exports = Shared

@@ -3,7 +3,6 @@ import * as Shared from './shared.js'
 import { CanvasTextWrapper } from 'canvas-text-wrapper'
 
 let Adapter = {
-  THREE,
   makeEngine: ({ scene, camera }) => {
     var api = {}
     const renderer = new THREE.WebGLRenderer({
@@ -23,31 +22,26 @@ let Adapter = {
 
     return api
   },
-  loadTexture: ({ url }) => {
+  loadTexture: ({ file }) => {
     return new Promise((resolve, reject) => {
-      new THREE.TextureLoader().load(url, resolve)
+      new THREE.TextureLoader().load(file, resolve)
     })
   },
   makeTitleText: ({ width, height }) => {
     let canvas = document.createElement('canvas')
     Shared.drawText({ CanvasTextWrapper: CanvasTextWrapper, canvas, width, height })
     return new THREE.CanvasTexture(canvas)
-  },
-  prepareTextures: async ({ core }) => {
-    let Texture = {}
-    Texture.leafBG = await Adapter.loadTexture({ url: '/img/139-1920x1920.jpg' })
-    await document.fonts.load('20pt "NotoSans"')
-    Texture.text = await Adapter.makeTitleText({ width: core.width, height: core.height })
-    return Texture
   }
 }
 
 let makeRenderEngine = async () => {
   let web = Shared.webShim
-
-  let core = await Shared.defineCore({ ...Adapter })
-  let Texture = await Adapter.prepareTextures({ core })
-  core = await Shared.makeCore({ core, web, Texture })
+  let core = await Shared.generateCore({
+    Adapter,
+    web
+  })
+  // let Texture = await Shared.prepareTextures({ core, Adapter })
+  // core = await Shared.makeCore({ core, web, Texture, Adapter })
 
   let rAFID = 0
   var clockNow = 0;
@@ -56,7 +50,7 @@ let makeRenderEngine = async () => {
     core.renderAPI.render()
     // var abort = false
     // var i = -1;
-    const SECONDS_OF_VIDEO = core.videoDuration || 1
+    // const SECONDS_OF_VIDEO = core.videoDuration || 1
     const FPS_FIXED = core.fps
     const DELTA = (1000 / FPS_FIXED);
     // const TOTAL_FRAMES = SECONDS_OF_VIDEO * FPS_FIXED;
