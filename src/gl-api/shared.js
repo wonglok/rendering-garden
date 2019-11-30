@@ -4,14 +4,16 @@ let Shared = {}
 /* eslint-disable-next-line */
 let AdapterLoader = globalThis.document ? () => require('./adapter-front-end.js').default : () => eval('require')('./adapter-back-end.js').default
 let Adapter = AdapterLoader()
+let EventEmitter = require('events').EventEmitter
 
 Shared.generateCore = async ({ web = Shared.webShim, dom, data = {} } = {}) => {
+  let bus = new EventEmitter()
   let core = {
     data,
     fps: 60,
     width: 1080,
     height: 1080,
-    videoDuration: 1.5,
+    videoDuration: 0.5,
     previewFolder: '/resource/preview/',
     tasks: {},
     web: web || Shared.webShim,
@@ -25,28 +27,38 @@ Shared.generateCore = async ({ web = Shared.webShim, dom, data = {} } = {}) => {
         path: '/resource/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf',
         name: 'NotoSans'
       }
-    ]
+    ],
+    on: (e, h) => {
+      bus.on(e, h)
+    },
+    once: (e, h) => {
+      bus.once(e, h)
+    },
+    emit: (e, v) => {
+      bus.emit(e, v)
+    },
+    clean: () => {
+      bus.removeAllListeners()
+    }
   }
 
-  let all = await Promise.all([
-    Shared.makeTitleText({ ...core, text: data.text }),
-    Adapter.loadTexture({ file: '/resource/img/139-1920x1920.jpg' })
-  ])
-
-  let textBG = all[0]
-  let leafBG = all[1]
+  let leafBG = await Adapter.loadTexture({ file: '/resource/img/139-1920x1920.jpg' })
+  await Adapter.loadFonts({ fonts: core.fonts })
 
   core.scene = Shared.makeScene()
   core.camera = Shared.makeCamera({ ...core })
   core.renderAPI = Adapter.makeEngine({ ...core })
 
   core.boxAPI = await Shared.make3DItem({ ...core, texture: leafBG })
-  core.words = await Shared.get3DWords({ ...core, texture: textBG })
+  core.words = await Shared.get3DWords({ ...core, core })
   core.computeTasks = ({ clock, delta }) => {
     for (var kn in core.tasks) {
       core.tasks[kn]({ clock, delta })
     }
+    core.emit('compute')
   }
+
+  core.scene.background = new THREE.Color('#ffffff')
 
   return core
 }
@@ -166,20 +178,31 @@ Shared.visibleWidthAtZDepth = (depth, camera) => {
 }
 
 Shared.webShim = {
+  pushVideo: () => {},
   pushImage: () => {},
   notify: () => {}
 }
 
-Shared.get3DWords = async ({ width, height, scene, camera, tasks, web, texture }) => {
+Shared.get3DWords = async ({ core, data, width, height, scene, camera, tasks, web }) => {
   let id = Shared.getID()
 
   web.notify('drawing text....')
   let widthGeo = Shared.visibleWidthAtZDepth(0, camera)
   let geo = new THREE.PlaneBufferGeometry(widthGeo, widthGeo, 4, 4)
   let mat = new THREE.MeshBasicMaterial({
-    map: texture,
+    map: null,
     transparent: true
   })
+  let uploadTex = async ({ text }) => {
+    mat.map = await Shared.makeTitleText({ ...core, text })
+    mat.needsUpdate = true
+  }
+  await uploadTex({ text: data.text })
+
+  core.on('update-text', async ({ text }) => {
+    uploadTex({ text: text })
+  })
+
   // mat.uniforms.tex.value = await makeCanvasTexture()
   let mesh
   mesh = new THREE.Mesh(geo, mat)
@@ -188,7 +211,6 @@ Shared.get3DWords = async ({ width, height, scene, camera, tasks, web, texture }
   tasks[id] = ({ clock, delta }) => {
     // mat.uniforms.time.value = clock
   }
-  scene.background = new THREE.Color('#ffffff')
 }
 
 Shared.drawText = ({ CanvasTextWrapper, canvas, width, height, text }) => {

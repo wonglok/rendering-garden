@@ -19,6 +19,8 @@ let makeWebServer = () => {
         text: req.query.text || `some random text`
       },
       web: {
+        pushVideo: () => {
+        },
         notify: (msg) => {
           io.emit('chat message', `${msg}`)
         },
@@ -28,6 +30,25 @@ let makeWebServer = () => {
       }
     })
   })
+
+  // app.get('/video', async (req, res) => {
+  //   let api = await makeVideoAPI({
+  //     data: {
+  //       text: req.query.text || `some random text`
+  //     },
+  //     web: {
+  //       pushVideo: (videoFile) => {
+  //         res.sendFile(videoFile)
+  //       },
+  //       notify: (msg) => {
+  //         io.emit('chat message', `${msg}`)
+  //       },
+  //       pushImage: () => {
+  //       }
+  //     }
+  //   })
+  //   api.start()
+  // })
 
   const webpack = require('webpack')
   const middleware = require('webpack-dev-middleware')
@@ -40,7 +61,6 @@ let makeWebServer = () => {
       path: path.resolve(__dirname, 'dist')
     }
   })
-
   app.use(
     middleware(compiler, {
       // webpack-dev-middleware options
@@ -70,6 +90,7 @@ let makeWebServer = () => {
         })
         videoAPI.start()
       }
+
       if (msg.indexOf('pic') === 0) {
         io.emit('chat message', `<img src="/img?text=${encodeURIComponent(msg.slice(3, msg.length).trim())}" style="max-width: 100%" onload="window.scrollBottom" alt="image">`)
       }
@@ -110,6 +131,8 @@ let createScreenShot = async ({ data, web = Shared.webShim }) => {
     height: core.width,
     stream
   })
+
+  core.clean()
   core.renderAPI.destory()
 }
 
@@ -124,7 +147,6 @@ let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
   const temp = os.tmpdir()
   const filename = './tempvid.mp4'
   const onDone = ({ output }) => {
-    web.notify('Video is online....')
     let newFilename = `_${(Math.random() * 10000000).toFixed(0)}.mp4`
     let newfile = path.join(__dirname, core.previewFolder, newFilename)
 
@@ -135,6 +157,9 @@ let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
       console.log('file is at:', newfile)
       // fs.unlinkSync(output)
       console.log(`https://video-encoder.wonglok.com${core.previewFolder}${newFilename}`)
+      // web.pushVideo(newfile)
+      core.clean()
+      core.renderAPI.destory()
       console.log('cleanup complete!')
       // encoder.kill()
     })
@@ -182,11 +207,11 @@ let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
       if (i > TOTAL_FRAMES || abort) {
         web.notify('Begin packing video')
         encoder.passThrough.end()
-        process.nextTick(() => {
-          core.renderAPI.destory()
-        })
+        // process.nextTick(() => {
+
+        // })
       } else {
-        setTimeout(repeat, 0)
+        process.nextTick(repeat, 0)
       }
     })
   }
@@ -196,6 +221,7 @@ let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
       repeat()
     },
     abort () {
+      core.clean()
       abort = true
     }
   }

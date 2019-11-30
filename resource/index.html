@@ -9,8 +9,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font: 13px Helvetica, Arial; }
     form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-    form input { font-size: 17px; border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-    form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+    form textarea { font-size: 17px; border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+    form button { width: 4%; background: rgb(130, 224, 255); border: none; padding: 10px; }
     #messages { list-style-type: none; margin: 0; padding: 0; }
     #messages li { padding: 5px 10px; }
     #messages li:nth-child(odd) { background: #eee; }
@@ -23,8 +23,8 @@
         src: url("/resource/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf") format("opentype");
     } */
     #canvas{
-      max-width: 100vmin;
-      max-height: 100vmin;
+      max-width: calc(100vmin - 150px);
+      max-height: calc(100vmin - 150px);
     }
   </style>
 </head>
@@ -34,7 +34,7 @@
     <li>type pic to download rendererd picture</li>
     <li id="app"></li>
     <li>
-      <canvas style="" id="canvas">
+      <canvas id="canvas">
     </li>
     <li>
       <!-- <img src="https://video-encoder.wonglok.com/img" style="max-width: 100%"  alt="image"> -->
@@ -42,7 +42,7 @@
 
   </ul>
   <form action="">
-      <input id="m" autocomplete="off" autofocus="on" value="pic" /><button>Send</button>
+      <textarea id="m" autocomplete="off" autofocus="on" value="pic" ></textarea><button>Send</button>
     </form>
   <script src="https://www.unpkg.com/socket.io-client@2.3.0/dist/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -54,13 +54,30 @@
 
       $('form').submit(function(e){
         e.preventDefault()
-        let v = $('#m').val()
-        socket.emit('chat message', v);
+        let text = $('#m').val()
+
+        if (text.indexOf('video') === 0) {
+        } else if (text.indexOf('pic') === 0) {
+        } else {
+          text = `pic ${text}`
+        }
+
+        socket.emit('chat message', text);
         $('#m').val('');
 
-        window.dispatchEvent(new CustomEvent('reload', { detail: { text: v } }))
+        window.dispatchEvent(new CustomEvent('reload', { detail: { text: text } }))
         return false;
       });
+
+      $('#m').on('input', (evt) => {
+        let text = evt.target.value
+        if (text.indexOf('video') === 0) {
+          text = text.replace('video', ' ')
+        } else if (text.indexOf('pic') === 0) {
+          text = text.replace('pic', ' ')
+        }
+        window.dispatchEvent(new CustomEvent('update-text', { detail: { text } }))
+      })
 
       socket.on('chat message', function(msg){
         $('#messages').append($('<li>').html(msg));
@@ -82,14 +99,19 @@
         }
         API = await window.UniversalWebGL.install({
           canvas: document.querySelector('#canvas'),
-          data: {
-            text: 'front end data',
-            ...data
-          }
+          data
         })
         API.start()
+
+        window.addEventListener('update-text', (evt) => {
+          API.core.emit('update-text', { text: evt.detail.text })
+        })
       }
-      run({ data: {} })
+      run({
+        data: {
+          text: 'hello from hong kong'
+        }
+      })
       window.addEventListener('reload', (evt) => {
         run({
           data: {

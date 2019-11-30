@@ -27,6 +27,7 @@ export const install = async ({ canvas, data }) => {
   }
 
   api.stop = () => {
+    core.clean()
     cancelAnimationFrame(rAFID)
   }
 

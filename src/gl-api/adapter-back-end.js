@@ -1,20 +1,31 @@
 const THREE = require('three')
 const LRU = require('lru-cache')
+const FontCache = new Map()
+
 const options = {
   max: 500,
   maxAge: 1000 * 60 * 60
 }
+/* eslint-disable */
+const Canvas = require('canvas')
+/* eslint-enable */
+
 const TextureCache = new LRU(options)
 const path = require('path')
 const Adapter = {
+  loadFonts: async ({ fonts }) => {
+    for (var i = 0; i < fonts.length; i++) {
+      let f = fonts[i]
+      if (FontCache.has(f.path)) {
+        continue
+      } else {
+        Canvas.registerFont('.' + f.path, { family: f.name })
+        FontCache.set(f.path, f.name)
+      }
+    }
+  },
   provideCanvas2D: async ({ fonts, width, height }) => {
-    /* eslint-disable */
-    var Canvas = eval('require')('canvas')
-    fonts.forEach((f) => {
-      // NotoSans
-      Canvas.registerFont('.' + f.path, { family: f.name })
-    })
-    /* eslint-enable */
+    Adapter.loadFonts({ fonts })
     var canvas = Canvas.createCanvas(width, height)
     return canvas
   },

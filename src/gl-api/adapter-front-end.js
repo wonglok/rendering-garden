@@ -1,5 +1,18 @@
 var THREE = require('three')
+var FontCache = new Map()
 let Adapter = {
+  loadFonts: async ({ fonts }) => {
+    for (var kn in fonts) {
+      let f = fonts[kn]
+      if (FontCache.has(f.path)) {
+        continue
+      }
+      var oneFont = new FontFace(f.name, `url(${f.path})`)
+      document.fonts.add(oneFont)
+      await document.fonts.load(`20pt "${f.name}"`)
+      FontCache.set(f.path, oneFont)
+    }
+  },
   makeEngine: ({ width, height, scene, camera, dom }) => {
     var api = {}
     const renderer = new THREE.WebGLRenderer({
@@ -30,12 +43,7 @@ let Adapter = {
     let canvas = document.createElement('canvas')
     canvas.width = width
     canvas.height = height
-    for (var kn in fonts) {
-      let f = fonts[kn]
-      var oneFont = new FontFace(f.name, `url(${f.path})`)
-      document.fonts.add(oneFont)
-      await document.fonts.load(`20pt "${f.name}"`)
-    }
+    await Adapter.loadFonts({ fonts })
     return canvas
   },
   makeCanvasIntoTexture: ({ canvas }) => {
