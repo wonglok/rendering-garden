@@ -1,7 +1,6 @@
 node_modules
-public/preview/*
 resource/preview/*
-preview/*
+preview/*.mp4
 logs/*
 *.log
 
