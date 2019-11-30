@@ -8,6 +8,8 @@ let makeWebServer = () => {
   var port = process.env.PORT || 3123
   var path = require('path')
 
+  console.log(port)
+
   app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/resource/index.html'))
   })
