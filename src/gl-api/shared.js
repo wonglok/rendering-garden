@@ -2,7 +2,9 @@ let THREE = require('three')
 let CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper
 let Shared = {}
 /* eslint-disable-next-line */
-let AdapterLoader = globalThis.document ? () => require('./adapter-front-end.js').default : () => eval('require')('./adapter-back-end.js').default
+var isFrontEnd = new Function("try {return window.document;}catch(e){return false;}");
+/* eslint-disable-next-line */
+let AdapterLoader = isFrontEnd() ? () => require('./adapter-front-end.js').default : () => eval('require')('./adapter-back-end.js').default
 let Adapter = AdapterLoader()
 let EventEmitter = require('events').EventEmitter
 
