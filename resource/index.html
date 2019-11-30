@@ -65,7 +65,6 @@
         socket.emit('chat message', text);
         $('#m').val('');
 
-        window.dispatchEvent(new CustomEvent('reload', { detail: { text: text } }))
         return false;
       });
 
@@ -112,6 +111,7 @@
           text: 'hello from hong kong'
         }
       })
+
       window.addEventListener('reload', (evt) => {
         run({
           data: {
