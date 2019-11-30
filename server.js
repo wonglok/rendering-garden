@@ -1,51 +1,6 @@
-// const THREE = require('three')
-// const path = require('path')
 const Shared = require('./src/gl-api/shared.js')
-// var CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper;
-// var Adapter = require('./src-api/js/adapter-back-end.js').default;
 
 let makeWebServer = () => {
-  // const webpack = require('webpack')
-  // const middleware = require('webpack-dev-middleware')
-  // const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
-  // const compiler = webpack({
-  //   mode: 'development',
-  //   // webpack options
-  //   entry: './src-api/js/main-front-end.js',
-  //   output: {
-  //     filename: './dist/bundle.js',
-  //     path: path.resolve(__dirname, 'dist'),
-  //   },
-  //   // module: {
-  //   //   rules: [
-  //   //     {
-  //   //       test: /\.vue$/,
-  //   //       loader: 'vue-loader'
-  //   //     },
-  //   //     // this will apply to both plain `.js` files
-  //   //     // AND `<script>` blocks in `.vue` files
-  //   //     {
-  //   //       test: /\.js$/,
-  //   //       loader: 'babel-loader'
-  //   //     },
-  //   //     // this will apply to both plain `.css` files
-  //   //     // AND `<style>` blocks in `.vue` files
-  //   //     {
-  //   //       test: /\.css$/,
-  //   //       use: [
-  //   //         'vue-style-loader',
-  //   //         'css-loader'
-  //   //       ]
-  //   //     }
-  //   //   ]
-  //   // },
-  //   // plugins: [
-  //   //   // make sure to include the plugin for the magic
-  //   //   new VueLoaderPlugin()
-  //   // ]
-  // });
-
   let express = require('express')
   var app = express()
   var http = require('http').Server(app)
@@ -58,12 +13,11 @@ let makeWebServer = () => {
   //     // webpack-dev-middleware options
   //   })
   // );
-
   // app.get('/', function(req, res){
-  //   res.sendFile(__dirname + '/e-public/index.html');
+  //   res.sendFile(__dirname + '/resource/index.html');
   // });
 
-  app.use('/e-public', express.static('e-public'))
+  app.use('/resource', express.static('resource'))
   app.get('/img', (req, res) => {
     createScreenShot({
       web: {
