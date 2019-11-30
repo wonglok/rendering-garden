@@ -10,6 +10,8 @@ let Adapter = {
       preserveDrawingBuffer: true
     })
 
+    renderer.setSize(width, height)
+
     api.destory = () => {
     }
 
@@ -30,6 +32,8 @@ let Adapter = {
     canvas.height = height
     for (var kn in fonts) {
       let f = fonts[kn]
+      var oneFont = new FontFace(f.name, `url(${f.path})`)
+      document.fonts.add(oneFont)
       await document.fonts.load(`20pt "${f.name}"`)
     }
     return canvas

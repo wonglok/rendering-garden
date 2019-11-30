@@ -11,7 +11,6 @@ const Adapter = {
     /* eslint-disable */
     var Canvas = eval('require')('canvas')
     fonts.forEach((f) => {
-      //
       // NotoSans
       Canvas.registerFont('.' + f.path, { family: f.name })
     })

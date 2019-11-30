@@ -1,7 +1,9 @@
 import * as Shared from './shared.js'
 
-export const install = async ({ dom }) => {
-  let core = await Shared.generateCore({ dom })
+export const install = async ({ canvas }) => {
+  let api = {}
+  let core = await Shared.generateCore({ dom: canvas })
+  api.core = core
 
   let rAFID = 0
   var clockNow = 0
@@ -20,13 +22,17 @@ export const install = async ({ dom }) => {
     }
   }
 
-  return {
-    stop () {
-      cancelAnimationFrame(rAFID)
-    },
-    start () {
-      this.stop()
-      loop()
-    }
+  api.start = () => {
+    rAFID = requestAnimationFrame(loop)
   }
+
+  api.clean = () => {
+    cancelAnimationFrame(rAFID)
+  }
+
+  return api
+}
+
+window.InstallCanvasPreview = {
+  install
 }

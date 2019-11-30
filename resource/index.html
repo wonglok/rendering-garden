@@ -70,6 +70,12 @@
       }
     });
   </script>
-  <!-- <script type="module" src="/dist/bundle.js"></script> -->
+  <script src="/dist/bundle.js"></script>
+  <script>
+    (async function () {
+      let API = await window.InstallCanvasPreview.install({ canvas: document.querySelector('#canvas') })
+      API.start()
+    }())
+  </script>
 </body>
 </html>

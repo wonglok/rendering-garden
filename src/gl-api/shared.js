@@ -5,26 +5,31 @@ let Shared = {}
 let AdapterLoader = globalThis.document ? () => require('./adapter-front-end.js').default : () => eval('require')('./adapter-back-end.js').default
 let Adapter = AdapterLoader()
 
-Shared.generateCore = async ({ web, dom } = {}) => {
+Shared.generateCore = async ({ web = Shared.webShim, dom } = {}) => {
   let core = {
     fps: 60,
     width: 1080,
     height: 1080,
     videoDuration: 1.5,
-    previewFolder: '/e-public/preview/',
+    previewFolder: '/resource/preview/',
     tasks: {},
     web: web || Shared.webShim,
     dom: dom || false,
     fonts: [
       {
-        path: '/e-public/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf',
+        path: '/resource/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf',
         name: 'NotoSans'
       }
     ]
   }
 
-  let textBG = await Shared.makeTitleText({ ...core })
-  let leafBG = await Adapter.loadTexture({ file: '/e-public/img/139-1920x1920.jpg' })
+  let all = await Promise.all([
+    Shared.makeTitleText({ ...core }),
+    Adapter.loadTexture({ file: '/resource/img/139-1920x1920.jpg' })
+  ])
+
+  let textBG = all[0]
+  let leafBG = all[1]
 
   core.scene = Shared.makeScene()
   core.camera = Shared.makeCamera({ ...core })

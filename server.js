@@ -6,16 +6,11 @@ let makeWebServer = () => {
   var http = require('http').Server(app)
   var io = require('socket.io')(http)
   var port = process.env.PORT || 3123
-  var proxy = require('express-http-proxy')
+  var path = require('path')
 
-  // app.use(
-  //   middleware(compiler, {
-  //     // webpack-dev-middleware options
-  //   })
-  // );
-  // app.get('/', function(req, res){
-  //   res.sendFile(__dirname + '/resource/index.html');
-  // });
+  app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, '/resource/index.html'))
+  })
 
   app.use('/resource', express.static('resource'))
   app.get('/img', (req, res) => {
@@ -31,7 +26,25 @@ let makeWebServer = () => {
     })
   })
 
-  app.use(proxy('http://localhost:8080'))
+  const webpack = require('webpack')
+  const middleware = require('webpack-dev-middleware')
+  const compiler = webpack({
+    mode: 'development',
+    // webpack options
+    entry: './src/gl-api/main-front-end.js',
+    output: {
+      filename: './dist/bundle.js',
+      path: path.resolve(__dirname, 'dist')
+    }
+  })
+
+  app.use(
+    middleware(compiler, {
+      // webpack-dev-middleware options
+    })
+  )
+
+  // app.use(proxy('localhost:8080'))
 
   io.on('connection', function (socket) {
     socket.on('chat message', function (msg) {
@@ -100,7 +113,7 @@ let makeVideoAPI = async ({ web = Shared.webShim }) => {
   const path = require('path')
   const os = require('os')
   const fs = require('fs')
-  const Encoder = require('./encoder/vid.encoder.js')
+  const Encoder = require('./src/encoder/vid.encoder.js')
 
   const temp = os.tmpdir()
   const filename = './tempvid.mp4'
