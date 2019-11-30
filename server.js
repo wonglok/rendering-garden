@@ -15,6 +15,9 @@ let makeWebServer = () => {
   app.use('/resource', express.static('resource'))
   app.get('/img', (req, res) => {
     createScreenShot({
+      data: {
+        text: req.query.text || `some random text`
+      },
       web: {
         notify: (msg) => {
           io.emit('chat message', `${msg}`)
@@ -52,9 +55,12 @@ let makeWebServer = () => {
     })
 
     socket.on('chat message', async (msg) => {
-      if (msg === 'video') {
+      if (msg.indexOf('video') === 0) {
         // console.log('made a engine')
         let videoAPI = await makeVideoAPI({
+          data: {
+            text: msg.slice(6, msg.length).trim()
+          },
           web: {
             notify: (msg) => {
               io.emit('chat message', `${msg}`)
@@ -64,8 +70,8 @@ let makeWebServer = () => {
         })
         videoAPI.start()
       }
-      if (msg === 'pic') {
-        io.emit('chat message', `<img src="/img" style="max-width: 100%" onload="window.scrollBottom" alt="image">`)
+      if (msg.indexOf('pic') === 0) {
+        io.emit('chat message', `<img src="/img?text=${encodeURIComponent(msg.slice(3, msg.length).trim())}" style="max-width: 100%" onload="window.scrollBottom" alt="image">`)
       }
     })
     // socket.once('disconnect', () => {
@@ -82,8 +88,8 @@ let makeWebServer = () => {
   }
 }
 
-let createScreenShot = async ({ web = Shared.webShim }) => {
-  let core = await Shared.generateCore({ web })
+let createScreenShot = async ({ data, web = Shared.webShim }) => {
+  let core = await Shared.generateCore({ web, data })
 
   core.scene.scale.y = -1
   core.scene.rotation.z = Math.PI * 0.5
@@ -107,8 +113,8 @@ let createScreenShot = async ({ web = Shared.webShim }) => {
   core.renderAPI.destory()
 }
 
-let makeVideoAPI = async ({ web = Shared.webShim }) => {
-  let core = await Shared.generateCore({ web })
+let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
+  let core = await Shared.generateCore({ data, web })
 
   const path = require('path')
   const os = require('os')

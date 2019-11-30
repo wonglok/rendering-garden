@@ -5,8 +5,9 @@ let Shared = {}
 let AdapterLoader = globalThis.document ? () => require('./adapter-front-end.js').default : () => eval('require')('./adapter-back-end.js').default
 let Adapter = AdapterLoader()
 
-Shared.generateCore = async ({ web = Shared.webShim, dom } = {}) => {
+Shared.generateCore = async ({ web = Shared.webShim, dom, data = {} } = {}) => {
   let core = {
+    data,
     fps: 60,
     width: 1080,
     height: 1080,
@@ -24,7 +25,7 @@ Shared.generateCore = async ({ web = Shared.webShim, dom } = {}) => {
   }
 
   let all = await Promise.all([
-    Shared.makeTitleText({ ...core }),
+    Shared.makeTitleText({ ...core, text: data.text }),
     Adapter.loadTexture({ file: '/resource/img/139-1920x1920.jpg' })
   ])
 
@@ -46,13 +47,13 @@ Shared.generateCore = async ({ web = Shared.webShim, dom } = {}) => {
   return core
 }
 
-Shared.makeTitleText = async ({ fonts, width, height }) => {
+Shared.makeTitleText = async ({ fonts, width, height, text }) => {
   let canvas = await Adapter.provideCanvas2D({
     width,
     height,
     fonts
   })
-  Shared.drawText({ CanvasTextWrapper: CanvasTextWrapper, canvas, width, height })
+  Shared.drawText({ CanvasTextWrapper: CanvasTextWrapper, canvas, width, height, text })
   return Adapter.makeCanvasIntoTexture({ canvas })
 }
 
@@ -186,7 +187,7 @@ Shared.get3DWords = async ({ width, height, scene, camera, tasks, web, texture }
   scene.background = new THREE.Color('#ffffff')
 }
 
-Shared.drawText = ({ CanvasTextWrapper, canvas, width, height }) => {
+Shared.drawText = ({ CanvasTextWrapper, canvas, width, height, text }) => {
   canvas.width = width
   canvas.height = height
   var ctx = canvas.getContext('2d')
@@ -209,10 +210,10 @@ Shared.drawText = ({ CanvasTextWrapper, canvas, width, height }) => {
   }
   ctx.lineWidth = 2
   ctx.strokeStyle = '#ff0000'
-
-  let text = `您好.
+  let defaultText = `您好.
   How are u?
   I'm fine. thank you!`
+  text = text || defaultText
   CanvasTextWrapper(canvas, text, config)
 }
 

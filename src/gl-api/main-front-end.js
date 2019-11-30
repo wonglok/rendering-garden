@@ -1,8 +1,8 @@
 import * as Shared from './shared.js'
 
-export const install = async ({ canvas }) => {
+export const install = async ({ canvas, data }) => {
   let api = {}
-  let core = await Shared.generateCore({ dom: canvas })
+  let core = await Shared.generateCore({ dom: canvas, data })
   api.core = core
 
   let rAFID = 0
@@ -26,13 +26,13 @@ export const install = async ({ canvas }) => {
     rAFID = requestAnimationFrame(loop)
   }
 
-  api.clean = () => {
+  api.stop = () => {
     cancelAnimationFrame(rAFID)
   }
 
   return api
 }
 
-window.InstallCanvasPreview = {
+window.UniversalWebGL = {
   install
 }

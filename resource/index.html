@@ -9,7 +9,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font: 13px Helvetica, Arial; }
     form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-    form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+    form input { font-size: 17px; border: 0; padding: 10px; width: 90%; margin-right: .5%; }
     form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
     #messages { list-style-type: none; margin: 0; padding: 0; }
     #messages li { padding: 5px 10px; }
@@ -18,12 +18,12 @@
     .video-box{
       max-width: 100%;
     }
-    @font-face {
+    /* @font-face {
         font-family: NotoSans;
         src: url("/resource/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf") format("opentype");
-    }
+    } */
     #canvas{
-      max-width: 100%
+      max-width: 100vmin; max-height: 100vmin;
     }
   </style>
 </head>
@@ -33,7 +33,7 @@
     <li>type pic to download rendererd picture</li>
     <li id="app"></li>
     <li>
-      <canvas width="1080" height="1080" style="max-width: 100%" id="canvas">
+      <canvas style="" id="canvas">
     </li>
     <li>
       <!-- <img src="https://video-encoder.wonglok.com/img" style="max-width: 100%"  alt="image"> -->
@@ -41,8 +41,8 @@
 
   </ul>
   <form action="">
-    <input id="m" autocomplete="off" autofocus="on" value="pic" /><button>Send</button>
-  </form>
+      <input id="m" autocomplete="off" autofocus="on" value="pic" /><button>Send</button>
+    </form>
   <script src="https://www.unpkg.com/socket.io-client@2.3.0/dist/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
@@ -53,8 +53,11 @@
 
       $('form').submit(function(e){
         e.preventDefault()
-        socket.emit('chat message', $('#m').val());
+        let v = $('#m').val()
+        socket.emit('chat message', v);
         $('#m').val('');
+
+        window.dispatchEvent(new CustomEvent('reload', { detail: { text: v } }))
         return false;
       });
 
@@ -62,9 +65,6 @@
         $('#messages').append($('<li>').html(msg));
         window.scrollTo(0, document.body.scrollHeight);
       });
-      socket.on('reload', () => {
-        window.location.reload()
-      })
       window.scrollBottom = () => {
         window.location.reload()
       }
@@ -73,8 +73,29 @@
   <script src="/dist/bundle.js"></script>
   <script>
     (async function () {
-      let API = await window.InstallCanvasPreview.install({ canvas: document.querySelector('#canvas') })
-      API.start()
+      let API
+
+      let run = async ({ data }) => {
+        if (API) {
+          API.stop()
+        }
+        API = await window.UniversalWebGL.install({
+          canvas: document.querySelector('#canvas'),
+          data: {
+            text: 'front end data',
+            ...data
+          }
+        })
+        API.start()
+      }
+      run({ data: {} })
+      window.addEventListener('reload', (evt) => {
+        run({
+          data: {
+            text: evt.detail.text
+          }
+        })
+      })
     }())
   </script>
 </body>
