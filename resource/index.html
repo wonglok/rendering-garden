@@ -16,7 +16,7 @@
     #messages li:nth-child(odd) { background: #eee; }
     #messages { margin-bottom: 40px }
     .video-box{
-      max-width: 100%;
+      max-width: 100vmin;
     }
     /* @font-face {
         font-family: NotoSans;
@@ -26,6 +26,20 @@
       max-width: calc(100vmin - 150px);
       max-height: calc(100vmin - 150px);
     }
+    @media screen and (min-width: 1270px) {
+      .pin{
+        position: fixed;
+        top: 0px;
+        right: 0px;
+      }
+      .pin #canvas{
+        max-width: 480px;
+        max-height: 480px
+      }
+      .video-box{
+        max-width: 40vmin;
+      }
+    }
   </style>
 </head>
 <body>
@@ -33,8 +47,10 @@
     <li>type video to begin encode webgl video</li>
     <li>type pic to download rendererd picture</li>
     <li id="app"></li>
-    <li>
+    <li id="pinner" class="pin">
       <canvas id="canvas">
+      <br/>
+      Preview Box
     </li>
     <li>
       <!-- <img src="https://video-encoder.wonglok.com/img" style="max-width: 100%"  alt="image"> -->
@@ -59,7 +75,7 @@
         if (text.indexOf('video') === 0) {
         } else if (text.indexOf('pic') === 0) {
         } else {
-          text = `pic ${text}`
+          text = `video ${text}`
         }
 
         socket.emit('chat message', text);
@@ -67,7 +83,12 @@
 
         return false;
       });
-
+      // $('#m').on('focus', () => {
+      //   $('#pinner').removeClass('pin').addClass('pin')
+      // });
+      // $('#m').on('blur', () => {
+      //   $('#pinner').removeClass('pin')
+      // });
       $('#m').on('input', (evt) => {
         let text = evt.target.value
         if (text.indexOf('video') === 0) {
@@ -112,13 +133,13 @@
         }
       })
 
-      window.addEventListener('reload', (evt) => {
-        run({
-          data: {
-            text: evt.detail.text
-          }
-        })
-      })
+      // window.addEventListener('reload', (evt) => {
+      //   run({
+      //     data: {
+      //       text: evt.detail.text
+      //     }
+      //   })
+      // })
     }())
   </script>
 </body>

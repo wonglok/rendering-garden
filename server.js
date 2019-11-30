@@ -197,7 +197,7 @@ let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
     }
 
     console.log('progress', progress)
-    web.notify(`Progress: ${((now / TOTAL_FRAMES) * 100).toFixed(2).padStart(6, '0')}%, ${now.toFixed(0).padStart(6, '0')} / ${TOTAL_FRAMES.toFixed(0).padStart(6, '0')} Frames Processed`)
+    web.notify(`Video Process Progress: ${((now / TOTAL_FRAMES) * 100).toFixed(2).padStart(6, '0')}%, ${now.toFixed(0).padStart(6, '0')} / ${TOTAL_FRAMES.toFixed(0).padStart(6, '0')} Motion Graphics Frame Processed`)
 
     clockNow += DELTA
     core.computeTasks({ clock: clockNow, delta: DELTA })
