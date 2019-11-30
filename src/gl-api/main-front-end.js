@@ -6,7 +6,7 @@ export const install = async ({ canvas, data }) => {
   api.core = core
 
   let rAFID = 0
-  var clockNow = 0
+  let clockNow = 0
   let loop = () => {
     rAFID = requestAnimationFrame(loop)
     core.renderAPI.render()
