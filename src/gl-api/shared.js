@@ -18,6 +18,10 @@ Shared.generateCore = async ({ web = Shared.webShim, dom, data = {} } = {}) => {
     dom: dom || false,
     fonts: [
       {
+        path: '/resource/fonts/emoji/NotoColorEmoji.ttf',
+        name: 'NotoEmoji'
+      },
+      {
         path: '/resource/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf',
         name: 'NotoSans'
       }
@@ -192,7 +196,7 @@ Shared.drawText = ({ CanvasTextWrapper, canvas, width, height, text }) => {
   canvas.height = height
   var ctx = canvas.getContext('2d')
   let config = {
-    font: '30px NotoSans, sans-serif',
+    font: '30px NotoSans, NotoEmoji, sans-serif',
     lineHeight: 1,
     textAlign: 'center',
     verticalAlign: 'middle', // top, middle, bottom
