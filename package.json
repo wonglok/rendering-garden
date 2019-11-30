@@ -2,12 +2,12 @@
   "name": "rendering-garden",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node main.js",
-    "dev2": "xvfb-run -s \"-ac -screen 0 1080x1080x24\" nodemon main.js",
-    "dev": "xvfb-run -a nodemon --ignore './dist/' main.js",
-    "lin": "xvfb-run -s \"-ac -screen 0 1080x1080x24\" node main.js",
+    "start": "node server.js",
+    "dev2": "xvfb-run -s \"-ac -screen 0 1080x1080x24\" nodemon server.js",
+    "dev": "xvfb-run -a nodemon --ignore './dist/' server.js",
+    "lin": "xvfb-run -s \"-ac -screen 0 1080x1080x24\" node server.js",
     "pm2create": "pm2 start ecosystem.config.js",
     "kill1337": "sudo kill -9 `sudo lsof -t -i:1337`",
     "pm2kill": "pm2 delete ecosystem.config.js",
@@ -24,7 +24,9 @@
     "browserify": "^16.5.0",
     "canvas": "^2.6.0",
     "canvas-text-wrapper": "^0.10.2",
+    "core-js": "^3.4.3",
     "express": "^4.17.1",
+    "express-http-proxy": "^1.6.0",
     "get-pixels": "^3.3.2",
     "gl": "^4.4.0",
     "jimp": "^0.9.3",
@@ -37,17 +39,13 @@
     "three": "^0.110.0",
     "tmp": "^0.1.0",
     "vue": "^2.6.10",
-    "webpack": "^4.41.2",
-    "core-js": "^3.4.3",
     "vue-router": "^3.1.3",
-    "vuex": "^3.1.2"
+    "vuex": "^3.1.2",
+    "webpack": "^4.41.2"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
-    "babel-loader": "^8.0.6",
-    "vue-loader": "^15.7.2",
-    "webpack-dev-middleware": "^3.7.2",
     "@vue/cli-plugin-babel": "^4.1.0",
     "@vue/cli-plugin-eslint": "^4.1.0",
     "@vue/cli-plugin-router": "^4.1.0",
@@ -55,8 +53,12 @@
     "@vue/cli-service": "^4.1.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "concurrently": "^5.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-loader": "^15.7.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack-dev-middleware": "^3.7.2"
   }
 }
