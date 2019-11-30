@@ -151,7 +151,7 @@ let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
     let newfile = path.join(__dirname, core.previewFolder, newFilename)
 
     web.notify(`<a class="link-box" target="_blank" href="${core.previewFolder}${newFilename}">/preview/${newFilename}</a>`)
-    web.notify(`<video autoplay loop controls class="video-box" src="${core.previewFolder}${newFilename}">${newFilename}</video>`)
+    web.notify(`<video autoplay loop controls class="video-box" playsinline src="${core.previewFolder}${newFilename}">${newFilename}</video>`)
     fs.rename(output, newfile, (err) => {
       if (err) throw err
       console.log('file is at:', newfile)
