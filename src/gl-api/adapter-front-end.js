@@ -8,13 +8,13 @@ let Adapter = {
       height: height,
       canvas: dom || document.querySelector('#canvas'),
       preserveDrawingBuffer: true
-    });
+    })
 
     api.destory = () => {
     }
 
     api.render = () => {
-      renderer.render(scene, camera);
+      renderer.render(scene, camera)
     }
 
     return api

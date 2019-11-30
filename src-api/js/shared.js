@@ -1,7 +1,8 @@
 let THREE = require('three')
 let CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper
 let Shared = {}
-/* eslint-disable-next-line */
+
+// eslint-disable-next-line
 let AdapterLoader = globalThis.document ? () => require('./adapter-front-end.js').default : () => eval('require')('./adapter-back-end.js').default
 let Adapter = AdapterLoader()
 

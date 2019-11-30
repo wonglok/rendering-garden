@@ -1,11 +1,12 @@
-var LRU = require("lru-cache")
-var options = {
+const THREE = require('three')
+const LRU = require('lru-cache')
+const options = {
   max: 500,
   maxAge: 1000 * 60 * 60
 }
-let TextureCache = new LRU(options)
-let path = require('path')
-let Adapter = {
+const TextureCache = new LRU(options)
+const path = require('path')
+const Adapter = {
   provideCanvas2D: async ({ fonts, width, height }) => {
     /* eslint-disable */
     var Canvas = eval('require')('canvas')
@@ -60,7 +61,6 @@ let Adapter = {
     })
   },
   makeEngine: ({ camera, scene, width, height }) => {
-    const THREE = require('three');
     const createContext = require('gl')
     const api = {}
     const gl = createContext(width, height, {
@@ -74,7 +74,7 @@ let Adapter = {
         return ext
       }
       return true
-    };
+    }
 
     const canvas = {
       getContext () {
@@ -82,7 +82,7 @@ let Adapter = {
       },
       addEventListener () {
       }
-    };
+    }
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -90,13 +90,13 @@ let Adapter = {
       height: 0,
       canvas: canvas,
       context: gl
-    });
+    })
 
     const rtTexture = new THREE.WebGLRenderTarget(width, height, {
       minFilter: THREE.LinearFilter,
       magFilter: THREE.NearestFilter,
       format: THREE.RGBAFormat
-    });
+    })
 
     api.destory = () => {
       const ext = gl.getExtension('STACKGL_destroy_context')
@@ -104,12 +104,12 @@ let Adapter = {
     }
 
     api.render = () => {
-      renderer.setRenderTarget(rtTexture);
-      renderer.render(scene, camera);
+      renderer.setRenderTarget(rtTexture)
+      renderer.render(scene, camera)
 
-      const gl = renderer.getContext();
-      const pixels = new Uint8Array(4 * width * height);
-      gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+      const gl = renderer.getContext()
+      const pixels = new Uint8Array(4 * width * height)
+      gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels)
 
       return {
         pixels

@@ -59,7 +59,6 @@ let makeWebServer = () => {
   //   })
   // );
 
-
   // app.get('/', function(req, res){
   //   res.sendFile(__dirname + '/e-public/index.html');
   // });
@@ -69,7 +68,7 @@ let makeWebServer = () => {
     createScreenShot({
       web: {
         notify: (msg) => {
-          io.emit('chat message', `${msg}`);
+          io.emit('chat message', `${msg}`)
         },
         pushImage: (data) => {
           data.stream.pipe(res)
@@ -122,31 +121,31 @@ let createScreenShot = async ({ web = Shared.webShim }) => {
   core.scene.scale.y = -1
   core.scene.rotation.z = Math.PI * 0.5
 
-  var clockNow = 0;
+  var clockNow = 0
   // const SECONDS_OF_VIDEO = core.videoDuration || 1
   const FPS_FIXED = core.fps
-  const DELTA = (1000 / FPS_FIXED);
+  const DELTA = (1000 / FPS_FIXED)
   core.computeTasks({ clock: clockNow, delta: DELTA })
   const { pixels } = core.renderAPI.render()
   // const combined = Buffer.from(pixels)
   let ndarray = require('ndarray')
   let savePixels = require('save-pixels')
-  let stream = savePixels(ndarray(pixels, [core.width, core.height, 4]), 'png', { quality: 60 });
+  let stream = savePixels(ndarray(pixels, [core.width, core.height, 4]), 'png', { quality: 60 })
 
   web.pushImage({
     width: core.width,
     height: core.width,
     stream
-  });
+  })
   core.renderAPI.destory()
 }
 
 let makeVideoAPI = async ({ web = Shared.webShim }) => {
   let core = await Shared.generateCore({ web })
 
-  const path = require('path');
-  const os = require('os');
-  const fs = require('fs');
+  const path = require('path')
+  const os = require('os')
+  const fs = require('fs')
   const Encoder = require('./encoder/vid.encoder.js')
 
   const temp = os.tmpdir()
@@ -159,13 +158,13 @@ let makeVideoAPI = async ({ web = Shared.webShim }) => {
     web.notify(`<a class="link-box" target="_blank" href="${core.previewFolder}${newFilename}">/preview/${newFilename}</a>`)
     web.notify(`<video autoplay loop controls class="video-box" src="${core.previewFolder}${newFilename}">${newFilename}</video>`)
     fs.rename(output, newfile, (err) => {
-      if (err) throw err;
-      console.log('file is at:', newfile);
+      if (err) throw err
+      console.log('file is at:', newfile)
       // fs.unlinkSync(output)
       console.log(`https://video-encoder.wonglok.com${core.previewFolder}${newFilename}`)
-      console.log('cleanup complete!');
+      console.log('cleanup complete!')
       // encoder.kill()
-    });
+    })
   }
   const encoder = new Encoder({
     output: path.join(temp, filename),
@@ -173,25 +172,25 @@ let makeVideoAPI = async ({ web = Shared.webShim }) => {
     height: core.height,
     fps: core.fps,
     onDone
-  });
-  // encoder.promise.then(onDone);
+  })
+  // encoder.promise.then(onDone)
   // encoder.on('console', (evt) => {
   //   // console.log(evt)
-  // });
+  // })
   // encoder.on('done', (evt) => {
   //   web.notify('Finished encoding video....')
-  // });
+  // })
 
   var abort = false
-  var i = -1;
-  var clockNow = 0;
+  var i = -1
+  var clockNow = 0
   const SECONDS_OF_VIDEO = core.videoDuration || 1
   const FPS_FIXED = core.fps
-  const DELTA = (1000 / FPS_FIXED);
-  const TOTAL_FRAMES = SECONDS_OF_VIDEO * FPS_FIXED;
+  const DELTA = (1000 / FPS_FIXED)
+  const TOTAL_FRAMES = SECONDS_OF_VIDEO * FPS_FIXED
 
   const repeat = () => {
-    i++;
+    i++
     const now = (i - 1) < 0 ? 0 : (i - 1)
     const progress = {
       at: now.toFixed(0),
@@ -200,21 +199,21 @@ let makeVideoAPI = async ({ web = Shared.webShim }) => {
     }
 
     console.log('progress', progress)
-    web.notify(`Progress: ${((now / TOTAL_FRAMES) * 100).toFixed(2).padStart(6, '0')}%, ${now.toFixed(0).padStart(6, '0')} / ${TOTAL_FRAMES.toFixed(0).padStart(6, '0')} Frames Processed`);
+    web.notify(`Progress: ${((now / TOTAL_FRAMES) * 100).toFixed(2).padStart(6, '0')}%, ${now.toFixed(0).padStart(6, '0')} / ${TOTAL_FRAMES.toFixed(0).padStart(6, '0')} Frames Processed`)
 
     clockNow += DELTA
     core.computeTasks({ clock: clockNow, delta: DELTA })
     const { pixels } = core.renderAPI.render()
-    const combined = Buffer.from(pixels);
+    const combined = Buffer.from(pixels)
     encoder.passThrough.write(combined, () => {
       if (i > TOTAL_FRAMES || abort) {
-        web.notify('Begin packing video');
-        encoder.passThrough.end();
+        web.notify('Begin packing video')
+        encoder.passThrough.end()
         process.nextTick(() => {
-          core.renderAPI.destory();
-        });
+          core.renderAPI.destory()
+        })
       } else {
-        setTimeout(repeat, 0);
+        setTimeout(repeat, 0)
       }
     })
   }

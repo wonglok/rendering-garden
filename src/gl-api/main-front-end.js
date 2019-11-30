@@ -1,6 +1,6 @@
 import * as Shared from './shared.js'
 
-export const run = async ({ dom }) => {
+export const install = async ({ dom }) => {
   let core = await Shared.generateCore({ dom })
 
   let rAFID = 0
