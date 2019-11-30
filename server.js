@@ -12,6 +12,7 @@ let makeWebServer = () => {
     res.sendFile(path.join(__dirname, '/resource/index.html'))
   })
 
+  app.use('/preview', express.static('preview'))
   app.use('/resource', express.static('resource'))
   app.get('/img', (req, res) => {
     createScreenShot({
