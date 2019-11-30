@@ -13,10 +13,7 @@
     "kill1337": "sudo kill -9 `sudo lsof -t -i:1337`",
     "pm2kill": "pm2 delete ecosystem.config.js",
     "pm2restart": "npm run pm2kill; npm run pm2create;",
-    "log": "tail -f ./.cache/logs/combined.log",
-    "dev-gui": "vue-cli-service serve --host 0.0.0.0 --port 8080",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "log": "tail -f ./.cache/logs/combined.log"
   },
   "author": "",
   "license": "ISC",

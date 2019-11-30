@@ -29,6 +29,7 @@ apt-get install
 
 1. ffmepg
 2. nginx
+3. python
 
 # headless gl
 sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev pkg-config
