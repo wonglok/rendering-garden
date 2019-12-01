@@ -1,33 +1,33 @@
 var THREE = require('three')
 var FontCache = new Map()
-var localforage = require('localforage')
-THREE.Cache.enabled = true
+// var localforage = require('localforage')
+// THREE.Cache.enabled = true
 
-var Blobify = {
-  async download (url) {
-    let output = await fetch(url)
-      .then(function(response) {
-        return response.blob();
-      })
-      .then((data) => {
-        localforage.setItem(url, data)
-        return data
-      })
-    return output
-  },
-  async provideBlobURL (url) {
-    return localforage.getItem(url)
-      .then(async (data) => {
-        return data
-      })
-      .catch(async () => {
-        return await Blobify.download(url)
-      })
-      .then((data) => {
-        return URL.createObjectURL(data)
-      })
-  }
-}
+// var Blobify = {
+//   async download (url) {
+//     let output = await fetch(url)
+//       .then((response) => {
+//         return response.blob()
+//       })
+//       .then((data) => {
+//         localforage.setItem(url, data)
+//         return data
+//       })
+//     return output
+//   },
+//   async provideBlobURL (url) {
+//     return localforage.getItem(url)
+//       .then(async (data) => {
+//         return data
+//       })
+//       .catch(() => {
+//         return Blobify.download(url)
+//       })
+//       .then((data) => {
+//         return URL.createObjectURL(data)
+//       })
+//   }
+// }
 
 let Adapter = {
   loadFonts: async ({ fonts }) => {
@@ -36,8 +36,8 @@ let Adapter = {
       if (FontCache.has(f.path)) {
         continue
       }
-      let blobURL = await Blobify.provideBlobURL(f.path)
-      var oneFont = new FontFace(f.name, `url(${blobURL})`)
+      // let blobURL = await Blobify.provideBlobURL(f.path)
+      var oneFont = new FontFace(f.name, `url(${f.path})`)
       document.fonts.add(oneFont)
       await document.fonts.load(`20pt "${f.name}"`)
       FontCache.set(f.path, oneFont)
