@@ -15,7 +15,7 @@ var BlobCache = {
       })
     return output
   },
-  async provideBlobURL (url, mime) {
+  async provideBlobURL (url) {
     return localforage.getItem(url)
       .then(async (data) => {
         return !!data ? data : Promise.reject()
@@ -24,7 +24,7 @@ var BlobCache = {
         return await BlobCache.download(url)
       })
       .then((data) => {
-        return URL.createObjectURL(data, { type: mime || 'font/otf' })
+        return URL.createObjectURL(data)
       })
   }
 }
