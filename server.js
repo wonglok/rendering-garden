@@ -22,7 +22,7 @@ let makeWebServer = () => {
     try {
       let obj = JSON.parse(decodeURIComponent(str))
       createScreenShot({
-        data: obj,
+        spec: obj,
         web: {
           pushVideo: () => {
           },
@@ -68,12 +68,15 @@ let makeWebServer = () => {
       io.emit('log', { id: Graphics.getID(), html: msg })
     })
 
-    socket.on('make pic', (data) => {
-      io.emit('log', { id: Graphics.getID(), html: `<img src="/img?json=${encodeURIComponent(JSON.stringify(data))}" style="max-width: 100%" onload="window.scrollBottom" alt="image">` })
+    socket.on('make pic', (spec) => {
+      io.emit('log', { id: Graphics.getID(), html: `
+        <a target="_blank" href="${spec.site}/img?json=${encodeURIComponent(JSON.stringify(spec))}">Image Link</a>
+        <img src="${spec.site}/img?json=${encodeURIComponent(JSON.stringify(spec))}" style="max-width: 100%" onload="window.scrollBottom" alt="image">
+      ` })
     })
     socket.on('make video', async (data) => {
       let videoAPI = await makeVideoAPI({
-        data,
+        spec: data,
         web: {
           notify: (msg) => {
             io.emit('log', { id: Graphics.getID(), html: `${msg}` })
@@ -100,8 +103,12 @@ let makeWebServer = () => {
   }
 }
 
-let createScreenShot = async ({ data, web = Graphics.webShim }) => {
-  let core = await Graphics.generateCore({ web, spec: data })
+let createScreenShot = async ({ spec, web = Graphics.webShim }) => {
+  web = {
+    ...Graphics.webShim,
+    ...web
+  }
+  let core = await Graphics.generateCore({ web, spec })
 
   core.scene.scale.y = -1
   core.scene.rotation.z = Math.PI * 0.5
@@ -127,14 +134,18 @@ let createScreenShot = async ({ data, web = Graphics.webShim }) => {
   core.renderAPI.destory()
 
   return {
-    updateData (v) {
-      core.data = v
+    updateSpec (v) {
+      core.spec = v
     }
   }
 }
 
-let makeVideoAPI = async ({ data, web = Graphics.webShim }) => {
-  let core = await Graphics.generateCore({ web, spec: data })
+let makeVideoAPI = async ({ spec, web = Graphics.webShim }) => {
+  web = {
+    ...Graphics.webShim,
+    ...web
+  }
+  let core = await Graphics.generateCore({ web, spec: spec })
 
   const path = require('path')
   const os = require('os')
@@ -147,8 +158,14 @@ let makeVideoAPI = async ({ data, web = Graphics.webShim }) => {
     let newFilename = `_${(Math.random() * 10000000).toFixed(0)}.mp4`
     let newfile = path.join(__dirname, core.previewFolder, newFilename)
 
-    web.notify(`<a class="link-box" target="_blank" href="${core.previewFolder}${newFilename}">/preview/${newFilename}</a>`)
-    web.notify(`<video autoplay loop controls class="video-box" playsinline src="${core.previewFolder}${newFilename}">${newFilename}</video>`)
+    web.notify(`<a class="link-box" target="_blank" href="${core.spec.site}${core.previewFolder}${newFilename}">${core.spec.site}${core.previewFolder}${newFilename}</a>`)
+    web.notify(`<video autoplay loop controls class="video-box" playsinline src="${core.spec.site}${core.previewFolder}${newFilename}">${newFilename}</video>`)
+    web.done({
+      url: `${core.spec.site}${core.previewFolder}${newFilename}`,
+      filename: `${newFilename}`,
+      folder: `${core.spec.site}${core.previewFolder}`,
+      site: `${core.spec.site}`
+    })
     fs.rename(output, newfile, (err) => {
       if (err) throw err
       console.log('file is at:', newfile)
@@ -217,8 +234,8 @@ let makeVideoAPI = async ({ data, web = Graphics.webShim }) => {
   }
 
   return {
-    updateData (data) {
-      return core.data = data
+    updateSpec (data) {
+      return core.spec = data
     },
     start () {
       repeat()

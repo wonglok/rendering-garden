@@ -11,13 +11,13 @@ let EventEmitter = require('events').EventEmitter
 Graphics.generateCore = async ({ web = Graphics.webShim, dom, spec = {} } = {}) => {
   let bus = new EventEmitter()
   let core = {
-    _data: spec,
+    _internalData: spec,
     get spec () {
-      return core._data
+      return core._internalData
     },
     set spec (v) {
       bus.emit('refresh', v)
-      core._data = v
+      core._internalData = v
     },
     fps: 60,
     width: 1024,
@@ -193,7 +193,8 @@ Graphics.visibleWidthAtZDepth = (depth, camera) => {
 Graphics.webShim = {
   pushVideo: () => {},
   pushImage: () => {},
-  notify: () => {}
+  notify: () => {},
+  done: () => {}
 }
 
 Graphics.makeWords = async ({ core, spec, width, height, scene, camera, tasks, web }) => {

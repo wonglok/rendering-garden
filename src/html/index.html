@@ -27,7 +27,7 @@
 <body>
 
   <div id="app">
-    <div v-if="pAPI">
+    <div v-if="SDK">
       <div class="flex">
         <textarea class="bg-teal-100 border b-black p-3"  @input="onUpdatePoster()" v-model="spec.text" placeholder="text" cols="30" rows="10"></textarea>
         <chrome-picker class="bg-teal-100 border b-black p-3"   v-model="colorpicker" @input="spec.bg = colorpicker.hex; onUpdatePoster()"></chrome-picker>
@@ -46,7 +46,7 @@
     <div v-if="progress !== 0 || progress !== 100" ref="progress">
     </div>
     <div class="fixed top-0 right-0 m-5">
-      <div v-if="!pAPI">
+      <div v-if="!SDK">
         Loading.....
       </div>
       <canvas ref="canvas">
@@ -76,7 +76,7 @@
         return {
           progress: 0,
           logs: [],
-          pAPI: false,
+          SDK: false,
           socket: false,
           colorpicker: {},
           spec: {
@@ -95,23 +95,23 @@
           window.scrollTo(0, 0)
         },
         async initSystem () {
-          this.pAPI = await window.UniversalWebGL.install({
+          this.SDK = await window.UniversalWebGL.makeSDK({
             canvas: this.$refs['canvas'],
             spec: this.spec
           })
-          this.pAPI.start()
+          this.SDK.start()
           this.listen()
         },
         onUpdatePoster () {
-          if (this.pAPI) {
-            this.pAPI.core.spec = { ...this.spec }
+          if (this.SDK) {
+            this.SDK.refreshSpec({ spec: this.spec })
           }
         },
         makePic () {
-          this.pAPI.socket.emit('make pic', this.spec);
+          this.SDK.makePoster()
         },
         makeVideo () {
-          this.pAPI.socket.emit('make video', this.spec);
+          this.SDK.makeVideo()
         },
         listen () {
           var progressUI = new CircularProgress({
@@ -123,11 +123,11 @@
           });
           this.$refs['progress'].appendChild(progressUI.el);
 
-          this.pAPI.socket.on('progress', ({ progress }) => {
+          this.SDK.socket.on('progress', ({ progress }) => {
             this.progress = progress
             progressUI.update(progress * 100.0);
           })
-          this.pAPI.socket.on('log', (item) => {
+          this.SDK.socket.on('log', (item) => {
             this.logs.unshift(item)
             this.$forceUpdate()
             setTimeout(() => {

@@ -1,6 +1,6 @@
 import * as Graphics from './graphics.js'
 import io from 'socket.io-client'
-export const install = async ({ canvas, spec }) => {
+export const makeSDK = async ({ canvas, spec }) => {
   let api = {}
   spec = {
     site: location.origin,
@@ -10,9 +10,9 @@ export const install = async ({ canvas, spec }) => {
     videoDuration: 3,
     ...spec
   }
+
   let core = await Graphics.generateCore({ dom: canvas, spec })
   api.core = core
-  let socket = io(spec.site)
 
   let rAFID = 0
   let clockNow = 0
@@ -31,9 +31,10 @@ export const install = async ({ canvas, spec }) => {
     }
   }
 
-  api.socket = socket
+  api.socket = io(spec.site)
 
   api.start = () => {
+    clockNow = 0
     rAFID = requestAnimationFrame(loop)
   }
 
@@ -42,9 +43,23 @@ export const install = async ({ canvas, spec }) => {
     cancelAnimationFrame(rAFID)
   }
 
+  api.makePoster = () => {
+    return new Promise((resolve, reject) => {
+      api.socket.emit('make pic', api.core.spec);
+    })
+  }
+  api.makeVideo = () => {
+    return new Promise((resolve, reject) => {
+      api.socket.emit('make video', api.core.spec);
+    })
+  }
+
+  api.refreshSpec = ({ spec }) => {
+    api.core.spec = JSON.parse(JSON.stringify(spec))
+  }
   return api
 }
 
 window.UniversalWebGL = {
-  install
+  makeSDK
 }
