@@ -10,9 +10,7 @@ let makeWebServer = () => {
 
   console.log(port)
 
-  app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '/resource/index.html'))
-  })
+
 
   app.use('/preview', express.static('preview'))
   app.use('/resource', express.static('resource'))
@@ -40,6 +38,9 @@ let makeWebServer = () => {
         }
       })
     } catch (e) {
+      res.json({
+        error: 'bad json'
+      })
     }
   })
 
@@ -50,14 +51,17 @@ let makeWebServer = () => {
     // webpack options
     entry: './src/gl-api/main-front-end.js',
     output: {
-      filename: './res/universal-webgl.js',
+      filename: './v1/sdk.js',
       path: path.resolve(__dirname, 'dist')
     }
   })
-  app.use(
-    middleware(compiler, {
-    })
-  )
+
+  app.use(middleware(compiler, {
+
+  }))
+  app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, '/src/html/index.html'))
+  })
 
   io.on('connection', function (socket) {
     socket.on('chat', function (msg) {

@@ -1,9 +1,10 @@
-import * as Shared from './shared.js'
-
-export const install = async ({ canvas, data }) => {
+import * as Graphics from './shared.js'
+import io from 'socket.io-client'
+export const install = async ({ canvas, data, src }) => {
   let api = {}
-  let core = await Shared.generateCore({ dom: canvas, data })
+  let core = await Graphics.generateCore({ dom: canvas, data })
   api.core = core
+  let socket = io(src)
 
   let rAFID = 0
   let clockNow = 0
@@ -21,6 +22,8 @@ export const install = async ({ canvas, data }) => {
       core.tasks[kn]({ delta: DELTA, clock: clockNow })
     }
   }
+
+  api.socket = socket
 
   api.start = () => {
     rAFID = requestAnimationFrame(loop)

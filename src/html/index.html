@@ -27,7 +27,7 @@
 <body>
 
   <div id="app">
-    <div>
+    <div v-if="pAPI">
       <div class="flex">
         <textarea class="bg-teal-100 border b-black p-3"  @input="onUpdatePoster()" v-model="poster.text" placeholder="text" cols="30" rows="10"></textarea>
         <chrome-picker class="bg-teal-100 border b-black p-3"   v-model="colorpicker" @input="poster.bg = colorpicker.hex; onUpdatePoster()"></chrome-picker>
@@ -60,15 +60,13 @@
     </div>
   </div>
 
-  <script src="https://www.unpkg.com/socket.io-client@2.3.0/dist/socket.io.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/circular-progress/0.2.3/circular-progress.min.js"> </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-color/2.7.0/vue-color.min.js"></script>
 
-  <script src="/res/universal-webgl.js"></script>
+  <script src="/v1/sdk.js"></script>
 
-  <script type="module">
-    var socket = io()
+  <script>
     var app = new Vue({
       components: {
         'chrome-picker': VueColor.Chrome
@@ -79,7 +77,7 @@
           progress: 0,
           logs: [],
           pAPI: false,
-          socket,
+          socket: false,
           colorpicker: {},
           poster: {
             text: 'hello from hong kong',
@@ -98,7 +96,6 @@
       // },
       mounted () {
         this.initPosterPreview()
-        this.initLogs()
       },
       methods: {
         goTop () {
@@ -107,9 +104,11 @@
         async initPosterPreview () {
           this.pAPI = await window.UniversalWebGL.install({
             canvas: this.$refs['canvas'],
-            data: this.poster
+            data: this.poster,
+            site: location.origin
           })
           this.pAPI.start()
+          this.initLogs()
         },
         onUpdatePoster () {
           if (this.pAPI) {
@@ -117,10 +116,10 @@
           }
         },
         makePic () {
-          socket.emit('make pic', this.poster);
+          this.pAPI.socket.emit('make pic', this.poster);
         },
         makeVideo () {
-          socket.emit('make video', this.poster);
+          this.pAPI.socket.emit('make video', this.poster);
         },
         initLogs () {
           var progressUI = new CircularProgress({
@@ -132,11 +131,11 @@
           });
           this.$refs['progress'].appendChild(progressUI.el);
 
-          socket.on('progress', ({ progress }) => {
+          this.pAPI.socket.on('progress', ({ progress }) => {
             this.progress = progress
             progressUI.update(progress * 100.0);
           })
-          socket.on('log', (item) => {
+          this.pAPI.socket.on('log', (item) => {
             this.logs.unshift(item)
             this.$forceUpdate()
             setTimeout(() => {

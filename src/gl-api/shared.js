@@ -1,6 +1,6 @@
 let THREE = require('three')
 let CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper
-let Shared = {}
+let Graphics = {}
 /* eslint-disable-next-line */
 var isFrontEnd = new Function("try {return window.document;}catch(e){return false;}");
 /* eslint-disable-next-line */
@@ -8,7 +8,7 @@ let AdapterLoader = isFrontEnd() ? () => require('./adapter-front-end.js').defau
 let Adapter = AdapterLoader()
 let EventEmitter = require('events').EventEmitter
 
-Shared.generateCore = async ({ web = Shared.webShim, dom, data = {} } = {}) => {
+Graphics.generateCore = async ({ web = Graphics.webShim, dom, data = {} } = {}) => {
   let bus = new EventEmitter()
   let core = {
     _data: data,
@@ -25,7 +25,7 @@ Shared.generateCore = async ({ web = Shared.webShim, dom, data = {} } = {}) => {
     videoDuration: data.videoDuration || 0.5,
     previewFolder: '/preview/',
     tasks: {},
-    web: web || Shared.webShim,
+    web: web || Graphics.webShim,
     dom: dom || false,
     fonts: [
       // {
@@ -56,12 +56,12 @@ Shared.generateCore = async ({ web = Shared.webShim, dom, data = {} } = {}) => {
   }
   await Adapter.loadFonts({ fonts: core.fonts })
 
-  core.scene = Shared.makeScene()
-  core.camera = Shared.makeCamera({ ...core })
+  core.scene = Graphics.makeScene()
+  core.camera = Graphics.makeCamera({ ...core })
   core.renderAPI = Adapter.makeEngine({ ...core })
 
-  core.boxAPI = await Shared.makeArtPiece({ ...core, core })
-  core.words = await Shared.makeWords({ ...core, core })
+  core.boxAPI = await Graphics.makeArtPiece({ ...core, core })
+  core.words = await Graphics.makeWords({ ...core, core })
   core.computeTasks = ({ clock, delta }) => {
     for (var kn in core.tasks) {
       core.tasks[kn]({ clock, delta })
@@ -78,22 +78,22 @@ Shared.generateCore = async ({ web = Shared.webShim, dom, data = {} } = {}) => {
   return core
 }
 
-Shared.makeTitleText = async ({ fonts, width, height, text }) => {
+Graphics.makeTitleText = async ({ fonts, width, height, text }) => {
   let canvas = await Adapter.provideCanvas2D({
     width,
     height,
     fonts
   })
-  Shared.drawText({ CanvasTextWrapper: CanvasTextWrapper, canvas, width, height, text })
+  Graphics.drawText({ CanvasTextWrapper: CanvasTextWrapper, canvas, width, height, text })
   return Adapter.makeCanvasIntoTexture({ canvas })
 }
 
-Shared.makeScene = () => {
+Graphics.makeScene = () => {
   var scene = new THREE.Scene()
   return scene
 }
 
-Shared.makeCamera = ({ scene, width, height }) => {
+Graphics.makeCamera = ({ scene, width, height }) => {
   const VIEW_ANGLE = 75
   const ASPECT = width / height
   const NEAR = 0.1
@@ -104,12 +104,12 @@ Shared.makeCamera = ({ scene, width, height }) => {
   return camera
 }
 
-Shared.getID = () => {
+Graphics.getID = () => {
   return `_${(Math.random() * 10000000).toFixed(0)}`
 }
 
-Shared.makeArtPiece = async ({ core, tasks, scene, camera, web }) => {
-  const id = Shared.getID()
+Graphics.makeArtPiece = async ({ core, tasks, scene, camera, web }) => {
+  const id = Graphics.getID()
   web.notify('loading texture....')
   let glsl = v => v[0]
   let geo = new THREE.SphereBufferGeometry(50, 128, 128)
@@ -172,7 +172,7 @@ Shared.makeArtPiece = async ({ core, tasks, scene, camera, web }) => {
   }
 }
 
-Shared.visibleHeightAtZDepth = (depth, camera) => {
+Graphics.visibleHeightAtZDepth = (depth, camera) => {
   // compensate for cameras not positioned at z=0
   const cameraOffset = camera.position.z
   if (depth < cameraOffset) depth -= cameraOffset
@@ -185,35 +185,35 @@ Shared.visibleHeightAtZDepth = (depth, camera) => {
   return 2 * Math.tan(vFOV / 2) * Math.abs(depth)
 }
 
-Shared.visibleWidthAtZDepth = (depth, camera) => {
-  const height = Shared.visibleHeightAtZDepth(depth, camera)
+Graphics.visibleWidthAtZDepth = (depth, camera) => {
+  const height = Graphics.visibleHeightAtZDepth(depth, camera)
   return height * camera.aspect
 }
 
-Shared.webShim = {
+Graphics.webShim = {
   pushVideo: () => {},
   pushImage: () => {},
   notify: () => {}
 }
 
-Shared.makeWords = async ({ core, data, width, height, scene, camera, tasks, web }) => {
-  let id = Shared.getID()
+Graphics.makeWords = async ({ core, data, width, height, scene, camera, tasks, web }) => {
+  let id = Graphics.getID()
 
   web.notify('drawing text....')
-  let widthGeo = Shared.visibleWidthAtZDepth(0, camera)
+  let widthGeo = Graphics.visibleWidthAtZDepth(0, camera)
   let geo = new THREE.PlaneBufferGeometry(widthGeo, widthGeo, 4, 4)
   let mat = new THREE.MeshBasicMaterial({
     map: null,
     transparent: true
   })
-  let uploadTex = async ({ text }) => {
-    mat.map = await Shared.makeTitleText({ ...core, text })
+  let makeTextImage = async ({ text }) => {
+    mat.map = await Graphics.makeTitleText({ ...core, text })
     mat.needsUpdate = true
   }
-  await uploadTex({ text: data.text })
+  await makeTextImage({ text: data.text })
 
   core.on('refresh', async ({ text }) => {
-    uploadTex({ text: text })
+    await makeTextImage({ text: text })
   })
 
   // mat.uniforms.tex.value = await makeCanvasTexture()
@@ -225,7 +225,7 @@ Shared.makeWords = async ({ core, data, width, height, scene, camera, tasks, web
   }
 }
 
-Shared.drawText = ({ CanvasTextWrapper, canvas, width, height, text }) => {
+Graphics.drawText = ({ CanvasTextWrapper, canvas, width, height, text }) => {
   canvas.width = width
   canvas.height = height
   var ctx = canvas.getContext('2d')
@@ -255,6 +255,6 @@ Shared.drawText = ({ CanvasTextWrapper, canvas, width, height, text }) => {
   CanvasTextWrapper(canvas, text, config)
 }
 
-Shared.sleep = (t) => new Promise(resolve => setTimeout(resolve, t))
+Graphics.sleep = (t) => new Promise(resolve => setTimeout(resolve, t))
 
-module.exports = Shared
+module.exports = Graphics
