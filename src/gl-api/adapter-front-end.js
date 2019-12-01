@@ -18,14 +18,12 @@ var Blobify = {
   async provideBlobURL (url) {
     return localforage.getItem(url)
       .then(async (data) => {
-        console.log(data)
         return data
       })
       .catch(async () => {
         return await Blobify.download(url)
       })
       .then((data) => {
-        console.log(data)
         return URL.createObjectURL(data)
       })
   }
