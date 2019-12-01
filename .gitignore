@@ -1,6 +1,7 @@
 node_modules
 resource/preview/*
 preview/*.mp4
+preview/*.png
 logs/*
 *.log
 

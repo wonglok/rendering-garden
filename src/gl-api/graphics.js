@@ -194,7 +194,9 @@ Graphics.webShim = {
   pushVideo: () => {},
   pushImage: () => {},
   notify: () => {},
-  done: () => {}
+  done: () => {},
+  progress: () => {},
+  streamImage: () => {}
 }
 
 Graphics.makeWords = async ({ core, spec, width, height, scene, camera, tasks, web }) => {

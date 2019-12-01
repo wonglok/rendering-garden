@@ -7,59 +7,42 @@ let makeWebServer = () => {
   var io = require('socket.io')(http)
   var port = process.env.PORT || 3123
   var path = require('path')
-
   console.log(port)
-
-
 
   app.use('/preview', express.static('preview'))
   app.use('/resource', express.static('resource'))
-  app.get('/img', (req, res) => {
-    let str = req.query.json || encodeURIComponent(JSON.stringify({
-      text: 'some random text',
-      bg: (Math.random() * 0xffffff)
-    }))
-    try {
-      let obj = JSON.parse(decodeURIComponent(str))
-      createScreenShot({
-        spec: obj,
-        web: {
-          pushVideo: () => {
-          },
-          notify: (msg) => {
-            io.emit('log', { id: Graphics.getID(),  html: `${msg}` })
-          },
-          pushImage: (data) => {
-            data.stream.pipe(res)
-            setTimeout(() => {
-              io.emit('log', { id: Graphics.getID(),  html: `loaded` })
-            }, 1000)
-          }
-        }
-      })
-    } catch (e) {
-      res.json({
-        error: 'bad json'
-      })
-    }
-  })
+  app.use('/sdk', express.static('build-sdk'))
 
   const webpack = require('webpack')
-  const middleware = require('webpack-dev-middleware')
+  const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+  const Chunks2JsonPlugin = require('chunks-2-json-webpack-plugin')
+  // const middleware = require('webpack-dev-middleware')
   const compiler = webpack({
-    mode: 'development',
+    mode: 'production',
     // webpack options
-    entry: './src/gl-api/main-front-end.js',
+    entry: {
+      'sdk': './src/gl-api/main-front-end.js'
+    },
     output: {
-      filename: './v1/sdk.js',
-      path: path.resolve(__dirname, 'dist')
-    }
+      filename: (chunkData) => {
+        return chunkData.chunk.name === 'v1' ? '[name].js': '[name].js';
+      },
+      path: path.resolve(__dirname, './build-sdk/')
+    },
+    plugins: [
+      new CleanWebpackPlugin(),
+      new Chunks2JsonPlugin({
+        outputDir: 'build-sdk',
+        publicPath: '/sdk/'
+      })
+    ]
   })
+  compiler.run()
 
-  app.use(middleware(compiler, {
+  // app.use(middleware(compiler, {
+  // }))
 
-  }))
-  app.get('/*', function (req, res) {
+  app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/src/html/index.html'))
   })
 
@@ -68,23 +51,36 @@ let makeWebServer = () => {
       io.emit('log', { id: Graphics.getID(), html: msg })
     })
 
-    socket.on('make pic', (spec) => {
-      io.emit('log', { id: Graphics.getID(), html: `
-        <a target="_blank" href="${spec.site}/img?json=${encodeURIComponent(JSON.stringify(spec))}">Image Link</a>
-        <img src="${spec.site}/img?json=${encodeURIComponent(JSON.stringify(spec))}" style="max-width: 100%" onload="window.scrollBottom" alt="image">
-      ` })
+    socket.on('make pic', (spec, fn) => {
+      createScreenShot({
+        spec,
+        web: {
+          progress: (v) => {
+            socket.emit('progress', v)
+          },
+          notify: (msg) => {
+            io.emit('log', { id: Graphics.getID(),  html: `${msg}` })
+          },
+          done: (data) => {
+            console.log(data)
+            fn(data)
+          }
+        }
+      })
     })
-    socket.on('make video', async (data) => {
+    socket.on('make video', async (data, fn) => {
       let videoAPI = await makeVideoAPI({
         spec: data,
         web: {
           notify: (msg) => {
             io.emit('log', { id: Graphics.getID(), html: `${msg}` })
           },
-          progress: (data) => {
-            io.emit('progress', data)
+          progress: (v) => {
+            socket.emit('progress', v)
           },
-          pushImage: () => {}
+          done: (data) => {
+            fn(data)
+          },
         }
       })
       videoAPI.start()
@@ -104,12 +100,21 @@ let makeWebServer = () => {
 }
 
 let createScreenShot = async ({ spec, web = Graphics.webShim }) => {
+  var fs = require('fs')
+  var path = require('path')
+
   web = {
     ...Graphics.webShim,
     ...web
   }
+  web.progress({
+    progress: 0.01
+  })
   let core = await Graphics.generateCore({ web, spec })
 
+  web.progress({
+    progress: 0.4
+  })
   core.scene.scale.y = -1
   core.scene.rotation.z = Math.PI * 0.5
 
@@ -124,14 +129,37 @@ let createScreenShot = async ({ spec, web = Graphics.webShim }) => {
   let savePixels = require('save-pixels')
   let stream = savePixels(ndarray(pixels, [core.width, core.height, 4]), 'png', { quality: 60 })
 
-  web.pushImage({
+  web.streamImage({
     width: core.width,
     height: core.width,
     stream
   })
 
+  let newFilename = `_${(Math.random() * 10000000).toFixed(0)}.png`
+  let filePath = path.join(__dirname, core.previewFolder, newFilename)
+  let writeStream = fs.createWriteStream(filePath)
+  stream.pipe(writeStream)
+
+  web.done({
+    url: `${core.spec.site}${core.previewFolder}${newFilename}`,
+    filename: `${newFilename}`,
+    folder: `${core.spec.site}${core.previewFolder}`,
+    site: `${core.spec.site}`
+  })
+
   core.clean()
   core.renderAPI.destory()
+
+  let prg = 0.4
+  let intv = setInterval(() => {
+    if (prg >= 1) {
+      clearInterval(intv)
+    }
+    prg += 1 / 50
+    web.progress({
+      progress: prg
+    })
+  }, 50)
 
   return {
     updateSpec (v) {
@@ -158,8 +186,8 @@ let makeVideoAPI = async ({ spec, web = Graphics.webShim }) => {
     let newFilename = `_${(Math.random() * 10000000).toFixed(0)}.mp4`
     let newfile = path.join(__dirname, core.previewFolder, newFilename)
 
-    web.notify(`<a class="link-box" target="_blank" href="${core.spec.site}${core.previewFolder}${newFilename}">${core.spec.site}${core.previewFolder}${newFilename}</a>`)
-    web.notify(`<video autoplay loop controls class="video-box" playsinline src="${core.spec.site}${core.previewFolder}${newFilename}">${newFilename}</video>`)
+    // web.notify(`<a class="link-box" target="_blank" href="${core.spec.site}${core.previewFolder}${newFilename}">${core.spec.site}${core.previewFolder}${newFilename}</a>`)
+    // web.notify(`<video autoplay loop controls class="video-box" playsinline src="${core.spec.site}${core.previewFolder}${newFilename}">${newFilename}</video>`)
     web.done({
       url: `${core.spec.site}${core.previewFolder}${newFilename}`,
       filename: `${newFilename}`,
@@ -170,8 +198,7 @@ let makeVideoAPI = async ({ spec, web = Graphics.webShim }) => {
       if (err) throw err
       console.log('file is at:', newfile)
       // fs.unlinkSync(output)
-      console.log(`https://video-encoder.wonglok.com${core.previewFolder}${newFilename}`)
-      // web.pushVideo(newfile)
+      // console.log(`https://video-encoder.wonglok.com${core.previewFolder}${newFilename}`)
       core.clean()
       core.renderAPI.destory()
       console.log('cleanup complete!')
@@ -223,7 +250,7 @@ let makeVideoAPI = async ({ spec, web = Graphics.webShim }) => {
     const combined = Buffer.from(pixels)
     encoder.passThrough.write(combined, () => {
       if (i > TOTAL_FRAMES || abort) {
-        web.notify('Begin packing video')
+        web.notify('Finalising video....')
         encoder.passThrough.end()
         // process.nextTick(() => {
         // })
