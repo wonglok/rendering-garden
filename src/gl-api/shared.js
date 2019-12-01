@@ -138,17 +138,17 @@ Shared.makeArtPiece = async ({ core, tasks, scene, camera, web }) => {
       void main (void) {
         vec4 color = texture2D(tex, mod(vUv + sin(time), 1.0));
 
-        // gl_FragColor = vec4(color.rgb + 0.32, color.a);
+        gl_FragColor = vec4(color.rgb + 0.32, color.a);
 
-        // color.r *= abs(sin(time));
-        if (length(gl_PointCoord.xy - 0.5) < 0.5) {
-          vec3 cc = vec3(color.rgb + 0.35);
-          cc *= cc;
+        // // color.r *= abs(sin(time));
+        // if (length(gl_PointCoord.xy - 0.5) < 0.5) {
+        //   vec3 cc = vec3(color.rgb + 0.35);
+        //   // cc *= cc;
 
-          gl_FragColor = vec4(cc.bgr + 0.5, color.a);
-        } else {
-          discard;
-        }
+        //   gl_FragColor = vec4(cc.bgr + 0.5, color.a);
+        // } else {
+        //   discard;
+        // }
       }
     `,
     // color: 0xff00ff,
@@ -156,11 +156,9 @@ Shared.makeArtPiece = async ({ core, tasks, scene, camera, web }) => {
     side: THREE.DoubleSide
   })
 
-  let mesh = new THREE.Points(geo, mat)
-  // mesh.position.z = -camera.position.z
-  // mesh.scale = 2
-  // mesh.scale = 2
-  // mesh.scale = 2
+  let mesh = new THREE.Mesh(geo, mat)
+  mesh.position.z = -camera.position.z * 1.5
+
   mesh.rotation.x += Math.PI * 0.5
   scene.add(mesh)
 
