@@ -1,5 +1,36 @@
 var THREE = require('three')
 var FontCache = new Map()
+var localforage = require('localforage')
+THREE.Cache.enabled = true
+
+var Blobify = {
+  async download (url) {
+    let output = await fetch(url)
+      .then(function(response) {
+        return response.blob();
+      })
+      .then((data) => {
+        localforage.setItem(url, data)
+        return data
+      })
+    return output
+  },
+  async provideBlobURL (url) {
+    return localforage.getItem(url)
+      .then(async (data) => {
+        console.log(data)
+        return data
+      })
+      .catch(async () => {
+        return await Blobify.download(url)
+      })
+      .then((data) => {
+        console.log(data)
+        return URL.createObjectURL(data)
+      })
+  }
+}
+
 let Adapter = {
   loadFonts: async ({ fonts }) => {
     for (var kn in fonts) {
@@ -7,7 +38,8 @@ let Adapter = {
       if (FontCache.has(f.path)) {
         continue
       }
-      var oneFont = new FontFace(f.name, `url(${f.path})`)
+      let blobURL = await Blobify.provideBlobURL(f.path)
+      var oneFont = new FontFace(f.name, `url(${blobURL})`)
       document.fonts.add(oneFont)
       await document.fonts.load(`20pt "${f.name}"`)
       FontCache.set(f.path, oneFont)
@@ -35,7 +67,7 @@ let Adapter = {
     return api
   },
   loadTexture: ({ file }) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       new THREE.TextureLoader().load(file, resolve)
     })
   },

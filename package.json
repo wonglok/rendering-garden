@@ -29,6 +29,7 @@
     "gl": "^4.4.0",
     "jimp": "^0.9.3",
     "jpeg-autorotate": "^5.0.2",
+    "localforage": "^1.7.3",
     "lru-cache": "^5.1.1",
     "ndarray": "^1.0.18",
     "pngjs": "^3.4.0",
