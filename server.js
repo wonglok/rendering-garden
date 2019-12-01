@@ -1,4 +1,4 @@
-const Shared = require('./src/gl-api/shared.js')
+const Graphics = require('./src/gl-api/graphics.js')
 
 let makeWebServer = () => {
   let express = require('express')
@@ -27,12 +27,12 @@ let makeWebServer = () => {
           pushVideo: () => {
           },
           notify: (msg) => {
-            io.emit('log', { id: Shared.getID(),  html: `${msg}` })
+            io.emit('log', { id: Graphics.getID(),  html: `${msg}` })
           },
           pushImage: (data) => {
             data.stream.pipe(res)
             setTimeout(() => {
-              io.emit('log', { id: Shared.getID(),  html: `loaded` })
+              io.emit('log', { id: Graphics.getID(),  html: `loaded` })
             }, 1000)
           }
         }
@@ -65,18 +65,18 @@ let makeWebServer = () => {
 
   io.on('connection', function (socket) {
     socket.on('chat', function (msg) {
-      io.emit('log', { id: Shared.getID(), html: msg })
+      io.emit('log', { id: Graphics.getID(), html: msg })
     })
 
     socket.on('make pic', (data) => {
-      io.emit('log', { id: Shared.getID(), html: `<img src="/img?json=${encodeURIComponent(JSON.stringify(data))}" style="max-width: 100%" onload="window.scrollBottom" alt="image">` })
+      io.emit('log', { id: Graphics.getID(), html: `<img src="/img?json=${encodeURIComponent(JSON.stringify(data))}" style="max-width: 100%" onload="window.scrollBottom" alt="image">` })
     })
     socket.on('make video', async (data) => {
       let videoAPI = await makeVideoAPI({
         data,
         web: {
           notify: (msg) => {
-            io.emit('log', { id: Shared.getID(), html: `${msg}` })
+            io.emit('log', { id: Graphics.getID(), html: `${msg}` })
           },
           progress: (data) => {
             io.emit('progress', data)
@@ -100,8 +100,8 @@ let makeWebServer = () => {
   }
 }
 
-let createScreenShot = async ({ data, web = Shared.webShim }) => {
-  let core = await Shared.generateCore({ web, data })
+let createScreenShot = async ({ data, web = Graphics.webShim }) => {
+  let core = await Graphics.generateCore({ web, spec: data })
 
   core.scene.scale.y = -1
   core.scene.rotation.z = Math.PI * 0.5
@@ -133,8 +133,8 @@ let createScreenShot = async ({ data, web = Shared.webShim }) => {
   }
 }
 
-let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
-  let core = await Shared.generateCore({ data, web })
+let makeVideoAPI = async ({ data, web = Graphics.webShim }) => {
+  let core = await Graphics.generateCore({ web, spec: data })
 
   const path = require('path')
   const os = require('os')

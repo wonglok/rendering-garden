@@ -8,21 +8,21 @@ let AdapterLoader = isFrontEnd() ? () => require('./adapter-front-end.js').defau
 let Adapter = AdapterLoader()
 let EventEmitter = require('events').EventEmitter
 
-Graphics.generateCore = async ({ web = Graphics.webShim, dom, data = {} } = {}) => {
+Graphics.generateCore = async ({ web = Graphics.webShim, dom, spec = {} } = {}) => {
   let bus = new EventEmitter()
   let core = {
-    _data: data,
-    get data () {
+    _data: spec,
+    get spec () {
       return core._data
     },
-    set data (v) {
+    set spec (v) {
       bus.emit('refresh', v)
       core._data = v
     },
     fps: 60,
     width: 1024,
     height: 1024,
-    videoDuration: data.videoDuration || 0.5,
+    videoDuration: spec.videoDuration || 0.5,
     previewFolder: '/preview/',
     tasks: {},
     web: web || Graphics.webShim,
@@ -74,7 +74,7 @@ Graphics.generateCore = async ({ web = Graphics.webShim, dom, data = {} } = {}) 
     }
   })
 
-  core.data = data
+  core.spec = spec
   return core
 }
 
@@ -196,7 +196,7 @@ Graphics.webShim = {
   notify: () => {}
 }
 
-Graphics.makeWords = async ({ core, data, width, height, scene, camera, tasks, web }) => {
+Graphics.makeWords = async ({ core, spec, width, height, scene, camera, tasks, web }) => {
   let id = Graphics.getID()
 
   web.notify('drawing text....')
@@ -210,7 +210,7 @@ Graphics.makeWords = async ({ core, data, width, height, scene, camera, tasks, w
     mat.map = await Graphics.makeTitleText({ ...core, text })
     mat.needsUpdate = true
   }
-  await makeTextImage({ text: data.text })
+  await makeTextImage({ text: spec.text })
 
   core.on('refresh', async ({ text }) => {
     await makeTextImage({ text: text })

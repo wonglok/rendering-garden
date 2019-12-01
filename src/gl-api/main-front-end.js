@@ -1,10 +1,18 @@
-import * as Graphics from './shared.js'
+import * as Graphics from './graphics.js'
 import io from 'socket.io-client'
-export const install = async ({ canvas, data, src }) => {
+export const install = async ({ canvas, spec }) => {
   let api = {}
-  let core = await Graphics.generateCore({ dom: canvas, data })
+  spec = {
+    site: location.origin,
+
+    text: 'hello from hong kong',
+    bg: '#ffffff',
+    videoDuration: 3,
+    ...spec
+  }
+  let core = await Graphics.generateCore({ dom: canvas, spec })
   api.core = core
-  let socket = io(src)
+  let socket = io(spec.site)
 
   let rAFID = 0
   let clockNow = 0

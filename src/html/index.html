@@ -29,16 +29,16 @@
   <div id="app">
     <div v-if="pAPI">
       <div class="flex">
-        <textarea class="bg-teal-100 border b-black p-3"  @input="onUpdatePoster()" v-model="poster.text" placeholder="text" cols="30" rows="10"></textarea>
-        <chrome-picker class="bg-teal-100 border b-black p-3"   v-model="colorpicker" @input="poster.bg = colorpicker.hex; onUpdatePoster()"></chrome-picker>
+        <textarea class="bg-teal-100 border b-black p-3"  @input="onUpdatePoster()" v-model="spec.text" placeholder="text" cols="30" rows="10"></textarea>
+        <chrome-picker class="bg-teal-100 border b-black p-3"   v-model="colorpicker" @input="spec.bg = colorpicker.hex; onUpdatePoster()"></chrome-picker>
         <div>
             Seconds:
-            <input step="0.001" type="number" v-model="poster.videoDuration">
+            <input step="0.001" type="number" v-model="spec.videoDuration">
         </div>
 
       </div>
-      <!-- <textarea  @input="onUpdatePoster()" v-model="poster.author" placeholder="author" cols="30" rows="10"></textarea> -->
-      <!-- <input @input="onUpdatePoster()" class="bg-teal-100 p-3 border b-black" v-model="poster.bg" type="text"></input> -->
+      <!-- <textarea  @input="onUpdatePoster()" v-model="spec.author" placeholder="author" cols="30" rows="10"></textarea> -->
+      <!-- <input @input="onUpdatePoster()" class="bg-teal-100 p-3 border b-black" v-model="spec.bg" type="text"></input> -->
 
       <button class="bg-teal-100 border b-black p-3"  @click="makeVideo()">Make Video</button>
       <button class="bg-teal-100 border b-black p-3"  @click="makePic()">Make Pic</button>
@@ -79,49 +79,41 @@
           pAPI: false,
           socket: false,
           colorpicker: {},
-          poster: {
+          spec: {
+            site: location.origin,
             text: 'hello from hong kong',
             bg: '#ffffff',
             videoDuration: 3
           }
         }
       },
-      // watch: {
-      //   poster: {
-      //     deep: true,
-      //     handler () {
-      //       this.onUpdatePoster()
-      //     }
-      //   }
-      // },
       mounted () {
-        this.initPosterPreview()
+        this.initSystem()
       },
       methods: {
         goTop () {
           window.scrollTo(0, 0)
         },
-        async initPosterPreview () {
+        async initSystem () {
           this.pAPI = await window.UniversalWebGL.install({
             canvas: this.$refs['canvas'],
-            data: this.poster,
-            site: location.origin
+            spec: this.spec
           })
           this.pAPI.start()
-          this.initLogs()
+          this.listen()
         },
         onUpdatePoster () {
           if (this.pAPI) {
-            this.pAPI.core.data = { ...this.poster }
+            this.pAPI.core.spec = { ...this.spec }
           }
         },
         makePic () {
-          this.pAPI.socket.emit('make pic', this.poster);
+          this.pAPI.socket.emit('make pic', this.spec);
         },
         makeVideo () {
-          this.pAPI.socket.emit('make video', this.poster);
+          this.pAPI.socket.emit('make video', this.spec);
         },
-        initLogs () {
+        listen () {
           var progressUI = new CircularProgress({
             radius: 70,
             strokeStyle: '#2fb734',
