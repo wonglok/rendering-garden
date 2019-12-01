@@ -39,7 +39,7 @@
   <script src="https://www.unpkg.com/socket.io-client@2.3.0/dist/socket.io.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-color/2.7.0/vue-color.min.js"></script>
-  <script src="/dist/bundle.js"></script>
+  <script src="/res/universal-webgl.js"></script>
 
   <script type="module">
     var socket = io()
@@ -60,14 +60,14 @@
           }
         }
       },
-      watch: {
-        poster: {
-          deep: true,
-          handler () {
-            this.onUpdatePoster()
-          }
-        }
-      },
+      // watch: {
+      //   poster: {
+      //     deep: true,
+      //     handler () {
+      //       this.onUpdatePoster()
+      //     }
+      //   }
+      // },
       mounted () {
         this.initPosterPreview()
         this.initLogs()

@@ -50,7 +50,7 @@ let makeWebServer = () => {
     // webpack options
     entry: './src/gl-api/main-front-end.js',
     output: {
-      filename: './dist/bundle.js',
+      filename: './res/universal-webgl.js',
       path: path.resolve(__dirname, 'dist')
     }
   })
