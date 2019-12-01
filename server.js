@@ -29,10 +29,13 @@ let makeWebServer = () => {
           pushVideo: () => {
           },
           notify: (msg) => {
-            io.emit('chat', { id: Shared.getID(),  html: `${msg}` })
+            io.emit('log', { id: Shared.getID(),  html: `${msg}` })
           },
           pushImage: (data) => {
             data.stream.pipe(res)
+            setTimeout(() => {
+              io.emit('log', { id: Shared.getID(),  html: `loaded` })
+            }, 1000)
           }
         }
       })
@@ -58,18 +61,18 @@ let makeWebServer = () => {
 
   io.on('connection', function (socket) {
     socket.on('chat', function (msg) {
-      io.emit('chat', { id: Shared.getID(), html: msg })
+      io.emit('log', { id: Shared.getID(), html: msg })
     })
 
     socket.on('make pic', (data) => {
-      io.emit('chat', { id: Shared.getID(), html: `<img src="/img?json=${encodeURIComponent(JSON.stringify(data))}" style="max-width: 100%" onload="window.scrollBottom" alt="image">` })
+      io.emit('log', { id: Shared.getID(), html: `<img src="/img?json=${encodeURIComponent(JSON.stringify(data))}" style="max-width: 100%" onload="window.scrollBottom" alt="image">` })
     })
     socket.on('make video', async (data) => {
       let videoAPI = await makeVideoAPI({
         data,
         web: {
           notify: (msg) => {
-            io.emit('chat', { id: Shared.getID(), html: `${msg}` })
+            io.emit('log', { id: Shared.getID(), html: `${msg}` })
           },
           pushImage: () => {}
         }

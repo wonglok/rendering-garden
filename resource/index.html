@@ -8,20 +8,28 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.2/tailwind.min.css" integrity="sha256-bCQF5OufWlWM/MW9mCb/eDibvff1W8BNq9ZK69C8FSI=" crossorigin="anonymous" />
 </head>
 <body>
 
   <div id="app">
     <div>
-      <chrome-picker v-model="colorpicker" @input="poster.bg = colorpicker.hex; onUpdatePoster()"></chrome-picker>
-      <textarea  @input="onUpdatePoster()" v-model="poster.text" placeholder="text" cols="30" rows="10"></textarea>
+      <div class="flex">
+        <textarea class="bg-teal-100 border b-black p-3"  @input="onUpdatePoster()" v-model="poster.text" placeholder="text" cols="30" rows="10"></textarea>
+        <chrome-picker class="bg-teal-100 border b-black p-3"   v-model="colorpicker" @input="poster.bg = colorpicker.hex; onUpdatePoster()"></chrome-picker>
+      </div>
       <!-- <textarea  @input="onUpdatePoster()" v-model="poster.author" placeholder="author" cols="30" rows="10"></textarea> -->
-      <input @input="onUpdatePoster()"  v-model="poster.bg" type="text"></input>
-      <button @click="makeVideo()">Video</button>
-      <button @click="makePic()">Pic</button>
+      <!-- <input @input="onUpdatePoster()" class="bg-teal-100 p-3 border b-black" v-model="poster.bg" type="text"></input> -->
+
+      <button class="bg-teal-100 border b-black p-3"  @click="makeVideo()">Make Video</button>
+      <button class="bg-teal-100 border b-black p-3"  @click="makePic()">Make Pic</button>
     </div>
     <div>
-      <canvas ref="canvas"></canvas>
+      <div v-if="!pAPI">
+        Loading.....
+      </div>
+      <canvas ref="canvas">
+      </canvas>
     </div>
     <div>
       <div v-for="log in logs" :key="log.id" v-html="log.html"></div>
@@ -84,10 +92,12 @@
           socket.emit('make video', this.poster);
         },
         initLogs () {
-          socket.on('chat', (item) => {
+          socket.on('log', (item) => {
             this.logs.push(item)
-            window.scrollTo(0, document.body.scrollHeight)
-            this.$forceUpdate()
+            setTimeout(() => {
+              window.scrollTo(0, document.body.scrollHeight)
+              this.$forceUpdate()
+            })
           })
         }
       }
