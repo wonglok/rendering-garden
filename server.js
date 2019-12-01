@@ -74,10 +74,16 @@ let makeWebServer = () => {
           notify: (msg) => {
             io.emit('log', { id: Shared.getID(), html: `${msg}` })
           },
+          progress: (data) => {
+            io.emit('progress', data)
+          },
           pushImage: () => {}
         }
       })
       videoAPI.start()
+      socket.on('disconnect', () => {
+        videoAPI.abort()
+      })
     })
   })
 
@@ -181,11 +187,14 @@ let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
     const progress = {
       at: now.toFixed(0),
       total: TOTAL_FRAMES.toFixed(0),
-      progress: (now / TOTAL_FRAMES).toFixed(4)
+      percentage: (now / TOTAL_FRAMES).toFixed(4),
+      progress: (now / TOTAL_FRAMES).toFixed(6)
     }
 
     console.log('progress', progress)
-    web.notify(`Video Process Progress: ${((now / TOTAL_FRAMES) * 100).toFixed(2).padStart(6, '0')}%, ${now.toFixed(0).padStart(6, '0')} / ${TOTAL_FRAMES.toFixed(0).padStart(6, '0')} Motion Graphics Frame Processed`)
+    // web.notify(`Motion Graphics Process Progress: ${((now / TOTAL_FRAMES) * 100).toFixed(2).padStart(6, '0')}%, ${now.toFixed(0).padStart(6, '0')} / ${TOTAL_FRAMES.toFixed(0).padStart(6, '0')}`)
+
+    web.progress(progress)
 
     clockNow += DELTA
     core.computeTasks({ clock: clockNow, delta: DELTA })
@@ -198,7 +207,7 @@ let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
         // process.nextTick(() => {
         // })
       } else {
-        process.nextTick(repeat, 0)
+        setTimeout(repeat, 0)
       }
     })
   }
@@ -209,6 +218,7 @@ let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
     },
     start () {
       repeat()
+      web.notify('Begin.....')
     },
     abort () {
       core.clean()

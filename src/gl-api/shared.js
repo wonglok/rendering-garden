@@ -20,9 +20,9 @@ Shared.generateCore = async ({ web = Shared.webShim, dom, data = {} } = {}) => {
       core._data = v
     },
     fps: 60,
-    width: 1080,
-    height: 1080,
-    videoDuration: 0.5,
+    width: 1024,
+    height: 1024,
+    videoDuration: data.videoDuration || 0.5,
     previewFolder: '/preview/',
     tasks: {},
     web: web || Shared.webShim,

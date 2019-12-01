@@ -29,8 +29,8 @@ module.exports = {
         NUXT_HOST: '0.0.0.0',
         NUXT_PORT: 3123
       },
-      // error_file: './logs/err.log',
-      // out_file: './logs/out.log',
+      error_file: './logs/err.log',
+      out_file: './logs/out.log',
       log_file: './logs/combined.log',
       time: true,
       merge_logs: true

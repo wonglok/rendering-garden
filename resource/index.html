@@ -7,7 +7,21 @@
   <title>Video Poster</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    canvas{
+      max-width: 40vmin;
+      max-height: 40vmin;
+    }
+    video{
+      max-width: 40vmin;
+      max-height: 40vmin;
+    }
+    img{
+      max-width: 40vmin;
+      max-height: 40vmin;
+    }
   </style>
+  <link rel="prefetch" href="/resource/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf" as="font" crossorigin>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.2/tailwind.min.css" integrity="sha256-bCQF5OufWlWM/MW9mCb/eDibvff1W8BNq9ZK69C8FSI=" crossorigin="anonymous" />
 </head>
 <body>
@@ -17,6 +31,11 @@
       <div class="flex">
         <textarea class="bg-teal-100 border b-black p-3"  @input="onUpdatePoster()" v-model="poster.text" placeholder="text" cols="30" rows="10"></textarea>
         <chrome-picker class="bg-teal-100 border b-black p-3"   v-model="colorpicker" @input="poster.bg = colorpicker.hex; onUpdatePoster()"></chrome-picker>
+        <div>
+            Seconds:
+            <input step="0.001" type="number" v-model="poster.videoDuration">
+        </div>
+
       </div>
       <!-- <textarea  @input="onUpdatePoster()" v-model="poster.author" placeholder="author" cols="30" rows="10"></textarea> -->
       <!-- <input @input="onUpdatePoster()" class="bg-teal-100 p-3 border b-black" v-model="poster.bg" type="text"></input> -->
@@ -24,20 +43,26 @@
       <button class="bg-teal-100 border b-black p-3"  @click="makeVideo()">Make Video</button>
       <button class="bg-teal-100 border b-black p-3"  @click="makePic()">Make Pic</button>
     </div>
-    <div>
+    <div v-if="progress !== 0 || progress !== 100" ref="progress">
+    </div>
+    <div class="fixed top-0 right-0 m-5">
       <div v-if="!pAPI">
         Loading.....
       </div>
       <canvas ref="canvas">
       </canvas>
     </div>
-    <div>
+    <div class="logs">
       <div v-for="log in logs" :key="log.id" v-html="log.html"></div>
+    </div>
+    <div class="fixed bottom-0 right-0 m-5">
+      <button @click="goTop">Go Top</button>
     </div>
   </div>
 
   <script src="https://www.unpkg.com/socket.io-client@2.3.0/dist/socket.io.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/circular-progress/0.2.3/circular-progress.min.js"> </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-color/2.7.0/vue-color.min.js"></script>
   <script src="/res/universal-webgl.js"></script>
 
@@ -50,13 +75,15 @@
       el: '#app',
       data () {
         return {
+          progress: 0,
           logs: [],
           pAPI: false,
           socket,
           colorpicker: {},
           poster: {
             text: 'hello from hong kong',
-            bg: '#ffffff'
+            bg: '#ffffff',
+            videoDuration: 3
           }
         }
       },
@@ -73,6 +100,9 @@
         this.initLogs()
       },
       methods: {
+        goTop () {
+          window.scrollTo(0, 0)
+        },
         async initPosterPreview () {
           this.pAPI = await window.UniversalWebGL.install({
             canvas: this.$refs['canvas'],
@@ -92,11 +122,28 @@
           socket.emit('make video', this.poster);
         },
         initLogs () {
+          var progressUI = new CircularProgress({
+            radius: 70,
+            strokeStyle: '#2fb734',
+            lineCap: 'round',
+            lineWidth: 10,
+            font: '17px',
+            // initial: {
+            //   strokeStyle: 'gray',
+            //   lineWidth: 4
+            // }
+          });
+          this.$refs['progress'].appendChild(progressUI.el);
+
+          socket.on('progress', ({ progress }) => {
+            this.progress = progress
+            progressUI.update(progress * 100.0);
+          })
           socket.on('log', (item) => {
-            this.logs.push(item)
+            this.logs.unshift(item)
+            this.$forceUpdate()
             setTimeout(() => {
-              window.scrollTo(0, document.body.scrollHeight)
-              this.$forceUpdate()
+              window.scrollTo(0, 0)
             })
           })
         }
