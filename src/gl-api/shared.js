@@ -34,6 +34,7 @@ Shared.generateCore = async ({ web = Shared.webShim, dom, data = {} } = {}) => {
       // },
       {
         path: '/resource/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf',
+        mime: 'font/otf',
         name: 'NotoSans'
       }
     ],
