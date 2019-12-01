@@ -11,7 +11,14 @@ let EventEmitter = require('events').EventEmitter
 Shared.generateCore = async ({ web = Shared.webShim, dom, data = {} } = {}) => {
   let bus = new EventEmitter()
   let core = {
-    data,
+    _data: data,
+    get data () {
+      return core._data
+    },
+    set data (v) {
+      bus.emit('refresh', v)
+      core._data = v
+    },
     fps: 60,
     width: 1080,
     height: 1080,
@@ -30,6 +37,9 @@ Shared.generateCore = async ({ web = Shared.webShim, dom, data = {} } = {}) => {
         name: 'NotoSans'
       }
     ],
+    textures: {
+      leafBG: await Adapter.loadTexture({ file: '/resource/img/139-1920x1920.jpg' })
+    },
     on: (e, h) => {
       bus.on(e, h)
     },
@@ -43,25 +53,27 @@ Shared.generateCore = async ({ web = Shared.webShim, dom, data = {} } = {}) => {
       bus.removeAllListeners()
     }
   }
-
-  let leafBG = await Adapter.loadTexture({ file: '/resource/img/139-1920x1920.jpg' })
   await Adapter.loadFonts({ fonts: core.fonts })
 
   core.scene = Shared.makeScene()
   core.camera = Shared.makeCamera({ ...core })
   core.renderAPI = Adapter.makeEngine({ ...core })
 
-  core.boxAPI = await Shared.make3DItem({ ...core, texture: leafBG })
-  core.words = await Shared.get3DWords({ ...core, core })
+  core.boxAPI = await Shared.makeArtPiece({ ...core, core })
+  core.words = await Shared.makeWords({ ...core, core })
   core.computeTasks = ({ clock, delta }) => {
     for (var kn in core.tasks) {
       core.tasks[kn]({ clock, delta })
     }
-    core.emit('compute')
   }
 
-  core.scene.background = new THREE.Color('#ffffff')
+  core.on('refresh', ({ bg }) => {
+    if (bg) {
+      core.scene.background = new THREE.Color(bg || '#ffffff')
+    }
+  })
 
+  core.data = data
   return core
 }
 
@@ -95,7 +107,7 @@ Shared.getID = () => {
   return `_${(Math.random() * 10000000).toFixed(0)}`
 }
 
-Shared.make3DItem = async ({ texture, tasks, scene, camera, web }) => {
+Shared.makeArtPiece = async ({ core, tasks, scene, camera, web }) => {
   const id = Shared.getID()
   web.notify('loading texture....')
   let glsl = v => v[0]
@@ -104,7 +116,7 @@ Shared.make3DItem = async ({ texture, tasks, scene, camera, web }) => {
     transparent: true,
     uniforms: {
       time: { value: 0 },
-      tex: { value: texture }
+      tex: { value: core.textures.leafBG }
     },
     vertexShader: glsl`
       #include <common>
@@ -185,7 +197,7 @@ Shared.webShim = {
   notify: () => {}
 }
 
-Shared.get3DWords = async ({ core, data, width, height, scene, camera, tasks, web }) => {
+Shared.makeWords = async ({ core, data, width, height, scene, camera, tasks, web }) => {
   let id = Shared.getID()
 
   web.notify('drawing text....')
@@ -201,13 +213,12 @@ Shared.get3DWords = async ({ core, data, width, height, scene, camera, tasks, we
   }
   await uploadTex({ text: data.text })
 
-  core.on('update-text', async ({ text }) => {
+  core.on('refresh', async ({ text }) => {
     uploadTex({ text: text })
   })
 
   // mat.uniforms.tex.value = await makeCanvasTexture()
-  let mesh
-  mesh = new THREE.Mesh(geo, mat)
+  let mesh = new THREE.Mesh(geo, mat)
   scene.add(mesh)
 
   tasks[id] = ({ clock, delta }) => {

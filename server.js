@@ -17,41 +17,28 @@ let makeWebServer = () => {
   app.use('/preview', express.static('preview'))
   app.use('/resource', express.static('resource'))
   app.get('/img', (req, res) => {
-    createScreenShot({
-      data: {
-        text: req.query.text || `some random text`
-      },
-      web: {
-        pushVideo: () => {
-        },
-        notify: (msg) => {
-          io.emit('chat message', `${msg}`)
-        },
-        pushImage: (data) => {
-          data.stream.pipe(res)
+    let str = req.query.json || encodeURIComponent(JSON.stringify({
+      text: 'some random text',
+      bg: (Math.random() * 0xffffff)
+    }))
+    try {
+      let obj = JSON.parse(decodeURIComponent(str))
+      createScreenShot({
+        data: obj,
+        web: {
+          pushVideo: () => {
+          },
+          notify: (msg) => {
+            io.emit('chat', { id: Shared.getID(),  html: `${msg}` })
+          },
+          pushImage: (data) => {
+            data.stream.pipe(res)
+          }
         }
-      }
-    })
+      })
+    } catch (e) {
+    }
   })
-
-  // app.get('/video', async (req, res) => {
-  //   let api = await makeVideoAPI({
-  //     data: {
-  //       text: req.query.text || `some random text`
-  //     },
-  //     web: {
-  //       pushVideo: (videoFile) => {
-  //         res.sendFile(videoFile)
-  //       },
-  //       notify: (msg) => {
-  //         io.emit('chat message', `${msg}`)
-  //       },
-  //       pushImage: () => {
-  //       }
-  //     }
-  //   })
-  //   api.start()
-  // })
 
   const webpack = require('webpack')
   const middleware = require('webpack-dev-middleware')
@@ -66,41 +53,29 @@ let makeWebServer = () => {
   })
   app.use(
     middleware(compiler, {
-      // webpack-dev-middleware options
     })
   )
 
-  // app.use(proxy('localhost:8080'))
-
   io.on('connection', function (socket) {
-    socket.on('chat message', function (msg) {
-      io.emit('chat message', msg)
+    socket.on('chat', function (msg) {
+      io.emit('chat', { id: Shared.getID(), html: msg })
     })
 
-    socket.on('chat message', async (msg) => {
-      if (msg.indexOf('video') === 0) {
-        // console.log('made a engine')
-        let videoAPI = await makeVideoAPI({
-          data: {
-            text: msg.slice(6, msg.length).trim()
+    socket.on('make pic', (data) => {
+      io.emit('chat', { id: Shared.getID(), html: `<img src="/img?json=${encodeURIComponent(JSON.stringify(data))}" style="max-width: 100%" onload="window.scrollBottom" alt="image">` })
+    })
+    socket.on('make video', async (data) => {
+      let videoAPI = await makeVideoAPI({
+        data,
+        web: {
+          notify: (msg) => {
+            io.emit('chat', { id: Shared.getID(), html: `${msg}` })
           },
-          web: {
-            notify: (msg) => {
-              io.emit('chat message', `${msg}`)
-            },
-            pushImage: () => {}
-          }
-        })
-        videoAPI.start()
-      }
-
-      if (msg.indexOf('pic') === 0) {
-        io.emit('chat message', `<img src="/img?text=${encodeURIComponent(msg.slice(3, msg.length).trim())}" style="max-width: 100%" onload="window.scrollBottom" alt="image">`)
-      }
+          pushImage: () => {}
+        }
+      })
+      videoAPI.start()
     })
-    // socket.once('disconnect', () => {
-    //   console.log('disconnect')
-    // })
   })
 
   http.listen(port, function () {
@@ -137,6 +112,12 @@ let createScreenShot = async ({ data, web = Shared.webShim }) => {
 
   core.clean()
   core.renderAPI.destory()
+
+  return {
+    updateData (v) {
+      core.data = v
+    }
+  }
 }
 
 let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
@@ -174,6 +155,7 @@ let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
     fps: core.fps,
     onDone
   })
+
   // encoder.promise.then(onDone)
   // encoder.on('console', (evt) => {
   //   // console.log(evt)
@@ -211,7 +193,6 @@ let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
         web.notify('Begin packing video')
         encoder.passThrough.end()
         // process.nextTick(() => {
-
         // })
       } else {
         process.nextTick(repeat, 0)
@@ -220,6 +201,9 @@ let makeVideoAPI = async ({ data, web = Shared.webShim }) => {
   }
 
   return {
+    updateData (data) {
+      return core.data = data
+    },
     start () {
       repeat()
     },
