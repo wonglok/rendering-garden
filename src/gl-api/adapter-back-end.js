@@ -19,7 +19,7 @@ const Adapter = {
       if (FontCache.has(f.path)) {
         continue
       } else {
-        Canvas.registerFont('./' + f.path, { family: f.name, fontFamily: f.name, preferredFamily: f.name })
+        Canvas.registerFont('.' + f.path, { family: f.name })
         FontCache.set(f.path, f.name)
         sleep(10)
       }
