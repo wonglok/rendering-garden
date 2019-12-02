@@ -11,9 +11,9 @@ let makeWebServer = () => {
 
   var cors = function (req, res, next) {
     // Website you wish to allow to connect
-    var orig = req.header('Origin')
-    console.log(orig)
-    res.setHeader('Access-Control-Allow-Origin', orig || 'https://localhost:12345')
+    var origin = req.header('X-Origin')
+    console.log(origin)
+    res.setHeader('Access-Control-Allow-Origin', origin || 'https://localhost:12345')
     // if (origins.indexOf(orig + '') !== -1) {
 
     // } else if (isNotProduction) {
@@ -24,13 +24,18 @@ let makeWebServer = () => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
 
     // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'Authorization, X-Widget-Origin, X-XSRF-TOKEN,Origin, X-Token, X-Requested-With, Content-Type, Accept')
+    res.setHeader('Access-Control-Allow-Headers', 'Authorization, X-Widget-Origin, X-XSRF-TOKEN, Origin, X-Token, X-Requested-With, Content-Type, Accept')
 
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
     res.setHeader('Access-Control-Allow-Credentials', true)
 
-    res.setHeader('Content-Type', 'application/json')
+    res.cookie('SameSite', 'none', {
+      secure: true
+    });
+
+    // if (req.path)
+    // res.setHeader('Content-Type', 'application/json')
 
     // res.json({ 'ok': true })
 
