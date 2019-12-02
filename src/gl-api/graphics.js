@@ -69,11 +69,11 @@ Graphics.generateCore = async ({ web = Graphics.webShim, dom, spec = {} } = {}) 
   }
 
   core.scene.background = new THREE.Color('#ffffff')
-  // core.on('refresh', ({ bg }) => {
-  //   if (bg) {
-  //     core.scene.background = new THREE.Color(bg || '#ffffff')
-  //   }
-  // })
+  core.on('refresh', (spec) => {
+    if (spec && spec.bg) {
+      core.scene.background = new THREE.Color(spec.bg)
+    }
+  })
 
   core.spec = spec
   return core
@@ -237,9 +237,9 @@ Graphics.makeArtPiece = async ({ core, tasks, scene, camera, web }) => {
   mesh.rotation.x += Math.PI * 0.24
   scene.add(mesh)
 
-  mat.uniforms.bg.value = new THREE.Color(core.spec.bg)
-  core.on('refresh', async ({ bg }) => {
-    mat.uniforms.bg.value = new THREE.Color(bg)
+  mat.uniforms.bg.value = new THREE.Color(core.spec.ball)
+  core.on('refresh', async (spec) => {
+    mat.uniforms.bg.value = new THREE.Color(spec.ball)
   })
 
   tasks[id] = ({ clock, delta }) => {
@@ -312,7 +312,7 @@ Graphics.drawText = ({ CanvasTextWrapper, canvas, width, height, spec }) => {
   canvas.height = height
   var ctx = canvas.getContext('2d')
   let config = {
-    font: '30px "Noto Sans CJK TC", sans-serif',
+    font: '100 12px "Noto Sans CJK TC", sans-serif',
     lineHeight: 1,
     textAlign: 'center',
     verticalAlign: 'middle', // top, middle, bottom

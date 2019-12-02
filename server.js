@@ -12,8 +12,9 @@ let makeWebServer = () => {
   var cors = function (req, res, next) {
     // Website you wish to allow to connect
     var origin = req.header('origin')
-    console.log(req.headers)
-    res.setHeader('Access-Control-Allow-Origin', origin || '*')
+    var host = req.header('host')
+    // console.log(req.headers)
+    res.setHeader('Access-Control-Allow-Origin', origin || host || '*')
     // if (origins.indexOf(orig + '') !== -1) {
 
     // } else if (isNotProduction) {
@@ -168,14 +169,14 @@ let createScreenShot = async ({ spec, web = Graphics.webShim }) => {
   let writeStream = fs.createWriteStream(filePath)
   stream.pipe(writeStream)
   writeStream.once('close', () => {
+    web.progress({
+      progress: 1
+    })
     web.done({
       url: `${core.spec.site}${core.previewFolder}${newFilename}`,
       filename: `${newFilename}`,
       folder: `${core.spec.site}${core.previewFolder}`,
       site: `${core.spec.site}`
-    })
-    web.progress({
-      progress: 1
     })
   })
 
