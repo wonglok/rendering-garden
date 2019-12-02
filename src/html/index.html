@@ -151,6 +151,7 @@
           this.$nextTick(() => {
             document.querySelector(`#${rID}`).appendChild(element)
           })
+          let val = 0
           return {
             appendHTML: (v) => {
               let d = document.createElement('div')
@@ -160,7 +161,10 @@
               }, 10)
             },
             onUpdate: (v) => {
-              progressUI.update(v * 100)
+              if (v > val) {
+                val = v
+                progressUI.update(v * 100)
+              }
             }
           }
         },
