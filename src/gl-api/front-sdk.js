@@ -35,26 +35,26 @@ export const makeSDK = async ({ canvas, spec }) => {
     cancelAnimationFrame(rAFID)
   }
 
-  api.makePoster = ({ site = spec.site, onProgress = () => {} }) => {
-    let socket = io(site)
+  api.makePoster = ({ spec, onProgress = () => {} }) => {
+    let socket = io(spec.site)
     socket.on('progress pic', (data) => {
       onProgress(data)
     })
     return new Promise((resolve, reject) => {
-      socket.emit('make pic', api.core.spec, (data) => {
+      socket.emit('make pic', spec, (data) => {
         console.log(data)
         resolve(data)
       })
     })
   }
 
-  api.makeVideo = ({ site = spec.site, onProgress = () => {} }) => {
-    let socket = io(site)
+  api.makeVideo = ({ spec, onProgress = () => {} }) => {
+    let socket = io(spec.site)
     socket.on('progress video', (data) => {
       onProgress(data)
     })
     return new Promise((resolve, reject) => {
-      socket.emit('make video', api.core.spec, (data) => {
+      socket.emit('make video', spec, (data) => {
         console.log(data)
         resolve(data)
       })
