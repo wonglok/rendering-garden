@@ -19,13 +19,13 @@ const Adapter = {
       if (FontCache.has(f.path)) {
         continue
       } else {
-        Canvas.registerFont('.' + f.path, { family: f.name })
+        Canvas.registerFont(path.join(__dirname, '../../', f.path), { family: f.name })
         FontCache.set(f.path, f.name)
       }
     }
   },
   provideCanvas2D: async ({ fonts, width, height }) => {
-    Adapter.loadFonts({ fonts })
+    await Adapter.loadFonts({ fonts })
     var canvas = Canvas.createCanvas(width, height)
     return canvas
   },
