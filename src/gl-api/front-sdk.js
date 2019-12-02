@@ -43,6 +43,7 @@ export const makeSDK = async ({ canvas, spec }) => {
     return new Promise((resolve, reject) => {
       socket.emit('make pic', spec, (data) => {
         console.log(data)
+        socket.disconnect()
         resolve(data)
       })
     })
@@ -56,6 +57,7 @@ export const makeSDK = async ({ canvas, spec }) => {
     return new Promise((resolve, reject) => {
       socket.emit('make video', spec, (data) => {
         console.log(data)
+        socket.disconnect()
         resolve(data)
       })
     })
