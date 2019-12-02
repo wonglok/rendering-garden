@@ -135,13 +135,16 @@ let createScreenShot = async ({ spec, web = Graphics.webShim }) => {
   web.progress({
     progress: 0.01
   })
+
   let core = await Graphics.generateCore({ web, spec })
+
+  core.scene.rotation.z = Math.PI * 0.5
 
   web.progress({
     progress: 0.4
   })
-  core.scene.scale.y = -1
-  core.scene.rotation.z = Math.PI * 0.5
+
+  // core.scene.rotation.z = Math.PI * 0.5
 
   var clockNow = 0
   // const SECONDS_OF_VIDEO = core.videoDuration || 1
@@ -192,6 +195,9 @@ let makeVideoAPI = async ({ spec, web = Graphics.webShim }) => {
     ...web
   }
   let core = await Graphics.generateCore({ web, spec: spec })
+
+  core.scene.rotation.z = Math.PI
+  core.scene.scale.x = -1
 
   const path = require('path')
   const os = require('os')

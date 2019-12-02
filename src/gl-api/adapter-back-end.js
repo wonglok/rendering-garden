@@ -38,7 +38,7 @@ const Adapter = {
       view[i] = buf[i]
     }
     let texture = new THREE.DataTexture(ab, canvas.width, canvas.height, THREE.RGBAFormat)
-    texture.flipY = false
+    texture.flipY = true
     return texture
   },
   loadTexture: ({ file }) => {

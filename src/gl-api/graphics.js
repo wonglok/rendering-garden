@@ -7,7 +7,7 @@ var isFrontEnd = new Function("try {return window.document;}catch(e){return fals
 let AdapterLoader = isFrontEnd() ? () => require('./adapter-front-end.js').default : () => eval(`require('./adapter-back-end.js')`).default
 let Adapter = AdapterLoader()
 let EventEmitter = require('events').EventEmitter
-
+Graphics.isFrontEnd = isFrontEnd
 Graphics.generateCore = async ({ web = Graphics.webShim, dom, spec = {} } = {}) => {
   let bus = new EventEmitter()
   let core = {
@@ -101,6 +101,8 @@ Graphics.makeCamera = ({ scene, width, height }) => {
   const FAR = 10000000000000
   var camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR)
   camera.position.set(0, 0, 50)
+  scene.position.z = 0.0001
+
   camera.lookAt(scene.position)
   return camera
 }
@@ -160,6 +162,7 @@ Graphics.makeArtPiece = async ({ core, tasks, scene, camera, web }) => {
 
   let mesh = new THREE.Mesh(geo, mat)
   mesh.position.z = -camera.position.z * 1.5
+  camera.lookAt(scene.position)
 
   mesh.rotation.x += Math.PI * 0.24
   scene.add(mesh)
@@ -234,7 +237,7 @@ Graphics.drawText = ({ CanvasTextWrapper, canvas, width, height, text }) => {
   canvas.height = height
   var ctx = canvas.getContext('2d')
   let config = {
-    font: '30px NotoSans, sans-serif',
+    font: '30px "NotoSans", sans-serif',
     lineHeight: 1,
     textAlign: 'center',
     verticalAlign: 'middle', // top, middle, bottom
