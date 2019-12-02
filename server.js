@@ -11,7 +11,7 @@ let makeWebServer = () => {
 
   var cors = function (req, res, next) {
     // Website you wish to allow to connect
-    var origin = req.header('host')
+    var origin = req.header('origin')
     console.log(req.headers)
     res.setHeader('Access-Control-Allow-Origin', origin || '*')
     // if (origins.indexOf(orig + '') !== -1) {
@@ -32,7 +32,7 @@ let makeWebServer = () => {
 
     res.cookie('SameSite', 'none', {
       secure: true
-    });
+    })
 
     // if (req.path)
     // res.setHeader('Content-Type', 'application/json')

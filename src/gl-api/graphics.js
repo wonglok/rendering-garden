@@ -39,7 +39,7 @@ Graphics.generateCore = async ({ web = Graphics.webShim, dom, spec = {} } = {}) 
       }
     ],
     textures: {
-      leafBG: await Adapter.loadTexture({ file: '/resource/img/139-1920x1920.jpg', site: spec.site })
+      leafBG: await Adapter.loadTexture({ file: '/resource/img/476-2048x2048.jpg', site: spec.site })
     },
     on: (e, h) => {
       bus.on(e, h)
@@ -160,7 +160,7 @@ Graphics.makeArtPiece = async ({ core, tasks, scene, camera, web }) => {
   let mesh = new THREE.Mesh(geo, mat)
   mesh.position.z = -camera.position.z * 1.5
 
-  mesh.rotation.x += Math.PI * 0.5
+  mesh.rotation.x += Math.PI * 0.24
   scene.add(mesh)
 
   tasks[id] = ({ clock, delta }) => {
