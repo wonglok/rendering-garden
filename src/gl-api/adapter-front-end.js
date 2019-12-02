@@ -6,8 +6,8 @@ THREE.Cache.enabled = true
 var BlobCache = {
   async download (url) {
     let output = await fetch(url)
-      .then(async (response) => {
-        return await response.blob()
+      .then((response) => {
+        return response.blob()
       })
       .then((data) => {
         localforage.setItem(url, data)
@@ -18,10 +18,10 @@ var BlobCache = {
   async provideBlobURL (url) {
     return localforage.getItem(url)
       .then(async (data) => {
-        return !!data ? data : Promise.reject()
+        return data || Promise.reject(data)
       })
-      .catch(async () => {
-        return await BlobCache.download(url)
+      .catch(() => {
+        return BlobCache.download(url)
       })
       .then((data) => {
         return URL.createObjectURL(data)
