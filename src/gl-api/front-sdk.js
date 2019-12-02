@@ -74,6 +74,5 @@ export const makeSDK = async ({ canvas, spec }) => {
   return api
 }
 
-window.UniversalWebGL = {
-  makeSDK
-}
+window.UniversalWebGL = window.UniversalWebGL || {}
+window.UniversalWebGL.makeSDK = makeSDK

@@ -39,7 +39,7 @@ Graphics.generateCore = async ({ web = Graphics.webShim, dom, spec = {} } = {}) 
       }
     ],
     textures: {
-      leafBG: await Adapter.loadTexture({ file: '/resource/img/139-1920x1920.jpg' })
+      leafBG: await Adapter.loadTexture({ file: '/resource/img/139-1920x1920.jpg', site: spec.site })
     },
     on: (e, h) => {
       bus.on(e, h)
@@ -54,7 +54,7 @@ Graphics.generateCore = async ({ web = Graphics.webShim, dom, spec = {} } = {}) 
       bus.removeAllListeners()
     }
   }
-  await Adapter.loadFonts({ fonts: core.fonts })
+  await Adapter.loadFonts({ fonts: core.fonts, site: spec.site })
 
   core.scene = Graphics.makeScene()
   core.camera = Graphics.makeCamera({ ...core })

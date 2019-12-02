@@ -9,6 +9,37 @@ let makeWebServer = () => {
   var path = require('path')
   console.log(port)
 
+  var cors = function (req, res, next) {
+    // Website you wish to allow to connect
+    var orig = req.header('Origin')
+    console.log(orig)
+    res.setHeader('Access-Control-Allow-Origin', orig || 'https://localhost:12345')
+    // if (origins.indexOf(orig + '') !== -1) {
+
+    // } else if (isNotProduction) {
+    //   res.setHeader('Access-Control-Allow-Origin', orig || 'https://localhost:12345');
+    // }
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'Authorization, X-Widget-Origin, X-XSRF-TOKEN,Origin, X-Token, X-Requested-With, Content-Type, Accept')
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true)
+
+    res.setHeader('Content-Type', 'application/json')
+
+    // res.json({ 'ok': true })
+
+    // Pass to next layer of middleware
+    next()
+  }
+
+  app.use(cors)
+
   app.use('/preview', express.static('preview'))
   app.use('/resource', express.static('resource'))
   // app.use('/sdk', express.static('build-sdk'))

@@ -30,13 +30,13 @@ var BlobCache = {
 }
 
 let Adapter = {
-  loadFonts: async ({ fonts }) => {
+  loadFonts: async ({ site, fonts }) => {
     for (var kn in fonts) {
       let f = fonts[kn]
       if (FontCache.has(f.path)) {
         continue
       }
-      let blobURL = await BlobCache.provideBlobURL(f.path)
+      let blobURL = await BlobCache.provideBlobURL(site + f.path)
       var oneFont = new FontFace(f.name, `url(${blobURL})`)
       document.fonts.add(oneFont)
       await document.fonts.load(`20pt "${f.name}"`)
@@ -64,9 +64,9 @@ let Adapter = {
 
     return api
   },
-  loadTexture: ({ file }) => {
+  loadTexture: ({ site, file }) => {
     return new Promise(async (resolve, reject) => {
-      let blobURL = await BlobCache.provideBlobURL(file)
+      let blobURL = await BlobCache.provideBlobURL(site + file)
       new THREE.TextureLoader().load(blobURL, resolve)
     })
   },
