@@ -35,7 +35,7 @@ Graphics.generateCore = async ({ web = Graphics.webShim, dom, spec = {} } = {}) 
       {
         path: '/resource/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf',
         mime: 'font/otf',
-        name: 'Noto Sans CJK TC DemiLight'
+        name: 'Noto Sans CJK TC'
       }
     ],
     textures: {
@@ -237,7 +237,7 @@ Graphics.drawText = ({ CanvasTextWrapper, canvas, width, height, text }) => {
   canvas.height = height
   var ctx = canvas.getContext('2d')
   let config = {
-    font: '30px "Noto Sans CJK TC DemiLight", sans-serif',
+    font: '30px "Noto Sans CJK TC", sans-serif',
     lineHeight: 1,
     textAlign: 'center',
     verticalAlign: 'middle', // top, middle, bottom

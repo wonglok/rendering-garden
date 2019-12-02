@@ -9,7 +9,7 @@ const options = {
 /* eslint-disable */
 const Canvas = require('canvas')
 /* eslint-enable */
-
+const sleep = (t) => new Promise(resolve => setTimeout(resolve, t))
 const TextureCache = new LRU(options)
 const path = require('path')
 const Adapter = {
@@ -19,8 +19,9 @@ const Adapter = {
       if (FontCache.has(f.path)) {
         continue
       } else {
-        Canvas.registerFont(path.join(__dirname, '../../', f.path), { family: f.name })
+        Canvas.registerFont(path.join(__dirname, '../../', f.path), { family: f.name, fontFamily: f.name, preferredFamily: f.name })
         FontCache.set(f.path, f.name)
+        sleep(10)
       }
     }
   },
