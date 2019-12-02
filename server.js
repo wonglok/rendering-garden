@@ -22,9 +22,9 @@ let makeWebServer = () => {
   // const Chunks2JsonPlugin = require('chunks-2-json-webpack-plugin')
   const middleware = require('webpack-dev-middleware')
   const compiler = webpack({
-    mode: 'development',
+    mode: 'production',
     // webpack options
-    entry: './src/gl-api/main-front-end.js',
+    entry: './src/gl-api/front-sdk.js',
     output: {
       filename: './sdk/sdk.js',
       path: path.join(__dirname, 'build-sdk')
@@ -51,7 +51,7 @@ let makeWebServer = () => {
             socket.emit('progress pic', v)
           },
           notify: (msg) => {
-            io.emit('log', { id: Graphics.getID(),  html: `${msg}` })
+            io.emit('log', { id: Graphics.getID(), html: msg })
           },
           done: (data) => {
             console.log(data)
@@ -65,14 +65,14 @@ let makeWebServer = () => {
         spec: data,
         web: {
           notify: (msg) => {
-            io.emit('log', { id: Graphics.getID(), html: `${msg}` })
+            io.emit('log', { id: Graphics.getID(), html: msg })
           },
           progress: (v) => {
             socket.emit('progress video', v)
           },
           done: (data) => {
             fn(data)
-          },
+          }
         }
       })
       videoAPI.start()
@@ -131,27 +131,20 @@ let createScreenShot = async ({ spec, web = Graphics.webShim }) => {
   let filePath = path.join(__dirname, core.previewFolder, newFilename)
   let writeStream = fs.createWriteStream(filePath)
   stream.pipe(writeStream)
-
-  web.done({
-    url: `${core.spec.site}${core.previewFolder}${newFilename}`,
-    filename: `${newFilename}`,
-    folder: `${core.spec.site}${core.previewFolder}`,
-    site: `${core.spec.site}`
+  writeStream.once('close', () => {
+    web.done({
+      url: `${core.spec.site}${core.previewFolder}${newFilename}`,
+      filename: `${newFilename}`,
+      folder: `${core.spec.site}${core.previewFolder}`,
+      site: `${core.spec.site}`
+    })
+    web.progress({
+      progress: 1
+    })
   })
 
   core.clean()
   core.renderAPI.destory()
-
-  let prg = 0.4
-  let intv = setInterval(() => {
-    if (prg >= 1) {
-      clearInterval(intv)
-    }
-    prg += 1 / 50
-    web.progress({
-      progress: prg
-    })
-  }, 50)
 
   return {
     updateSpec (v) {
@@ -187,13 +180,23 @@ let makeVideoAPI = async ({ spec, web = Graphics.webShim }) => {
       site: `${core.spec.site}`
     })
     fs.rename(output, newfile, (err) => {
-      if (err) throw err
-      console.log('file is at:', newfile)
-      // fs.unlinkSync(output)
-      // console.log(`https://video-encoder.wonglok.com${core.previewFolder}${newFilename}`)
-      core.clean()
-      core.renderAPI.destory()
-      console.log('cleanup complete!')
+      if (err) {
+        fs.copyFileSync(output, newfile)
+        fs.unlinkSync(output)
+        console.log('file is at:', newfile)
+        // fs.unlinkSync(output)
+        // console.log(`https://video-encoder.wonglok.com${core.previewFolder}${newFilename}`)
+        core.clean()
+        core.renderAPI.destory()
+        console.log('cleanup complete!')
+      } else {
+        console.log('file is at:', newfile)
+        // fs.unlinkSync(output)
+        // console.log(`https://video-encoder.wonglok.com${core.previewFolder}${newFilename}`)
+        core.clean()
+        core.renderAPI.destory()
+        console.log('cleanup complete!')
+      }
       // encoder.kill()
     })
   }
@@ -254,7 +257,7 @@ let makeVideoAPI = async ({ spec, web = Graphics.webShim }) => {
 
   return {
     updateSpec (data) {
-      return core.spec = data
+      core.spec = data
     },
     start () {
       repeat()

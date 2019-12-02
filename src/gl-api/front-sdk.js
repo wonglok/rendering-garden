@@ -51,7 +51,7 @@ export const makeSDK = async ({ canvas, spec }) => {
       api.socket.emit('make pic', api.core.spec, (data) => {
         console.log(data)
         resolve(data)
-      });
+      })
     })
   }
   api.makeVideo = ({ onProgress = () => {} }) => {
@@ -62,7 +62,7 @@ export const makeSDK = async ({ canvas, spec }) => {
       api.socket.emit('make video', api.core.spec, (data) => {
         console.log(data)
         resolve(data)
-      });
+      })
     })
   }
 

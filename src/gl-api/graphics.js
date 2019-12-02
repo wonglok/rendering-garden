@@ -3,7 +3,6 @@ let CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper
 let Graphics = {}
 /* eslint-disable-next-line */
 var isFrontEnd = new Function("try {return window.document;}catch(e){return false;}");
-var load = new Function("return require");
 /* eslint-disable-next-line */
 let AdapterLoader = isFrontEnd() ? () => require('./adapter-front-end.js').default : () => eval(`require('./adapter-back-end.js')`).default
 let Adapter = AdapterLoader()
