@@ -35,7 +35,7 @@ export const makeSDK = async ({ canvas, spec }) => {
     cancelAnimationFrame(rAFID)
   }
 
-  api.makePoster = ({ spec, onProgress = () => {} }) => {
+  api.makePoster = ({ spec = core.spec, onProgress = () => {} }) => {
     let socket = io(spec.site)
     socket.on('progress pic', (data) => {
       onProgress(data)
@@ -48,7 +48,7 @@ export const makeSDK = async ({ canvas, spec }) => {
     })
   }
 
-  api.makeVideo = ({ spec, onProgress = () => {} }) => {
+  api.makeVideo = ({ spec = core.spec, onProgress = () => {} }) => {
     let socket = io(spec.site)
     socket.on('progress video', (data) => {
       onProgress(data)
