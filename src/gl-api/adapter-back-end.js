@@ -37,7 +37,9 @@ const Adapter = {
     for (var i = 0; i < buf.length; ++i) {
       view[i] = buf[i]
     }
-    return new THREE.DataTexture(ab, canvas.width, canvas.height, THREE.RGBAFormat)
+    let texture = new THREE.DataTexture(ab, canvas.width, canvas.height, THREE.RGBAFormat)
+    texture.flipY = false
+    return texture
   },
   loadTexture: ({ file }) => {
     file = path.join(__dirname, '../../', file)
@@ -60,6 +62,7 @@ const Adapter = {
 
         let texture = new THREE.DataTexture(pixels.data, info[0], info[1], THREE.RGBAFormat)
         texture.needsUpdate = true
+        texture.flipY = true
         // let output = {
         //   width: info[0],
         //   height: info[1],

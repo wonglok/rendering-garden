@@ -67,18 +67,23 @@ let Adapter = {
   loadTexture: ({ site, file }) => {
     return new Promise(async (resolve, reject) => {
       let blobURL = await BlobCache.provideBlobURL(site + file)
-      new THREE.TextureLoader().load(blobURL, resolve)
+      new THREE.TextureLoader().load(blobURL, (texture) => {
+        texture.flipY = true
+        resolve(texture)
+      })
     })
   },
-  provideCanvas2D: async ({ width, height, fonts }) => {
+  provideCanvas2D: async ({ width, height, fonts, site }) => {
     let canvas = document.createElement('canvas')
     canvas.width = width
     canvas.height = height
-    await Adapter.loadFonts({ fonts })
+    await Adapter.loadFonts({ fonts, site })
     return canvas
   },
   makeCanvasIntoTexture: ({ canvas }) => {
-    return new THREE.CanvasTexture(canvas)
+    let texture = new THREE.CanvasTexture(canvas)
+    texture.flipY = true
+    return texture
   }
 }
 

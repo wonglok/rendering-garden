@@ -78,11 +78,12 @@ Graphics.generateCore = async ({ web = Graphics.webShim, dom, spec = {} } = {}) 
   return core
 }
 
-Graphics.makeTitleText = async ({ fonts, width, height, text }) => {
+Graphics.makeTitleText = async ({ fonts, width, height, text, site }) => {
   let canvas = await Adapter.provideCanvas2D({
     width,
     height,
-    fonts
+    fonts,
+    site
   })
   Graphics.drawText({ CanvasTextWrapper: CanvasTextWrapper, canvas, width, height, text })
   return Adapter.makeCanvasIntoTexture({ canvas })
@@ -210,7 +211,7 @@ Graphics.makeWords = async ({ core, spec, width, height, scene, camera, tasks, w
     transparent: true
   })
   let makeTextImage = async ({ text }) => {
-    mat.map = await Graphics.makeTitleText({ ...core, text })
+    mat.map = await Graphics.makeTitleText({ ...core, text, site: spec.site })
     mat.needsUpdate = true
   }
   await makeTextImage({ text: spec.text })
