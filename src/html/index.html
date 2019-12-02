@@ -26,7 +26,7 @@
 </head>
 <body>
 
-  <div id="app">
+  <div id="app" style="display: none;">
     <div v-if="SDK">
       <div class="flex">
         <textarea class="bg-teal-100 border b-black p-3"  @input="onUpdatePoster()" v-model="spec.text" placeholder="text" cols="30" rows="10"></textarea>
@@ -91,6 +91,7 @@
       },
       mounted () {
         this.initSystem()
+        this.$el.style.display = 'block'
       },
       methods: {
         goTop () {
@@ -118,7 +119,7 @@
           }).then((info) => {
             let strURL = `<a class="link-box" target="_blank" href="${info.url}">${info.url}</a>`
             let strPicture = `<img autoplay loop controls class="img-box" playsinline src="${info.url}"></img>`
-            loader.replaceWith(strURL + strPicture)
+            loader.appendHTML(strURL + strPicture)
           })
         },
         makeVideo () {
@@ -130,7 +131,7 @@
           }).then((info) => {
             let strURL = `<a class="link-box" target="_blank" href="${info.url}">${info.url}</a>`
             let strVideo = `<video autoplay loop controls class="video-box" playsinline src="${info.url}"></video>`
-            loader.replaceWith(strURL + strVideo)
+            loader.appendHTML(strURL + strVideo)
           })
         },
         makeLoadBox () {
@@ -151,9 +152,10 @@
             document.querySelector(`#${rID}`).appendChild(element)
           })
           return {
-            replaceWith: (v) => {
-              document.querySelector(`#${rID}`).innerHTML = ''
-              document.querySelector(`#${rID}`).innerHTML += v
+            appendHTML: (v) => {
+              setTimeout(() => {
+                document.querySelector(`#${rID}`).innerHTML += v
+              }, 10)
             },
             onUpdate: (v) => {
               progressUI.update(v * 100)

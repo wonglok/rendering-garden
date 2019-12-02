@@ -11,40 +11,32 @@ let makeWebServer = () => {
 
   app.use('/preview', express.static('preview'))
   app.use('/resource', express.static('resource'))
-  app.use('/sdk', express.static('build-sdk'))
-
-  const webpack = require('webpack')
-  const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-  const Chunks2JsonPlugin = require('chunks-2-json-webpack-plugin')
-  // const middleware = require('webpack-dev-middleware')
-  const compiler = webpack({
-    mode: 'production',
-    // webpack options
-    entry: {
-      'sdk': './src/gl-api/main-front-end.js'
-    },
-    output: {
-      filename: (chunkData) => {
-        return chunkData.chunk.name === 'v1' ? '[name].js': '[name].js';
-      },
-      path: path.resolve(__dirname, './build-sdk/')
-    },
-    plugins: [
-      new CleanWebpackPlugin(),
-      new Chunks2JsonPlugin({
-        outputDir: 'build-sdk',
-        publicPath: '/sdk/'
-      })
-    ]
-  })
-  compiler.run()
-
-  // app.use(middleware(compiler, {
-  // }))
+  // app.use('/sdk', express.static('build-sdk'))
 
   app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/src/html/index.html'))
   })
+
+  const webpack = require('webpack')
+  // const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+  // const Chunks2JsonPlugin = require('chunks-2-json-webpack-plugin')
+  const middleware = require('webpack-dev-middleware')
+  const compiler = webpack({
+    mode: 'development',
+    // webpack options
+    entry: './src/gl-api/main-front-end.js',
+    output: {
+      filename: './sdk/sdk.js',
+      path: path.join(__dirname, 'build-sdk')
+    }
+  })
+  app.use(
+    middleware(compiler, {
+    })
+  )
+  // setTimeout(() => {
+  //   compiler.run()
+  // })
 
   io.on('connection', function (socket) {
     socket.on('chat', function (msg) {
