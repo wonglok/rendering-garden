@@ -138,7 +138,7 @@ Graphics.makeArtPiece = async ({ core, tasks, scene, camera, web }) => {
       uniform sampler2D tex;
       uniform float time;
       void main (void) {
-        vec4 color = texture2D(tex, mod(vUv + sin(time), 1.0));
+        vec4 color = texture2D(tex, mod(vUv + time, 1.0));
 
         gl_FragColor = vec4(color.rgb + 0.32, color.a);
 
