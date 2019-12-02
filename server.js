@@ -48,7 +48,7 @@ let makeWebServer = () => {
         spec,
         web: {
           progress: (v) => {
-            socket.emit('progress', v)
+            socket.emit('progress pic', v)
           },
           notify: (msg) => {
             io.emit('log', { id: Graphics.getID(),  html: `${msg}` })
@@ -68,7 +68,7 @@ let makeWebServer = () => {
             io.emit('log', { id: Graphics.getID(), html: `${msg}` })
           },
           progress: (v) => {
-            socket.emit('progress', v)
+            socket.emit('progress video', v)
           },
           done: (data) => {
             fn(data)

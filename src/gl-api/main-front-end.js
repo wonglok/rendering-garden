@@ -44,7 +44,7 @@ export const makeSDK = async ({ canvas, spec }) => {
   }
 
   api.makePoster = ({ onProgress = () => {} }) => {
-    api.socket.on('progress', (data) => {
+    api.socket.on('progress pic', (data) => {
       onProgress(data)
     })
     return new Promise((resolve, reject) => {
@@ -55,7 +55,7 @@ export const makeSDK = async ({ canvas, spec }) => {
     })
   }
   api.makeVideo = ({ onProgress = () => {} }) => {
-    api.socket.on('progress', (data) => {
+    api.socket.on('progress video', (data) => {
       onProgress(data)
     })
     return new Promise((resolve, reject) => {

@@ -153,8 +153,10 @@
           })
           return {
             appendHTML: (v) => {
+              let d = document.createElement('div')
+              d.innerHTML += v
               setTimeout(() => {
-                document.querySelector(`#${rID}`).innerHTML += v
+                document.querySelector(`#${rID}`).appendChild(d)
               }, 10)
             },
             onUpdate: (v) => {
