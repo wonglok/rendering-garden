@@ -11,9 +11,9 @@ let makeWebServer = () => {
 
   var cors = function (req, res, next) {
     // Website you wish to allow to connect
-    var origin = req.header('X-Origin')
-    console.log(origin)
-    res.setHeader('Access-Control-Allow-Origin', origin || 'https://localhost:12345')
+    var origin = req.header('host')
+    console.log(req.headers)
+    res.setHeader('Access-Control-Allow-Origin', origin || '*')
     // if (origins.indexOf(orig + '') !== -1) {
 
     // } else if (isNotProduction) {
