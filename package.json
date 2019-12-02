@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "concurrently \"npm run dev-gui\" \"npm run dev-api\"",
+    "dev-both": "concurrently \"npm run dev-gui\" \"npm run dev-api\"",
+    "dev": "nodemon --ignore './build-sdk/' server.js",
     "start": "node server.js",
     "dev2": "xvfb-run -s \"-ac -screen 0 1080x1080x24\" nodemon server.js",
     "dev-api": "xvfb-run -a nodemon --ignore './build-sdk/' server.js",
