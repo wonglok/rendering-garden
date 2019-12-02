@@ -3,21 +3,22 @@ let CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper
 let Graphics = {}
 /* eslint-disable-next-line */
 var isFrontEnd = new Function("try {return window.document;}catch(e){return false;}");
+var load = new Function("return require");
 /* eslint-disable-next-line */
-let AdapterLoader = isFrontEnd() ? () => require('./adapter-front-end.js').default : () => eval('require')('./adapter-back-end.js').default
+let AdapterLoader = isFrontEnd() ? () => require('./adapter-front-end.js').default : () => eval(`require('./adapter-back-end.js')`).default
 let Adapter = AdapterLoader()
 let EventEmitter = require('events').EventEmitter
 
 Graphics.generateCore = async ({ web = Graphics.webShim, dom, spec = {} } = {}) => {
   let bus = new EventEmitter()
   let core = {
-    _internalData: spec,
+    _internal_spec: spec,
     get spec () {
-      return core._internalData
+      return core._internal_spec
     },
     set spec (v) {
       bus.emit('refresh', v)
-      core._internalData = v
+      core._internal_spec = v
     },
     fps: 60,
     width: 1024,

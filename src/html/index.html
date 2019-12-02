@@ -43,8 +43,6 @@
       <button class="bg-teal-100 border b-black p-3"  @click="makeVideo()">Make Video</button>
       <button class="bg-teal-100 border b-black p-3"  @click="makePic()">Make Pic</button>
     </div>
-    <div v-if="progress !== 0 || progress !== 100" ref="progress">
-    </div>
     <div class="fixed top-0 right-0 m-5">
       <div v-if="!SDK">
         Loading.....
@@ -112,59 +110,57 @@
           }
         },
         makePic () {
+          let loader = this.makeLoadBox()
           this.SDK.makePoster({
             onProgress: ({ progress }) => {
-              this.progress = progress
-              this.progressUI.update(progress * 100.0);
+              loader.onUpdate(progress)
             }
           }).then((info) => {
             let strURL = `<a class="link-box" target="_blank" href="${info.url}">${info.url}</a>`
             let strPicture = `<img autoplay loop controls class="img-box" playsinline src="${info.url}"></img>`
-
-            this.logs.unshift({
-              id: Math.random(),
-              html: strURL
-            })
-            this.logs.unshift({
-              id: Math.random(),
-              html: strPicture
-            })
+            loader.replaceWith(strURL + strPicture)
           })
         },
         makeVideo () {
+          let loader = this.makeLoadBox()
           this.SDK.makeVideo({
             onProgress: ({ progress }) => {
-              this.progress = progress
-              this.progressUI.update(progress * 100.0);
+              loader.onUpdate(progress)
             }
           }).then((info) => {
             let strURL = `<a class="link-box" target="_blank" href="${info.url}">${info.url}</a>`
             let strVideo = `<video autoplay loop controls class="video-box" playsinline src="${info.url}"></video>`
-
-            this.logs.unshift({
-              id: Math.random(),
-              html: strURL
-            })
-            this.logs.unshift({
-              id: Math.random(),
-              html: strVideo
-            })
+            loader.replaceWith(strURL + strVideo)
           })
         },
-        listen () {
-          var progressUI = this.progressUI = new CircularProgress({
+        makeLoadBox () {
+          var progressUI = new CircularProgress({
             radius: 70,
             strokeStyle: '#2fb734',
             lineCap: 'round',
             lineWidth: 20,
             font: '22px NotoSans, sans-serif'
           });
-          this.$refs['progress'].appendChild(progressUI.el);
-
-          // this.SDK.socket.on('progress', ({ progress }) => {
-          //   this.progress = progress
-          //   this.progressUI.update(progress * 100.0);
-          // })
+          let rID = `_${(Math.random() * 1000000).toFixed(0)}`
+          let element = progressUI.el
+          this.logs.unshift({
+            id: Math.random(),
+            html: `<div id="${rID}"></div>`
+          })
+          this.$nextTick(() => {
+            document.querySelector(`#${rID}`).appendChild(element)
+          })
+          return {
+            replaceWith: (v) => {
+              document.querySelector(`#${rID}`).innerHTML = ''
+              document.querySelector(`#${rID}`).innerHTML += v
+            },
+            onUpdate: (v) => {
+              progressUI.update(v * 100)
+            }
+          }
+        },
+        listen () {
           this.SDK.socket.on('log', (item) => {
             this.logs.unshift(item)
             this.$forceUpdate()
