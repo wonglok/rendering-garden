@@ -2,14 +2,6 @@ import * as Graphics from './graphics.js'
 import io from 'socket.io-client'
 export const makeSDK = async ({ canvas, spec }) => {
   let api = {}
-  spec = {
-    site: location.origin,
-
-    text: 'hello from hong kong',
-    bg: '#ffffff',
-    videoDuration: 3,
-    ...spec
-  }
 
   let core = await Graphics.generateCore({ dom: canvas, spec })
   api.core = core
@@ -43,8 +35,8 @@ export const makeSDK = async ({ canvas, spec }) => {
     cancelAnimationFrame(rAFID)
   }
 
-  api.makePoster = ({ onProgress = () => {} }) => {
-    let socket = io(spec.site)
+  api.makePoster = ({ site = spec.site, onProgress = () => {} }) => {
+    let socket = io(site)
     socket.on('progress pic', (data) => {
       onProgress(data)
     })
@@ -55,8 +47,9 @@ export const makeSDK = async ({ canvas, spec }) => {
       })
     })
   }
-  api.makeVideo = ({ onProgress = () => {} }) => {
-    let socket = io(spec.site)
+
+  api.makeVideo = ({ site = spec.site, onProgress = () => {} }) => {
+    let socket = io(site)
     socket.on('progress video', (data) => {
       onProgress(data)
     })
