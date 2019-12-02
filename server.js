@@ -30,10 +30,7 @@ let makeWebServer = () => {
       path: path.join(__dirname, 'build-sdk')
     }
   })
-  app.use(
-    middleware(compiler, {
-    })
-  )
+  app.use(middleware(compiler, {}))
   // setTimeout(() => {
   //   compiler.run()
   // })
