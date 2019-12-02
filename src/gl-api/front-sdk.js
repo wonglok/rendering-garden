@@ -31,7 +31,7 @@ export const makeSDK = async ({ canvas, spec }) => {
     }
   }
 
-  api.socket = io(spec.site)
+  api.makeSocket = (spec) => io(spec.site)
 
   api.start = () => {
     clockNow = 0
@@ -44,22 +44,24 @@ export const makeSDK = async ({ canvas, spec }) => {
   }
 
   api.makePoster = ({ onProgress = () => {} }) => {
-    api.socket.on('progress pic', (data) => {
+    let socket = io(spec.site)
+    socket.on('progress pic', (data) => {
       onProgress(data)
     })
     return new Promise((resolve, reject) => {
-      api.socket.emit('make pic', api.core.spec, (data) => {
+      socket.emit('make pic', api.core.spec, (data) => {
         console.log(data)
         resolve(data)
       })
     })
   }
   api.makeVideo = ({ onProgress = () => {} }) => {
-    api.socket.on('progress video', (data) => {
+    let socket = io(spec.site)
+    socket.on('progress video', (data) => {
       onProgress(data)
     })
     return new Promise((resolve, reject) => {
-      api.socket.emit('make video', api.core.spec, (data) => {
+      socket.emit('make video', api.core.spec, (data) => {
         console.log(data)
         resolve(data)
       })
