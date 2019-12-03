@@ -133,17 +133,21 @@ let createScreenShot = async ({ spec, web = Graphics.webShim }) => {
     ...Graphics.webShim,
     ...web
   }
+  let pgv = 0.01
+
   web.progress({
     progress: 0.01
   })
 
+  let intv = setInterval(() => {
+    pgv += 0.045
+    web.progress({
+      progress: pgv
+    })
+  }, 1)
+
   let core = await Graphics.generateCore({ web, spec })
-
   core.scene.rotation.z = Math.PI * 0.5
-
-  web.progress({
-    progress: 0.4
-  })
 
   // core.scene.rotation.z = Math.PI * 0.5
 
@@ -163,6 +167,7 @@ let createScreenShot = async ({ spec, web = Graphics.webShim }) => {
     height: core.width,
     stream
   })
+  clearInterval(intv)
 
   let newFilename = `_${(Math.random() * 10000000).toFixed(0)}.png`
   let filePath = path.join(__dirname, core.previewFolder, newFilename)

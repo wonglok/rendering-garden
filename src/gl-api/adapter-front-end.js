@@ -52,6 +52,7 @@ let Adapter = {
     })
 
     renderer.setSize(width, height)
+    renderer.setPixelRatio(2)
     renderer.domElement.style.width = '100%'
     renderer.domElement.style.height = '100%'
     renderer.domElement.style.objectFit = 'contain'
