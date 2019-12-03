@@ -298,7 +298,13 @@ Graphics.makeWords = async ({ core, spec, width, height, scene, camera, tasks, w
     map: null,
     transparent: true
   })
+  let currentText = ''
   let makeTextImage = async ({ spec }) => {
+    if (currentText === (spec.text + spec.fontColor)) {
+      return
+    } else {
+      currentText = (spec.text + spec.fontColor)
+    }
     mat.map = await Graphics.makeTitleText({ ...core, spec, site: spec.site })
     mat.needsUpdate = true
   }
