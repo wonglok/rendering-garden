@@ -206,7 +206,7 @@ let makeVideoAPI = async ({ spec, web = Graphics.webShim }) => {
   const Encoder = require('./src/encoder/vid.encoder.js')
 
   const temp = os.tmpdir()
-  const filename = './tempvid.mp4'
+  const filename = `./_${(Math.random() * 10000000).toFixed(0)}.mp4`
   const onDone = ({ output }) => {
     let newFilename = `_${(Math.random() * 10000000).toFixed(0)}.mp4`
     let newfile = path.join(__dirname, core.previewFolder, newFilename)
