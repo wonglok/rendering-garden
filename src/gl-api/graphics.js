@@ -141,9 +141,11 @@ Graphics.makeArtPiece = async ({ core, tasks, scene, camera, web }) => {
       uniform float time;
       void main (void) {
         vUv = uv;
-        vNormal = normal;
         vec3 nPos = position;
-        nPos.y += sin(nPos.y * 0.1 + time * 30.0) * 5.0;
+        nPos.y += sin(nPos.x * 0.1 + time * 30.0) * 5.0;
+        // nPos.z += sin(nPos.y * 0.1 + time * 30.0) * 5.0;
+
+        vNormal = normal;
 
         gl_Position = projectionMatrix * modelViewMatrix * vec4(nPos, 1.0);
         gl_PointSize = 6.0;
@@ -254,6 +256,7 @@ Graphics.makeArtPiece = async ({ core, tasks, scene, camera, web }) => {
 
   tasks[id] = ({ clock, delta }) => {
     mat.uniforms.time.value = clock * 0.0001
+    mesh.rotation.y -= delta * 0.0001 * 3
   }
 
   return {
