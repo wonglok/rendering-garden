@@ -21,7 +21,7 @@ const Adapter = {
       } else {
         Canvas.registerFont('.' + f.path, { family: f.name })
         FontCache.set(f.path, f.name)
-        sleep(10)
+        sleep(1)
       }
     }
   },

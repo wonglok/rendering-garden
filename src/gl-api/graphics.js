@@ -34,8 +34,13 @@ Graphics.generateCore = async ({ web = Graphics.webShim, dom, spec = {} } = {}) 
       // },
       {
         path: '/resource/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf',
-        mime: 'font/otf',
+        // mime: 'font/otf',
         name: 'NotoSansCJKtc-Thin'
+      },
+      {
+        path: '/resource/fonts/noto/NotoSansCJK-Light.ttc/NotoSansCJK-Light.ttc',
+        // mime: 'font/ttc',
+        name: 'NotoSansCJKtc-Light'
       }
     ],
     textures: {
@@ -312,7 +317,7 @@ Graphics.drawText = ({ CanvasTextWrapper, canvas, width, height, spec }) => {
   canvas.height = height
   var ctx = canvas.getContext('2d')
   let config = {
-    font: '12px "NotoSansCJKtc-Thin"',
+    font: '12px "NotoSansCJKtc-Light", "NotoSansCJKtc-Thin"',
     lineHeight: 1,
     textAlign: 'center',
     verticalAlign: 'middle', // top, middle, bottom
