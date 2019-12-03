@@ -32,15 +32,20 @@ Graphics.generateCore = async ({ web = Graphics.webShim, dom, spec = {} } = {}) 
       //   path: '/resource/fonts/emoji/NotoColorEmoji.ttf',
       //   name: 'NotoEmoji'
       // },
-      {
-        path: '/resource/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf',
-        // mime: 'font/otf',
-        name: 'NotoSansCJKtc-Thin'
-      },
+      // {
+      //   path: '/resource/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf',
+      //   // mime: 'font/otf',
+      //   name: 'NotoSansCJKtc-Thin'
+      // },
       {
         path: '/resource/fonts/noto/NotoSansCJK-Light.ttc/NotoSansCJK-Light.ttc',
-        // mime: 'font/ttc',
+        mime: 'application/x-font-ttf',
         name: 'NotoSansCJKtc-Light'
+      },
+      {
+        path: '/resource/fonts/noto/NotoSansCJK-Thin.ttc/NotoSansCJK-Thin.ttc',
+        mime: 'application/x-font-ttf',
+        name: 'NotoSansCJKtc-Thin'
       }
     ],
     textures: {
@@ -317,7 +322,7 @@ Graphics.drawText = ({ CanvasTextWrapper, canvas, width, height, spec }) => {
   canvas.height = height
   var ctx = canvas.getContext('2d')
   let config = {
-    font: '12px "NotoSansCJKtc-Light", "NotoSansCJKtc-Thin"',
+    font: '12px "NotoSansCJKtc-Thin", "NotoSansCJKtc-Light"',
     lineHeight: 1,
     textAlign: 'center',
     verticalAlign: 'middle', // top, middle, bottom
