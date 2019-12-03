@@ -47,13 +47,15 @@ let Adapter = {
     var api = {}
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
-      width: width,
-      height: height,
       canvas: dom || document.querySelector('#canvas'),
       preserveDrawingBuffer: true
     })
 
     renderer.setSize(width, height)
+    renderer.domElement.style.width = '100%'
+    renderer.domElement.style.height = '100%'
+    renderer.domElement.style.objectFit = 'contain'
+    renderer.domElement.style.objectPosition = 'center'
 
     api.destory = () => {
     }
