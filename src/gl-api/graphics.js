@@ -35,7 +35,7 @@ Graphics.generateCore = async ({ web = Graphics.webShim, dom, spec = {} } = {}) 
       {
         path: '/resource/fonts/NotoSansCJKtc-notscript/NotoSansCJKtc-Thin.otf',
         mime: 'font/otf',
-        name: 'Noto Sans CJK TC'
+        name: 'NotoSansCJKtc-Thin'
       }
     ],
     textures: {
@@ -312,7 +312,7 @@ Graphics.drawText = ({ CanvasTextWrapper, canvas, width, height, spec }) => {
   canvas.height = height
   var ctx = canvas.getContext('2d')
   let config = {
-    font: '100 12px "Noto Sans CJK TC", sans-serif',
+    font: '12px "NotoSansCJKtc-Thin"',
     lineHeight: 1,
     textAlign: 'center',
     verticalAlign: 'middle', // top, middle, bottom
@@ -332,6 +332,7 @@ Graphics.drawText = ({ CanvasTextWrapper, canvas, width, height, spec }) => {
   ctx.lineWidth = 2
   ctx.fillStyle = fontColor || '#000000'
   ctx.strokeStyle = '#ff0000'
+  ctx.font = config.font
   let defaultText = `您好.
   How are u?
   I'm fine. thank you!`
